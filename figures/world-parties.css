@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* Highcharts menu */
+.highcharts-button rect {cursor: pointer; fill: white; stroke: white !important; stroke-width: 5 !important;}
+.highcharts-button-hover rect {fill: #efefef !important; stroke: #efefef !important; stroke-width: 5 !important; rx: 0 !important; ry: 0 !important;}
+.highcharts-button path {stroke-width: 1 !important;}
+.highchart ul {padding: 0 !important; background: rgb(250 250 250 / 95%) !important; box-shadow: rgb(230 230 230) 0 0 5px !important; border: 1px solid rgb(200 200 200) !important}
+.highchart li {margin: 0; padding: .7em 1em !important; transition: .2s all ease-in-out !important;}
+.highchart li:hover {background: steelblue !important;}
+.highchart hr {margin: 0;}
+
+.highcharts-legend {transition: .15s linear;}
+.highcharts-legend:hover rect {fill: rgba(255, 255, 255, 1);}
+.highcharts-plot-line-label {font-size: 1.25em;}
+.shadow-top {height: 20px; margin-bottom: -20px; box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,.1); z-index: 1000; position: relative;}
+.shadow-bottom {height: 20px; margin-top: -20px; box-shadow: inset 0px -11px 8px -10px rgba(0,0,0,.1); z-index: 1000; position: relative;}
+.highcharts-tooltip {width: 500px !important;}
+.highcharts-tooltip p.country-year {font-size: 1em !important; margin: 0 0 5px 0 !important; color: #555 !important; text-align: center !important;}
+.highcharts-tooltip p.rankings {font-size: 1.1em !important; margin: 0 0 5px 0 !important; color: #444 !important;}
+.highcharts-tooltip p.sample {font-size: 1em !important; margin: 0 0 5px 0 !important; color: #777 !important; text-align: center !important;}
+#play-controls {left: 10px;}
+#play-pause-button {border-radius: 50%; transition: .1s linear;}
+#play-pause-button:hover {background: #eeeeee; color: #444; border: 1px solid #aa

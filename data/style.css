@@ -1,0 +1,68 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Settings */
+html {
+  --title-size:      35px;
+  --body-size:       1.05rem;
+  --heading-font:    "Source Sans Pro", sans-serif;
+  --body-font:       "Castoro", serif;
+}
+
+/* Header */
+d-title h1 {font-family: var(--body-font); font-weight: normal; letter-spacing: -.5px;}
+d-title p {font-size: 1.5rem;}
+
+/* Byline */
+d-byline {padding: 1.5rem 0 2.5rem 0;}
+d-byline p {font-size: 1.4em; letter-spacing: -.02em;}
+d-byline a:hover {color: black; border-bottom: 1px solid rgba(0, 0, 0, 0.8)}
+d-byline h3 {letter-spacing: .7px;}
+.byline.grid div:nth-of-type(2) h3 {visibility: hidden; position: relative;}
+.byline.grid div:nth-of-type(2) h3:after {content: "Date"; visibility: visible; position: absolute; top: 0; left: 0;}
+.authors-affiliations {margin-bottom: .5em !important;}
+
+/* Nav and abstract */
+nav li {font-family: var(--heading-font);}
+d-article p strong {font-family: var(--heading-font); font-size: 1.05em; color: #555; padding-right: 5px;}
+d-article p strong:before {content: "&#9724;"; padding-right: 5px; font-size: .8em;}
+d-article .abstract p strong:before {content: none;}
+
+/* Body */
+d-article h2 {margin: 2rem 0 .2rem 0; font-size: 28px; border: 0; font-family: var(--body-font); font-weight: normal;}
+d-article h3 {font-size: 21px; color: #555 !important; margin-top: 2rem;}
+d-article p {line-height: 1.6em;}
+d-article p a {color: steelblue; text-decoration: none; border: 0;}
+d-article p a:hover {color: black; text-decoration: none; border-bottom: 1px solid rgba(0, 0, 0, 0.8)}
+d-article blockquote  {margin-bottom: 1.3em; font-style: normal;}
+d-article blockquote p:last-of-type {margin-bottom: 0;}
+d-article blockquote p strong {font-family: var(--body-font);}
+d-article ol {margin-bottom: 1.5em;}
+d-article ol li {margin-bottom: .5em;}
+d-footnote {margin-left: -3px; margin-right: 4px;}
+
+/* Figures */
+.figure {margin-top: 0;}
+.figure .caption {font-family: var(--heading-font);}
+.figure .caption a {color: steelblue; text-decoration: none; border: 0;}
+.figure .caption a:hover {color: black; text-decoration: none; border-bottom: 1px solid rgba(0, 0, 0, 0.8)}
+
+/* Highcharts menu */
+.highcharts-button rect {cursor: pointer; fill: white; stroke: white !important; stroke-width: 5 !important;}
+.highcharts-button-hover rect {fill: #efefef !important; stroke: #efefef !important; stroke-width: 5 !important; rx: 0 !important; ry: 0 !important;}
+.highcharts-button path {stroke-width: 1 !important;}
+.highchart ul {padding: 0 !important; background: rgb(250 250 250 / 95%) !important; box-shadow: rgb(230 230 230) 0 0 5px !important; border: 1px solid rgb(200 200 200) !important}
+.highchart li {margin: 0; padding: .7em 1em !important; transition: .2s all ease-in-out !important;}
+.highchart li:hover {background: steelblue !important;}
+.highchart hr {margin: 0;}
+
+/* Show code button */
+summary {cursor: pointer; width: fit-content; font-family: var(--heading-font); font-weight: bold; color: rgba(0,0,0,.6); text-transform: uppercase; letter-spacing: 1px; font-size: .8em;}
+summary:hover {color: rgba(0,0,0,.8);}
+
+/* Footer */
+d-appendix {background: #fafafa; color: #888888; font-family: var(--heading-font);}
+d-appendix .l-body {margin-bottom: 30px;}
+.csl-entry {margin-bottom: 9px; line-height: 1.4em;}
+
+

@@ -1,0 +1,36 @@
+﻿variable,name,type,bs
+amend_rate,Ease of amendment,design,TRUE
+aut_trans,Authoritarian transition,enviro,FALSE
+defeat,Defeat in war,enviro,TRUE
+dem,Democracy,control,TRUE
+dem_trans,Democratic transition,enviro,FALSE
+democ_prom,Democracy at promulgation,enviro,TRUE
+detail,Detail of constitution,design,TRUE
+dom_crisis,Domestic crisis,enviro,TRUE
+econ_crisis,Economic crisis,enviro,TRUE
+ecpc,Energy consumption,enviro,TRUE
+ethnic,Ethnic fractionalization,enviro,TRUE
+global_const,Global constitutional events,enviro,TRUE
+inclusiveness,Inclusiveness,design,TRUE
+interim,Interim constitution,enviro,TRUE
+jud_review,Judicial review (autocracy),design,TRUE
+leader_extra,Extra-constitutional leadership change,enviro,TRUE
+leader_intra,Intra-constitutional leadership change,enviro,TRUE
+legacy,Legacy of endurance,enviro,TRUE
+occ_const,Occupation constitution,enviro,TRUE
+ppi,Parliamentary power,design,TRUE
+reinstated,Reinstated constitution,enviro,TRUE
+review_democ,Judicial review (democracy),design,TRUE
+scope,Scope of constitution,design,TRUE
+single_exec,Single executive,design,TRUE
+term_limits,Term limits on executive,design,TRUE
+terr_gain,Territory gain,enviro,TRUE
+terr_loss,Territory loss,enviro,TRUE
+region_lam,Region: Latin America & Caribbean,control,TRUE
+region_eur,Region: Europe & Central Asia,control,TRUE
+region_mid,Region: Middle East & North Africa,control,TRUE
+region_afr,Region: Sub-Saharan Africa,control,TRUE
+region_sas,Region: South Asia,control,TRUE
+region_eas,Region: East Asia & Pacific,control,TRUE
+era_mid,Era: 1914-1945,control,TRUE
+era_late,Era: 1946+,control,TRUE

@@ -1,0 +1,1597 @@
+```{r}
+#| echo: false
+#| eval: true
+home = (knitr::current_input()=="index.rmarkdown")
+```
+
+```{=html}
+<style>
+  .data-prep h3 {display: none;}
+</style>
+```
+::: data-prep
+```{r}
+#| code-summary: "<b>Packages and functions</b>"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Packages -----#
+library(tidyverse)
+library(ForeCA)
+library(knitr)
+library(highcharter)
+library(cdlTools)
+library(haven)
+library(rio)
+library(countrycode)
+library(fastDummies)
+library(mice)
+library(htmltools)
+library(scales)
+library(readr)
+library(boot)
+
+# Determine if HTML
+html = knitr::is_html_output()
+
+# Pooled standard deviation
+sp = function(s1, s2) sqrt((s1^2 + s2^2)/2)
+
+# Weighted standard deviation
+weighted.sd = function(x, w) {
+  x0 = weighted.mean(x, w, na.rm=TRUE)
+  m = length(which(w>0))
+  m0 = (m-1)/m
+  sqrt(sum(w*((x-x0)^2), na.rm=TRUE)/(m0*sum(w, na.rm=TRUE)))
+}
+
+# Mode of data
+getmode = function(x) names(table(x))[table(x)==max(table(x))][1]
+
+# Asterisks based on p-values or rejection regions
+psig = function(p) case_when(p < 0.01 ~ "**", p < 0.05 ~ "*", TRUE ~ "")
+rsig = function(stat, cv) ifelse(abs(stat)>abs(cv), "*", "")
+
+# Wrap text
+wrapper = function(x, ...) gsub("\\n", "<br>", str_wrap(x, ...))
+
+
+#----- Function to format regression table -----#
+var_sum = function(mod, name) {
+  
+  # Variables
+  variables = unlist(strsplit(name, " > "))
+  pred = variables[1]
+  resp = variables[2]
+  
+  # Format regression table
+  summary(mod)$coef |> 
+    as.data.frame() |>
+    rownames_to_column("xvar") |>  # get x variable
+    separate(xvar, into=c("xvar", "t"), "\\.") |>  # split columns
+    mutate(t = str_sub(t, -1) |> as.numeric(),  # get lag time
+           sig = (`Pr(>|t|)`<.05),  # determine if significant
+           response = resp) |>
+    filter(!is.na(t)) |>  # remove constant
+    select(predictor=xvar, response, t, coef=Estimate, sig)
+  
+}
+
+
+#----- Recode measure name -----#
+key = read.csv("data/key.csv")
+code_metric = function(x, type="metric", rev=FALSE, by="name") {
+  key = key[key[[by]] %in% x,]
+  lev = key[[by]]
+  lab = key[[type]]
+  if (rev) { lev = rev(lev); lab = rev(lab) }
+  factor(x, lev, lab)
+}
+code_metric2 = function(type, x, rev=FALSE) code_metric(x, type, rev)
+
+
+#----- Recode party -----#
+south = c("GA", "NC", "SC", "VA", "KY", "LA", "MS", "AL", "AR", "FL", "TX", "OK")
+code_party = function(x, state=NULL) {
+  
+  # Code standard two-party affiliations
+  x = case_when(
+    x=="dem" ~ "Democrats", 
+    x=="rep" ~ "Republicans",
+    TRUE ~ NA_character_
+  )
+  
+  # Code South separately if desired
+  if(!is.null(state)) {x = ifelse(state %in% south, "South", x)}
+  
+  # Return party affiliations
+  factor(x)
+}
+
+
+#----- Generate congressional term label -----#
+code_term = function(year=NULL, term=NULL) {
+  
+  # Calculate whichever value wasn't supplied
+  if (is.null(term)) term = (year-1787)/2
+  if (is.null(year)) year = 1787+(term*2)
+
+  # Label in form of "nth Congress (YYYY-YYYY)"
+  paste0(scales::label_ordinal()(term), # writes 1st, 2nd, 3rd, 4th, etc.
+         " Congress (", year, "-", year+2, ")") # writes years
+  
+}
+
+
+#----- Prepare data for plotting -----#
+reshaper = function(data, ..., cols=2:ncol(data)) {
+  
+  # Types of variables to get information on
+  info = c(...)
+  
+  # Reshape data
+  data = data |>
+    pivot_longer(all_of(cols), values_to="orig", values_drop_na=TRUE) |>
+    group_by(name) |>
+    mutate(norm = as.numeric(scale(orig)),
+           term = code_term(year)) |>
+    ungroup()
+  
+  # Recode metrics and arrange dataframe
+  data = cbind(data, data.frame(sapply(info, code_metric2, data$name))) |>
+    select(year, term, all_of(info), orig, norm)
+  
+}
+
+
+#----- Theme for highcharts -----#
+hc_morse = function(hc, wide=TRUE, colors="metric", scatter=FALSE) {
+  hc |> hc_add_theme(hc_theme(
+  
+    # Colors and fonts
+    chart = list(style = list(fontFamily = "Source Sans Pro"),
+                 spacing = c(10,0,15,0)),
+    title = list(align = "left", margin=36, style = list(
+      color = "#1b5283", fontWeight="bold", fontSize="19px", useHTML=TRUE)),
+    subtitle = list(align = "left", style = list(
+      color = "#444444", fontSize="16px", useHTML=TRUE)),
+
+    # Hover options
+    tooltip = list(headerFormat = "<b>{point.key}</b><br>",
+                   shared=TRUE, shadow=FALSE, borderRadius=4),
+    xAxis = list(crosshair=TRUE),
+    plotOptions = list(series = list(marker = list(
+      enabled=scatter, symbol="circle", radius=3))),
+    
+    # Legend options
+    legend = list(align="center", layout="horizontal")
+  
+  ))
+}
+
+# Dot for highchart tooltips
+bullet = "<span style='color:{point.color}'>\u25CF</span>"
+
+# Font link for svg images
+googlefont = "https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700"
+
+# Theme for ggplot
+theme_morse = function() { theme_minimal() %+%
+    theme(text = element_text(family="Source Sans Pro"),
+          plot.title = element_text(hjust=0, color="#1b5283", 
+                                    face="bold", size=13),
+          strip.text = element_text(face="bold", size=10))
+}
+
+```
+
+```{r}
+#| code-summary: "<b>Ideology and polarization in Congress</b> (member, party, and chamber-level, 1917-2021)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Ideal points of members of Congress (Voteview) -----#
+id_members = read.csv("data/voteview/HSall_members.csv") |> 
+  
+  # Clean data
+  filter(congress>64 & congress<118,  # filter to 1917-2019
+         party_code %in% c(100, 200),  # remove third parties
+         chamber != "President") |>   # remove presidents
+  mutate(year = as.integer(1787+(congress*2)),  # recode year
+         party = ifelse(party_code==100, "dem", "rep")) |>  # recode party
+  
+  # Recode and rearrange variables
+  mutate(faction = code_party(party, state_abbrev),
+         party = code_party(party)) |>
+  select(year, congress, chamber, icpsr, state=state_abbrev, 
+         party, faction, dim1=nominate_dim1, dim2=nominate_dim2) |>
+  na.omit()
+
+
+#----- Chamber-year summaries -----#
+id_chambers = id_members |>
+  group_by(year, chamber, party) |>  # collapse to caucus-year
+  
+  # Party means and SDs
+  summarise(d1_x = mean(dim1),  # party mean on dimension 1
+            d1_s = sd(dim1),  # party std dev on dimension 1
+            d2_x = mean(dim2),  # party mean on dimension 2
+            d2_s = sd(dim2),  # party std dev on dimension 2
+            n = n()) |>  # party size
+  
+  # Reshape data
+  mutate(party = ifelse(party=="Democrats", "dem", "rep")) |>
+  pivot_wider(year:chamber, names_from=party, values_from=d1_x:n) |>
+  
+  # Party distances and pooled SDs
+  mutate(d1_d = d1_x_rep - d1_x_dem,  # difference between parties on dim 1
+         d1_sp = sp(d1_s_dem, d1_s_rep),  # pooled std dev on dim 1
+         d2_d = d2_x_rep - d2_x_dem,  # difference between parties on dim 2
+         d2_sp = sp(d2_s_dem, d2_s_rep)) |>  # pooled std dev on dim 2
+  select(year:chamber, d1_d:d2_sp)
+
+
+#----- Party-chamber-year summaries -----#
+id_parties = id_members |>
+  group_by(year, chamber, party) |> # collapse to party-year
+  summarise(d1_x = mean(dim1),
+            d1_s = sd(dim1),
+            d2_x = mean(dim2),
+            d2_s = sd(dim2)) |>
+  group_by(year, chamber) # collapse to chamber-year
+
+
+#----- Faction-chamber-year summaries -----#
+id_factions = id_members |>
+  group_by(year, chamber, faction) |> # collapse to faction-year
+  summarise(d1_x = mean(dim1),
+            d1_s = sd(dim1),
+            d2_x = mean(dim2),
+            d2_s = sd(dim2))
+
+
+#----- Overall party distance and homogeneity measures -----#
+id_cong = id_chambers |> select(year:d1_sp) |>
+  
+  # Reshape data
+  mutate(chamber = ifelse(chamber=="House", "hs", "sen")) |>
+  pivot_wider(year, names_from=chamber, values_from=d1_d:d1_sp) |>
+  
+  # Invert pooled SDs
+  mutate(across(contains("sp"), ~-.)) |>
+  select(year, hs_dist=d1_d_hs, hs_hom=d1_sp_hs,
+         sen_dist=d1_d_sen, sen_hom=d1_sp_sen) |>
+  ungroup()
+
+
+#----- Generate polarization index -----#
+ts_sen = ts(select(id_cong, sen_dist, sen_hom))
+ts_hs = ts(select(id_cong, hs_dist, hs_hom))
+
+# Run forecastable component analysis
+fc_sen = foreca(ts_sen, n.comp=1)
+fc_hs = foreca(ts_hs, n.comp=1)
+
+# Add data to dataset
+polar = id_cong |>
+  mutate(sen_pol = as.numeric(fc_sen$scores[,1]),
+         hs_pol = as.numeric(fc_hs$scores[,1]))
+
+
+```
+
+```{r}
+#| code-summary: "<b>Income inequality</b> (national and state-level, 1917-2018)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Income inequality in the US -----#
+inc = read.csv("data/frank/Frank_Gini_2018.csv") |>
+  merge(read.csv("data/frank/Frank_WID_2018.csv")) |>
+  filter(State=="United States") |>
+  select(year=Year, gini=Gini, top1=Top1_adj)
+
+# State-level income inequality
+st_ineq = read.csv("data/frank/Frank_WID_2018.csv") |>
+  mutate(state = fips(gsub(" ", "", State), to="Abbreviation")) |>
+  filter(!is.na(state)) |>
+  select(year=Year, state, inc_ineq=Top1_adj)
+
+
+#----- Income inequality abroad -----#
+wid_key = read.csv("data/wid/WID_Metadata_27072021-014959.csv", sep=";", skip=1) |>
+  select(code=Country.Code) |>  # select cols
+  distinct() |>  # remove duplicates
+  filter(!grepl("-", code)) |>  # remove subnational units
+  mutate(id = countrycode(code, "iso2c", "vdem"))  # convert country code
+
+# Load income inequality data
+wid = read.csv("data/wid/WID_Data_27072021-014959.csv", sep=";", skip=1) |>
+  
+  # Transform data from wide to long
+  rename_with(~gsub(".*_", "", gsub(".Pre.tax.*", "", .x))) |>  # rename cols
+  pivot_longer(!Percentile:Year, values_drop_na=TRUE) |>  # reshape data
+  filter(!grepl("\\.", name)) |>  # remove subnational units
+  
+  # Clean up dataset
+  select(year=Year, code=name, top1=value) |>  # select cols
+  mutate(top1 = top1*100) |>  # turn decimals into percent
+  
+  # Bring in country ids for merging with dem data
+  merge(wid_key) |>  # bring in country codes
+  select(id, year, top1) # remove country abbreviation letters
+
+```
+
+```{r}
+#| code-summary: "<b>Population and apportionment</b> (state-level, 1910-2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Load House apportionment data (Census) -----#
+st_reps = read.csv("data/census/app.csv", na.strings="") |>
+  
+  # Filter to official states
+  filter(Geography.Type=="State", !is.na(Number.of.Representatives)) |>
+  
+  # Select variables and recode state variable
+  select(state=Name, year=Year, reps=Number.of.Representatives) |>
+  mutate(state = fips(gsub(" ", "", state), to="Abbreviation"))
+
+
+#----- Load annual population data (Census) -----#
+st_pop = read.csv("data/census/pop.csv") |>
+  
+  # Reshape data to long format and recode year
+  pivot_longer(AKPOP:WYPOP, names_to="state", values_to="pop",
+               names_pattern="(.*)POP") |>
+  mutate(year = as.numeric(format(as.Date(DATE), "%Y"))) |>
+  
+  # Bring in apportionment data and fill in missing values
+  merge(st_reps, by=c("year", "state"), all.x=TRUE) |> 
+  arrange(state, year) |>
+  group_by(state) |>
+  fill(reps) |>
+  filter(reps>0) |>
+  
+  # State summary stats
+  group_by(year) |> # collapse by year
+  mutate(
+    
+    # House apportionment
+    House_ps = reps/sum(reps), # prop of house seats from state
+    House_pd = (pop/reps)/sum(pop), # avg district size, as prop of us pop
+    House_px = pop/sum(pop), # prop of us pop in state
+    House_w = House_ps/(reps*House_px), # ratio of bias for state in house
+    
+    # Senate apportionment
+    Senate_ps = 2/sum(2*n()), # prop of senators from state
+    Senate_pd = (pop/2)/sum(pop), # avg constituency size (not meaningful)
+    Senate_px = pop/sum(pop), # prop of us pop in state
+    Senate_w = Senate_ps/(2*Senate_px) # ratio of bias for state
+    
+  ) |>
+  
+  # Reshape data
+  pivot_longer(House_ps:Senate_w, names_to=c("chamber", ".value"),
+               names_sep="_") |>
+  select(year, state, chamber, pop, ps, pd, px, w)
+
+
+#----- State population data, 2020 -----#
+st_pop2020 = read.csv("data/census/pop2020.csv") |>
+  mutate(pop = as.numeric(gsub(",", "", pop)))
+
+
+#----- State partisan composition data -----#
+st_leg = read.csv("data/ncsl/Legis_Control_2020.csv") |>
+  mutate(TotalHouse = as.numeric(TotalHouse),
+         dems = 100*HouseDem/TotalHouse,
+         reps = 100*HouseRep/TotalHouse) |>
+  rowwise() |>
+  mutate(share = max(dems, reps)) |>
+  select(state=STATE, party=LegisControl, share) |>
+  merge(st_pop2020)
+
+```
+
+```{r}
+#| code-summary: "<b>Historical election returns</b> (local-level, 1920-1990)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+#| eval: false
+
+#----- Load key with state codes and prepare to read data -----#
+icpsr = read.csv("data/icpsr/icpsrcnt.csv") |>
+  select(ICPSR_State_Code=STATEICP, state=State) |>
+  distinct()
+
+# Define the widths and names of each field based on the codebook
+widths = fwf_widths(
+  c(2, 1, 3, 2, 1, 3, 1, 6, 8, 2, 1, 4, 46), 
+  c("Candidate_Number", "Source", "Year_of_Election", 
+                       "ICPSR_State_Code", "Office_Code", "Congressional_District_Number", 
+                       "Asterisk", "Blank_Field", "Total_Votes", "Month_of_Election", 
+                       "Type_of_Election", "ICPSR_Party_Code", "Candidate_Name")
+)
+
+
+#----- Load and fix up data -----#
+returns = read_fwf("data/icpsr/DS0001/00002-0001-Data.txt", col_positions=widths) |>
+  
+  # Replace missing data codes with NA
+  mutate(Year_of_Election = ifelse(Year_of_Election==0, NA, Year_of_Election),
+         ICPSR_State_Code = ifelse(ICPSR_State_Code==0, NA, ICPSR_State_Code),
+         Total_Votes = ifelse(Total_Votes == -9, NA, Total_Votes),
+         Month_of_Election = ifelse(Month_of_Election == 99, NA, Month_of_Election),
+         ICPSR_Party_Code = ifelse(ICPSR_Party_Code == 9999, NA, ICPSR_Party_Code)) |>
+  
+  # Fix variables
+  mutate(year = Year_of_Election + 1000,
+         office = case_when(Office_Code==1 ~ "President",
+                            Office_Code==3 ~ "House",
+                            Office_Code > 3 & Office_Code < 7 ~ "Senate",
+                            TRUE ~ NA_character_),
+         party = case_when(ICPSR_Party_Code=="0100" ~ "Democrat",
+                           ICPSR_Party_Code=="0200" ~ "Republican",
+                           TRUE ~ NA_character_),
+         votes = as.numeric(Total_Votes)) |>
+  
+  # Filter out unneeded data
+  filter(Type_of_Election != "S", year >= 1920) |>
+  
+  # Get state names
+  mutate(ICPSR_State_Code = as.numeric(ICPSR_State_Code)) |>
+  merge(icpsr, all.x=TRUE) |>
+  
+  # Clean up dataset
+  select(year, state, office, party, votes) |>
+  filter(!is.na(state), !is.na(office)) |>
+  
+  # Party vote totals
+  group_by(year, office, party) |>
+  summarise(votes = sum(votes, na.rm=TRUE)) |>
+  mutate(p_votes = round(votes*100/sum(votes), 2)) |>
+  na.omit()
+
+
+filter(data, office=="President") |>
+  ggplot(aes(x=year, y=p_votes, color=party)) +
+  geom_line() + 
+  theme_morse()
+
+
+```
+
+```{r}
+#| code-summary: "<b>Historical election returns</b> (national and state-level, 1976-2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- House popular votes -----#
+house = read.csv("data/mit/1976-2020-house.csv") |>
+  
+  # Recode parties
+  mutate(party = case_when(
+    party=="DEMOCRAT" | party=="DEMOCRATIC-FARMER-LABOR" ~ "Democrats",
+    party=="REPUBLICAN" ~ "Republicans",
+    is.na(party) ~ "Other",
+    TRUE ~ "Other"
+  )) |>
+  
+  # Organize data
+  filter(!special) |>
+  select(year, office, state=state_po, party, votes=candidatevotes)
+
+
+#----- Senate popular votes -----#
+sen = read.csv("data/mit/1976-2020-senate.csv") |>
+
+  # Recode parties
+  mutate(party = case_when(
+    party_simplified=="DEMOCRAT" ~ "Democrats",
+    party_simplified=="REPUBLICAN" ~ "Republicans",
+    is.na(party_simplified) ~ "Other",
+    TRUE ~ "Other"
+  )) |>
+  
+  # Organize data
+  filter(!special) |>
+  select(year, office, state=state_po, party, votes=candidatevotes)
+
+# Cumulative popular votes
+sen2 = sen %>%
+  arrange(party, year) %>%
+  group_by(year, party) %>%
+  summarise(votes = sum(votes, na.rm=TRUE)) %>%
+  mutate(cum_votes = lag(votes, 2) + lag(votes) + votes)
+
+
+#----- Presidential popular vote -----#
+pres = read.csv("data/mit/1976-2020-president.csv") |>
+  
+  # Recode party
+  mutate(party = case_when(
+    party_simplified=="DEMOCRAT" ~ "Democrats",
+    party_simplified=="REPUBLICAN" ~ "Republicans",
+    TRUE ~ "Other"
+  )) |>
+  
+  # Organize data
+  select(year, office, party, votes=candidatevotes)
+
+  
+#----- Popular vote totals -----#
+popvotes = bind_rows(house, pres) |>
+  
+  # Aggregate party vote totals
+  group_by(year, office, party) |>
+  summarise(votes = sum(votes, na.rm=TRUE)) |>
+  
+  # Determine winner
+  group_by(year, office) |>
+  mutate(total = sum(votes),
+         share = votes/total*100,
+         won = (share==max(share))) |>
+  
+  # Organize data
+  filter(party!="Other", year>1990, won) |>
+  mutate(office = ifelse(office=="US HOUSE", "House", "President"),
+         lab = paste0(toupper(str_sub(party, 1, 3)), "\n",
+                      round(share), "%")) |>
+  select(year, office, party, share, lab)
+
+
+#----- Popular vote totals -----#
+popvotes2 = bind_rows(house, sen, pres) |>
+  
+  # Aggregate party vote totals
+  group_by(year, office, party) |>
+  summarise(votes = sum(votes, na.rm=TRUE)) |>
+  
+  # Determine winner
+  group_by(year, office) |>
+  mutate(total = sum(votes),
+         share = votes/total*100,
+         won = (share==max(share))) |>
+  
+  # Organize data
+  filter(party!="Other", year>1990, won) |>
+  mutate(office = case_when(office=="US HOUSE" ~ "House",
+                            office=="US SENATE" ~ "Senate",
+                            TRUE ~ "President"),
+         lab = paste0(toupper(str_sub(party, 1, 3)), "\n",
+                      round(share), "%")) |>
+  select(year, office, party, share, lab)
+
+```
+
+```{r}
+#| code-summary: "<b>RCV elections</b> (local district-level, 2012-2023)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+# Burlington, VT
+bvt = read.csv("data/fairvote/rcv2.csv") |>
+  filter(Jurisdiction=="Burlington", Year>2012) |>
+  mutate(Election.Date = lubridate::mdy(Election.Date),
+         Winner = str_to_title(Winner),
+         Party = ifelse(Party=="Democratic", "Democrat", Party)) |>
+  rename(Date=Election.Date)
+
+
+```
+
+```{r}
+#| code-summary: "<b>Parties in state legislatures</b> (chamber-level, 2011-2023)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Load datasets -----#
+ncsl = list()
+for (i in 2011:2023) {
+  filename = paste0("data/ncsl/Legis_Control_", i, ".xlsx")
+  ncsl[[length(ncsl)+1]] = import(filename, skip=1)
+}
+names(ncsl) = paste0("x", 2011:2023)
+
+
+#----- Put data together -----#
+ncsl_full = ncsl |>
+  
+  # Remove non-states and put states into single dataset
+  map(filter, row_number()<51) |>
+  bind_rows(.id="year") |>
+  
+  # Clean up dataset
+  mutate(year = as.numeric(gsub("x", "", year))) |>
+  select(year, state=STATE, 
+         senate_dem="Senate\r\nDem.", senate_rep="Senate\r\nRep.",
+         senate_other="Senate\r\nother", senate_total="Total\r\nSenate",
+         house_dem="House\r\nDem.", house_rep="House\r\nRep.",
+         house_other="House\r\nother", house_total="Total\r\nHouse") |>
+  filter(state != "Nebraska") |>
+  
+  # Clean data
+  mutate(across(!year:state, ~gsub("[0-9]v|V|u", "", .x)),
+         across(!year:state, ~gsub(",| ", "", .x)),
+         across(!year:state, ~ifelse(is.na(.x) | .x=="" | .x==" ", 0, .x)),
+         across(!year:state, as.numeric)) |>
+  
+  # Calcualte seat shares
+  mutate(senate_pct = 100*senate_other/senate_total,
+         house_pct = 100*house_other/house_total,
+         senate_dem_seats = 100*senate_dem/senate_total,
+         senate_rep_seats = 100*senate_rep/senate_total,
+         house_dem_seats = 100*house_dem/house_total,
+         house_rep_seats = 100*house_rep/house_total)
+
+
+#----- State partisan composition -----#
+ncsl_parties = ncsl_full |>
+  select(year, state, contains("seats")) |>
+  mutate(state = fips(gsub(" |\\*", "", state), to="Abbreviation")) |>
+  pivot_longer(!year:state, names_pattern="(.*)_(.*)_seats",
+               names_to=c("chamber", "party"), values_to="seats2")
+  
+
+#----- Calculate national averages by chamber -----#
+ncsl_nat = ncsl_full |>
+  group_by(year) |>
+  summarise(senate_pct = mean(senate_pct),
+            house_pct = mean(house_pct)) |>
+  mutate(state = "National average", .after=year)
+
+
+#----- Calculate national averages of all legislatures -----#
+ncsl_nat2 = ncsl_full |>
+  select(year, senate_pct, house_pct) |>
+  pivot_longer(senate_pct:house_pct, names_to="chamber", values_to="pct") |>
+  group_by(year) |>
+  summarise(pct = mean(pct)) |>
+  mutate(leg = "National average", .after=year)
+
+
+#----- Final dataset -----#
+ncsl_leg = ncsl_full |>
+  select(year, state, senate_pct, house_pct) |>
+  filter(state %in% c("Alaska", "Mississippi", "Oregon", "Vermont")) |>
+  pivot_longer(senate_pct:house_pct, names_to="chamber", values_to="pct") |>
+  mutate(chamber = ifelse(chamber=="senate_pct", "Senate", "House"),
+         leg = paste(state, chamber)) |>
+  filter(leg %in% c("Alaska House", "Mississippi House", "Oregon Senate",
+                    "Vermont House", "Vermont Senate")) |>
+  select(-chamber, -state)
+
+```
+
+```{r}
+#| code-summary: "<b>Parties in state legislatures</b> (chamber-level, 1934-2011)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#------ Legislative partisan composition -----#
+st_parties = read.csv("data/klarner/Partisan_Balance.csv") |>
+  
+  # Clean data
+  select(year, state, 
+         senate_dem_seats=sen_dem_prop_all, 
+         senate_rep_seats=sen_rep_prop_all,
+         house_dem_seats=hs_dem_prop_all, 
+         house_rep_seats=hs_rep_prop_all) |>
+  mutate(state = fips(gsub(" ", "", state), "Abbreviation"),
+         across(!year:state, ~100*.x)) |>
+  
+  # Reshape data
+  pivot_longer(!year:state, names_pattern="(.*)_(.*)_seats",
+               names_to=c("chamber", "party"), values_to="seats") |>
+  
+  # Bring in data from NCSL for 2011-present
+  merge(ncsl_parties, all.x=TRUE) |>
+  mutate(seats = ifelse(is.na(seats) & !is.na(seats2), seats2, seats)) |>
+  select(!seats2)
+
+```
+
+```{r}
+#| code-summary: "<b>Disproportionality in state legislatures</b> (chamber-level, 1968-2016)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Legislative election returns -----#
+load("data/klarner/196slers.Rdata")
+st_elects = table |>
+  
+  # Remove unnecessary data
+  filter(year != 0, etype=="g") |>
+  select(year, state=sab, chamber=sen, district=dno, party=partyz, vote) |>
+  
+  # Party totals
+  group_by(year, state, chamber, district, party) |>
+  summarise(votes = sum(vote, na.rm=TRUE)) |>
+  
+  # Chamber totals
+  group_by(year, state, chamber, party) |>
+  summarise(votes = sum(votes)) |>
+  group_by(year, state, chamber) |>
+  mutate(total = sum(votes),
+         vote_share = round(100*votes/total,2),
+         state = toupper(state),
+         chamber = ifelse(chamber==1, "senate", "house"),
+         party = case_when(party=="d" ~ "dem",
+                           party=="r" ~ "rep",
+                           TRUE ~ NA_character_)) |>
+  
+  # Clean dataset
+  select(-votes, -total) |>
+  na.omit()
+
+
+#----- Disproportionality -----#
+st_chambers = st_parties |>
+  merge(st_elects, all.x=TRUE) |>
+  group_by(year, state, chamber) |>
+  summarise(disp = sqrt(0.5 * sum((vote_share - seats)^2))) |>
+  na.omit()
+
+```
+
+```{r}
+#| code-summary: "<b>State politics</b> (state-level, 1916-2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+# Legislative polarization
+st_pol = read.delim("data/sm/shor-mccarty.tab") |>
+  select(year, state=st, senate_dem=sen_dem, senate_rep=sen_rep, 
+         house_dem=hou_dem, house_rep=hou_rep,
+         senate_diffs=s_diffs, house_diffs=h_diffs)
+
+# Voter turnout
+st_turnout = read.csv("data/mcdonald/turnout.csv") |>
+  select(year=Year, state=State, turnout=VEP.Total.Ballots.Counted,
+         vep=Voting.Eligible.Population..VEP.) |>
+  mutate(state = fips(gsub(" ", "", state), to="Abbreviation"),
+         turnout = as.numeric(gsub("%", "", turnout)),
+         vep = as.numeric(gsub(",", "", vep))) |>
+  filter(!is.na(state))
+
+# Congressional party delegation
+fed_party = id_members |>
+  filter(chamber=="House") |>
+  group_by(year, state, party) |>
+  summarise(del_center = mean(dim1, na.rm=TRUE)) |>
+  mutate(year = year-1,
+         party = ifelse(party=="Democrats", "dem", "rep"))
+
+# Congressional state delegation
+fed_state = id_members |>
+  filter(chamber=="House") |>
+  group_by(year, state) |>
+  summarise(del_center = mean(dim1, na.rm=TRUE)) |>
+  mutate(year = year-1)
+
+```
+
+```{r}
+#| code-summary: "<b>Parties in national legislatures</b> (country-level, present)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+#| eval: false
+
+# Setup
+library(rvest)
+
+# Scrape the main page for country links
+main_url = "https://data.ipu.org/elections?region=&structure=any__lower_chamber&form_build_id=form-LM5XNmMSpTc7Fo099DiBo6Tpjxakn163-9q8jmdpASY&form_id=ipu__utils_filter_form&op=Show+items"
+country_links = read_html(main_url) |>
+  html_nodes("table") |>  # Select all tables
+  html_nodes("a") |>
+  html_attr("href") |>
+  unique()
+
+# Prefix with domain
+country_links = paste0("https://data.ipu.org", country_links)[-c(1:6)]
+
+# Initalize dataframe
+parl_parties_full = tibble(`Political group`=NA, Total=NA, Country=NA)
+
+# Scrape each country's data
+for (link in country_links) {
+  
+  # Read webpage
+  page = read_html(link)
+  
+  # Get party composition table
+  parties = page |>
+    html_nodes(".panel-pane:contains('Parties or coalitions') table") |>
+    html_table() |> first()
+  
+  # Determine if successful
+  grabbed = !is.null(parties)
+  
+  # Remove extra variales
+  if (grabbed) {
+    if (ncol(parties>2)) {
+      parties = parties[,1:2]
+    }
+  }
+  
+  # Add country name
+  parties$Country = page |> html_nodes("h2") |> html_text() |> first()
+  
+  # Add to full data
+  if (grabbed) parl_parties_full = rbind(parl_parties, parties)
+  
+}
+
+# Effective number of parties formula
+enp = function(p) 1/sum(p^2)
+
+# Finalize data
+parl_parties = parl_parties_full |>
+  select(country=Country, party=`Political group`, seats=Total) |>
+  group_by(country) |>
+  mutate(share = seats*100/sum(seats)) |>
+  na.omit()
+
+# Country-level summaries
+party_comp = parl_parties |>
+  mutate(abb = countrycode(country, "country.name", "iso3c")) |>
+  group_by(abb) |>
+  summarise(nparties = enp(share/100),
+            nparties5 = length(which(share >= 5)),
+            nparties10 = length(which(share >= 10)),
+            avg_share = mean(share, na.rm=TRUE))
+
+# Save data
+save(parl_parties, party_comp, file="data/parline/parline.Rdata")
+
+```
+
+```{r}
+#| code-summary: "<b>Comparative institutions</b> (country-level, 2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+# CPDS data
+cpds = read_dta("data/cpds/cpds.dta") |>
+  mutate(parties = round(effpar_leg),
+         pop = pop*1000) |>
+  filter(year==2020) |>
+  select(abb=iso, country, parties, pop)
+
+# CPDS time series data
+cpds2 = read_dta("data/cpds/cpds.dta") |>
+  mutate(single = case_when(gov_type %in% c(1, 4) ~ "Single-party executive",
+                            gov_type %in% c(2, 3, 5) ~ "Multiparty executive",
+                            TRUE ~ NA_character_)) |>
+  filter(!is.na(single)) |>
+  group_by(country) |>
+  mutate(change = 1,
+         change = ifelse(single!=lag(single), lag(change)+1, lag(change))) |>
+  select(abb=iso, country, year, single, change)
+
+# DPI data
+dpi = read_dta("data/dpi/DPI2020.dta") |>
+  filter(gov1me!="NA", system!=-999) |>
+  mutate(system = as.character(as_factor(system)),
+         gov1me = ifelse(gov1me=="NA" | gov1me=="-999", 0, 1),
+         gov2me = ifelse(gov2me=="NA" | gov2me=="-999", 0, 1),
+         gov3me = ifelse(gov3me=="NA" | gov3me=="-999", 0, 1),
+         govoth = ifelse(govoth<1, 0, 1),
+         opp1me = ifelse(opp1me=="NA" | opp1me=="-999", 0, 1),
+         opp2me = ifelse(opp2me=="NA" | opp2me=="-999", 0, 1),
+         opp3me = ifelse(opp3me=="NA" | opp3me=="-999", 0, 1),
+         oppoth = ifelse(oppoth<1, 0, 1),
+         nparties = gov1me + gov2me + gov3me + govoth,
+         opp_parties = opp1me + opp2me + opp3me + oppoth,
+         all_parties = nparties + opp_parties,
+         checks = as.numeric(checks)) |>
+  select(abb=ifs, year, system, numvote, nparties, opp_parties,
+         all_parties, checks, party_share=gov1vote)
+
+# Semi-presidential data
+sp = read.csv("data/sp/SP dataset v2.0.csv") |>
+  mutate(semi = case_when(pp1==1 ~ "Premier-presidential",
+                          pp1==2 ~ "President-parliamentary",
+                          TRUE ~ NA_character_)) |>
+  select(abb=country_text_id, year, semi)
+
+# Semi-presidential data in most recent year
+sp16 = sp |>
+  filter(year==max(year)) |>
+  select(-year)
+
+# Democracy data
+vdem = read.csv("data/vdem/vdem-v13.csv") |>
+  select(abb=country_text_id, country_name, year, pop=e_pop, 
+         libdem=v2x_libdem, electdem=v2x_polyarchy, polity=e_p_polity,
+         stability=e_wbgi_pve, corrupt=v2x_corr, conflict=e_miinterc,
+         gdppc=e_gdppc, lifeexp=e_pelifeex)
+
+# Civil liberties
+fh = read.csv("data/fh/fh.csv") |>
+  mutate(abb = countryname(Country, "iso3c")) |>
+  select(abb, civil=Civil.Liberties)
+
+# State fragility
+fsi = read.csv("data/fsi/fsi.csv") |>
+  mutate(abb = countryname(Country, "iso3c")) |>
+  select(abb, fragility=Total)
+
+# Economic freedom
+hf = read.csv("data/hf/hf.csv") |>
+  filter(X2022.Score != "N/A") |>
+  mutate(abb = countryname(Country.Name, "iso3c"),
+         econ = as.numeric(X2022.Score)) |>
+  select(abb, econ)
+
+# Income inequality data
+wid2 = wid |>
+  mutate(abb = countrycode(id, "vdem", "iso3c"))
+
+# Ethnic fractionalization data
+hief = read.csv("data/hief/Historical_Index_of_Ethnic_Fractionalisation_Dataset.csv") |>
+  mutate(Country = ifelse(Country=="Democratic Republic of Vietnam", 
+                          "Vietnam", Country), # rewrite name to prevent error
+         abb = countrycode(Country, "country.name", "iso3c", nomatch=340)) |>
+  select(abb, year=Year, ethnic=EFindex) |>
+  arrange(abb, year)
+
+# Electoral systems
+elect = read.csv("data/idea/idea.csv") |>
+  select(abb=ISO.Code.3166, 
+         year=Year,
+         elections=Electoral.system.family) |>
+  mutate(elections = case_when(
+    elections=="Plurality/Majority" ~ "Majoritarian elections", 
+    elections=="Mixed" ~ "Mixed methods",
+    elections=="PR" ~ "Proportional representation")) |>
+  arrange(abb, year) |>
+  group_by(abb) |>
+  filter(year == max(year)) |>
+  select(!year)
+
+# Largest party seat shares
+vparties = read.csv("data/vdem/parties/V-Dem-CPD-Party-V2.csv") |>
+  group_by(country_name) |>
+  filter(year==max(year)) |>
+  filter(v2paseatshare==max(v2paseatshare)) |>
+  ungroup() |>
+  select(abb=country_text_id, seats=v2paseatshare, votes=v2pavote)
+
+# All parties' seat shares
+vparties2 = read.csv("data/vdem/parties/V-Dem-CPD-Party-V2.csv") |>
+  group_by(country_name) |>
+  filter(year==max(year)) |>
+  ungroup() |>
+  filter(!is.na(v2paseatshare), v2paseatshare>=5) |>
+  select(abb=country_text_id, party=v2paenname, all_seats=v2paseatshare, 
+         all_votes=v2pavote) |>
+  merge(elect) |>
+  pivot_longer(all_seats:all_votes, names_to="variable", values_drop_na=TRUE) |>
+  mutate(measure = as.character(
+           factor(variable, levels=c("all_seats", "all_votes"), 
+                  labels=c("Seat shares of all parties",
+                           "Vote shares of all parties"))),
+         u = as.character(factor(variable,levels=c("all_seats", "all_votes"), 
+                                 labels=c("%", "%")))) |>
+  group_by(elections, variable, measure, u) |>
+  summarise(n = length(unique(abb)),
+            np = n(),
+            avg = mean(value),
+            median = median(value),
+            se = sd(value)/sqrt(np)) |>
+  ungroup() |>
+  na.omit()
+
+# Political parties data
+manifesto = read.csv("data/manifesto/MPDS2023a.csv") |>
+  mutate(abb = countrycode(countryname, "country.name", "iso3c"),
+         year = format(lubridate::dmy(edate), "%Y"),
+         share = 100*absseat/totseats) |>
+  group_by(abb) |>
+  filter(year==max(year)) |>
+  filter(share==max(share)) |>
+  select(abb, share)
+
+# Merge political data together
+inst = dpi |>
+  filter(year==2020) |>
+  merge(cpds, all.y=TRUE) |>
+  merge(manifesto, all.x=TRUE) |>
+  merge(sp16, all.x=TRUE) |>
+  mutate(system = ifelse(!is.na(semi), semi, system)) |>
+  arrange(pop)
+
+# Merge veto player data
+veto = vdem |>
+  merge(dpi, all.x=TRUE) |>
+  merge(sp, all.x=TRUE) |>
+  merge(fh, all.x=TRUE) |>
+  merge(fsi, all.x=TRUE) |>
+  merge(hf, all.x=TRUE) |>
+  merge(wid2, all.x=TRUE) |>
+  merge(hief, all.x=TRUE) |>
+  group_by(country_name) |>
+  fill(semi, system, pop, top1, ethnic, .direction="down") |>
+  mutate(system = ifelse(!is.na(semi), semi, system)) |>
+  filter(!is.na(country_name), !is.na(libdem), 
+         system!="Assembly-Elected President")
+
+# Yearly summaries
+veto2 = veto |>
+  group_by(year, system) |>
+  summarise(y = mean(libdem),
+            n = n(),
+            se = sd(libdem)/sqrt(n),
+            y0 = y - se,
+            y1 = y + se) |>
+  ungroup()
+
+# Party composition of parliaments
+load("data/parline/parline.Rdata")
+
+# Variable labels
+measures = c(nparties="Effective number of parties",
+             nparties5="Number of parties with at least 5% of seats",
+             nparties10="Number of parties with at least 10% of seats",
+             avg_share="Seat shares of all parties",
+             seats="Seat shares of the largest party",
+             votes="Vote shares of the largest party")
+u = c("", "", "", "%", "%", "%")
+
+# Election system labels
+el_abb = c("Plurality", "Mixed", "PR")
+el_systems = c(
+  paste("<b>Plurality voting</b><br>",
+        "each district has one seat, which goes to<br>",
+        "the candidate with the most votes"),
+  paste("<b>Mixed electoral methods</b><br>",
+        "plurality voting for some seats and<br>",
+        "proportional representation for others"),
+  paste("<b>Proportional representation</b><br>",
+        "districts have multiple seats, which are<br>",
+        "split among the parties based on how many<br>",
+        "votes they received")
+)
+
+# Parties and party sizes
+all_parties = party_comp |>
+  merge(vparties, all=TRUE) |>
+  
+  # Reshape data
+  pivot_longer(!abb, names_to="variable", values_drop_na=TRUE) |>
+  
+  # Bring in electoral system classifications
+  merge(elect) |>
+  
+  # Collapse by electoral system
+  group_by(elections, variable) |>
+  summarise(n = length(unique(abb)),
+            np = n(),
+            avg = mean(value),
+            median = median(value),
+            se = sd(value)/sqrt(np)) |>
+  ungroup() |>
+  
+  # Add descriptions
+  mutate(measure = as.character(factor(variable, levels=names(measures), labels=measures)),
+         u = as.character(factor(variable, levels=names(measures), labels=u)),
+         elections2 = factor(elections, labels=el_systems),
+         elections = factor(elections, labels=el_abb)) |>
+  na.omit()
+
+# Merge electoral system and parties data
+wta = dpi |>
+  filter(year==2020) |>
+  select(abb, system, all_parties) |>
+  merge(vparties, all.x=TRUE) |>
+  merge(party_comp, all.x=TRUE) |>
+  merge(elect) |>
+  merge(sp16, all.x=TRUE) |>
+  fill(system) |>
+  mutate(system = ifelse(!is.na(semi), "Semi-presidential", system),
+         country = countrycode(abb, "iso3c", "country.name"), .after=abb,
+         elections = as.factor(elections)) |>
+  filter(!is.na(elections))
+
+
+```
+
+```{r}
+#| code-summary: "<b>Political, economic, and social indicators in the OECD</b> (country-level, 2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+#| eval: false
+
+#----- OECD COUNTRIES -----#
+oecd = read.csv("../apps/oecd/data/oecd.csv") |>
+  mutate(abb = countryname(country, "iso3c"),
+         pop = pop2022*1000,
+         year = 2022) |>
+  select(abb, country, year, pop)
+
+
+#----- DEMOCRACY DATA -----#
+vdem = read.csv("../apps/oecd/data/political/vdem.csv") |>
+  select(id=country_id, abb=country_text_id, country_name, year, libdem=v2x_libdem) |>
+  filter(abb %in% oecd$abb) |>
+  merge(wid, by=c("id", "year"), all.x=TRUE) |>
+  select(abb, year, libdem, top1)
+
+
+#----- INDICATOR DATA -----#
+
+# Rule of law
+wjp = read.csv("../apps/oecd/data/justice/wjp.csv") |>
+  mutate(year=2022) |> 
+  select(abb=Country.Code, year, law=WJP.Rule.of.Law.Index..Overall.Score)
+
+# Civil liberties
+fh = read.csv("../apps/oecd/data/justice/fhts.csv") |>
+  mutate(abb = countryname(Country, "iso3c"),
+         across(!abb, ~ifelse(.x=="-", NA, .x))) |>
+  select(abb, contains("CL"))
+names(fh) = c("abb", paste0("x", 1973:2021))
+fh = fh |>
+  pivot_longer(!abb, names_prefix="x", names_to="year", values_to="civil")
+fh2 = read.csv("../apps/oecd/data/justice/fh.csv") |>
+  mutate(abb = countryname(Country, "iso3c")) |>
+  select(abb, civil2=Civil.Liberties)
+
+# Peace
+gpi = read.csv("../apps/oecd/data/peace/gpi.csv") |>
+  mutate(year=2022) |>
+  select(abb=iso3c, year, peace, safety)
+
+# State fragility
+fsi = read.csv("../apps/oecd/data/defense/fsi.csv") |>
+  mutate(abb = countryname(Country, "iso3c"),
+         year = 2022) |>
+  select(abb, year, fragility=Total, foreign=X1..External.Intervention)
+
+# Human development
+hdi = read.csv("../apps/oecd/data/welfare/undpts.csv") |>
+  select(abb=iso3, hdi_1990:le_2021) |>
+  pivot_longer(!abb, names_sep="_", names_to=c("name", "year")) |>
+  pivot_wider(id_cols=c(abb, year), names_from=name, values_from=value) |>
+  rename(life=le)
+
+# Health spending
+health = read.csv("../apps/oecd/data/welfare/health.csv") |>
+  filter(SUBJECT=="TOT", MEASURE=="USD_CAP") |>
+  select(abb=LOCATION, year=TIME, health=Value)
+
+# Poverty rates
+poverty = read.csv("../apps/oecd/data/welfare/poverty.csv") |>
+  filter(SUBJECT=="TOT") |>
+  select(abb=LOCATION, year=TIME, poverty=Value)
+
+# Economic freedom
+hf = read.csv("../apps/oecd/data/liberty/hf.csv") |>
+  filter(X2022.Score != "N/A") |>
+  mutate(abb = countryname(Country.Name, "iso3c"),
+         econ = as.numeric(X2022.Score),
+         year = 2022) |>
+  select(abb, year, econ)
+
+
+#----- INSTITUTIONS DATA -----#
+elect = read.csv("../apps/oecd/data/political/idea.csv") |>
+  select(abb=ISO.Code.3166, 
+         year=Year,
+         elections=Electoral.system.family,
+         leg=Electoral.system.for.national.legislature,
+         pres=Electoral.system.for.the.president,
+         reps=Legislative.size..voting.members.) |>
+  
+  # Recode variables
+  mutate(elections = case_when(elections=="Plurality/Majority" ~ "Majoritarian elections", 
+                               elections=="Mixed" ~ "Mixed electoral methods",
+                               elections=="PR" ~ "Proportional representation"),
+         leg = case_when(leg=="AV" ~ "Ranked-choice voting",
+                         leg=="List PR" ~ "Proportional representation",
+                         leg=="FPTP" ~ "Winner-take-all elections",
+                         leg=="TRS" ~ "Two-round system",
+                         leg=="MMP" ~ "Mix of systems",
+                         leg=="STV" ~ "Single transferable vote",
+                         leg=="Parallel" ~ "Mix of systems"),
+         pres = case_when(pres=="TRS" ~ "Two-round system",
+                          pres=="FPTP" ~ "Winner-take-all elections",
+                          pres=="STV" ~ "Single transferable vote",
+                          TRUE ~ NA_character_)) |>
+  
+  # Calculate population per representation
+  merge(select(oecd, abb, year, pop), by=c("abb", "year"), all.x=TRUE) |>
+  filter(abb!="") |>
+  mutate(reps_pop = round(pop/reps)) |>
+  select(!pop & !reps)
+
+# DPI data
+dpi = read_dta("../apps/oecd/data/political/DPI2020.dta") |>
+  filter(ifs %in% oecd$abb) |>
+  mutate(exec = as.character(as_factor(system)),
+         exec = ifelse(exec=="Assembly-Elected President",
+                       "Presidential", exec)) |>
+  select(abb=ifs, year, exec, mdmh)
+
+# CPDS data
+cpds = read_dta("../apps/oecd/data/political/cpds.dta") |>
+  mutate(parties = round(effpar_leg),
+         federal = ifelse(as.character(fed)=="0", "Unitary", "Federal")) |>
+  select(abb=iso, year, parties, disp=dis_gall, federal)
+
+
+#----- COMBINE ALL DATA -----#
+all.ts = vdem |>
+  merge(select(oecd, abb, year, pop), by=c("abb", "year"), all=TRUE) |>
+  merge(wjp, by=c("abb", "year"), all.x=TRUE) |>
+  merge(fh, by=c("abb", "year"), all.x=TRUE) |>
+  merge(gpi, by=c("abb", "year"), all.x=TRUE) |>
+  merge(fsi, by=c("abb", "year"), all.x=TRUE) |>
+  merge(hdi, by=c("abb", "year"), all.x=TRUE) |>
+  merge(health, by=c("abb", "year"), all.x=TRUE) |>
+  merge(poverty, by=c("abb", "year"), all.x=TRUE) |>
+  merge(hf, by=c("abb", "year"), all.x=TRUE) |>
+  merge(dpi, by=c("abb", "year"), all.x=TRUE) |>
+  merge(elect, by=c("abb", "year"), all.x=TRUE) |>
+  merge(cpds, by=c("abb", "year"), all.x=TRUE) |>
+  merge(select(oecd, abb, country), all=TRUE) |>
+  select(abb, country, year, everything())
+
+# Cross-sectional subset
+oecd22 = all.ts |>
+  filter(year==2022) |>
+  mutate(continent = countrycode(abb, "iso3c", "continent"))
+
+#save(oecd22, file="data/oecd22.Rdata")
+
+
+```
+
+```{r}
+#| code-summary: "<b>Political parties around the world</b> (party-level, 2020)"
+#| echo: !expr home & knitr::is_html_output()
+#| message: false
+#| output: false
+
+#----- Party position scores -----#
+elff = read.csv("data/manifesto/partypos-summaries.csv") |>
+  mutate(edate = lubridate::ymd(edate)) |>
+  select(country, edate, party, econlr, authlib)
+
+
+#----- Party manifesto data -----#
+mp.ts = read.csv("data/manifesto/MPDS2023a.csv") |>
+  mutate(edate = lubridate::dmy(edate)) |>
+  
+  # Merge party position scores
+  merge(elff) |>
+  
+  # Update variables
+  mutate(year = as.numeric(format(edate, "%Y")),
+         seats = absseat/totseats) |>
+  
+  # Filter to parties from 1975-present
+  filter(year>=1975, seats>.05) |>
+  select(year, party, partyname, country=countryname, seats,
+         econlr, authlib)
+
+
+#----- Cross-sectional subset -----#
+mp = mp.ts |>
+  
+  # Filter to most recent data for each party from last 10 years
+  group_by(party, country) |>
+  filter(year>=2000, year==max(year), seats>=.05) |>
+  ungroup() |>
+  select(year, party, partyname, country, seats,
+         econlr, authlib)
+
+
+#----- Weighting means with population data -----#
+load("data/vdem/pops.Rdata")
+mp0 = mp |>
+  
+  # Get country codes
+  mutate(country = ifelse(country=="Northern Ireland", "United Kingdom", country),
+         code = countrycode(country, "country.name", "cown"),
+         code = ifelse(country=="Serbia", 345, code)) |>
+  
+  # Bring in population data and weight each party
+  merge(pops, all.x=TRUE, all.y=FALSE) |>
+  mutate(w = seats*log(pop)) |>
+  
+  # Weighted means and SDs
+  summarise(x_bar = weighted.mean(econlr, w),
+            s_x = weighted.sd(econlr, w),
+            y_bar = weighted.mean(authlib, w),
+            s_y = weighted.sd(authlib, w))
+
+
+# Sample
+m = length(unique(mp.ts$country))
+n = length(unique(mp.ts$party))
+years = min(mp.ts$year):max(mp.ts$year)
+df_blank = merge(tibble(year=years), tibble(party=unique(mp.ts$party)))
+
+
+#----- Function for ranking party ideologies -----#
+ranker = function(x, econ=TRUE) {
+  
+  # Percentile
+  r = rank(x, ties.method="first")
+  n = length(x)
+  p = r/n
+  
+  # Rank
+  r2 = ifelse(p<.5, round(p*100), round(100-(p*100)))
+  
+  # Left or right label
+  side = ifelse(p<.5, "leftist", "conservative")
+  if (!econ) {side = ifelse(p<.5, "libertarian", "authoritarian")}
+  
+  # More specific label
+  adj = ifelse(econ, "Economically ", "Socially ")
+  id7 = case_when(p <= .1 ~ "far-left",
+                  p <= .35 ~ "left-wing",
+                  p <= .45 ~ "center-left",
+                  p <= .55 ~ "centrist",
+                  p <= .65 ~ "center-right",
+                  p <= .9 ~ "right-wing",
+                  p <= 1 ~ "far-right" )
+  
+  # Output
+  paste0("<b>", adj, id7, "</b><br>top ", r2, "% most ", side, " parties")
+  
+}
+
+
+#----- Function to hold large seat shares for the next 10 years -----#
+hold_seats = function(x) {
+  last_max = 1
+  until = length(x)
+  for (i in 2:length(x)) {
+    if ((x[i] > x[i-1]) & (i <= until)) {
+      last_max = i
+      until = i + 20
+    } else if (i <= until) {
+      x[i] = x[last_max]
+    }
+  }
+  return(x)
+}
+
+
+#----- Prepare data -----#
+mp2 = mp.ts |>
+  filter(year>=1975) |>
+  
+  # Store each party's data until the next election
+  mutate(election=TRUE) |>
+  merge(df_blank, all=TRUE) |>
+  arrange(party, year) |>
+  group_by(party) |>
+  mutate(seats = ifelse(is.na(seats) & row_number()==1, 0, seats),
+         t0 = ifelse(is.na(election), FALSE, TRUE),
+         seats = ifelse(is.na(seats) & !lag(t0,1) & !lag(t0,2) & !lag(t0,3) &
+                       !lag(t0,4), 0, seats),
+         election = ifelse(election, year, NA)) |>
+  fill(party:election, .direction="downup") |>
+  select(-t0) |>
+  
+  # Remove parties with two elections in one year
+  group_by(year, party) |>
+  filter(row_number()==max(row_number())) |>
+  
+  # Get country codes
+  mutate(code = countrycode(country, "country.name", "cown"),
+         code = ifelse(country=="Serbia", 345, code),
+         country = ifelse(country=="German Democratic Republic",
+                          "Germany (West)", country)) |>
+  
+  # Population data
+  merge(pops, all=TRUE) |>
+  arrange(country, year) |>
+  group_by(country) |>
+  fill(pop, .direction="downup") |>
+  filter(!is.na(partyname)) |>
+  select(-code) |>
+  
+  # Radius sizes
+  mutate(pop = ifelse(is.na(pop), mean(pop, na.rm=TRUE), pop),
+         w = seats*sqrt(pop),
+         seats = seats*100) |>
+  ungroup() |>
+  
+  # Hold large radius sizes for next 10 years
+  group_by(party) |>
+  mutate(w = hold_seats(w)) |>
+  ungroup() |>
+  
+  # Rescale
+  mutate(econlr = (econlr - mp0$x_bar)/mp0$s_x,
+         authlib = (authlib - mp0$y_bar)/mp0$s_y) |>
+  
+  # Summary
+  group_by(year) |>
+  mutate(x_sum = ranker(econlr),
+         y_sum = ranker(authlib, econ=FALSE),
+         partyname = wrapper(partyname, 50),
+         usa = case_when(
+           country=="United States" & partyname=="Democratic Party" ~ "Democrats",
+           country=="United States" & partyname=="Republican Party" ~ "Republicans",
+           TRUE ~ ""
+         )) |>
+  ungroup() |>
+  
+  # Reorder data
+  arrange(country, party, year)
+
+
+#----- Time variant data -----#
+mp3a = mp2 |>
+  group_by(party) |>
+  do(sequence = list_parse(
+    select(., x=econlr, y=authlib, z=w, x_sum, y_sum, seats, election)))
+
+# Merge with time variant data
+mp3 = mp2  |>
+  group_by(party) |>
+  summarise(country = last(country),
+            partyname = last(partyname),
+            usa = last(usa)) |>
+  merge(mp3a) |>
+  ungroup()
+
+
+```
+:::
+
+```{=html}
+<script>
+
+// Add draft message
+// document.querySelector('.sidebar>.flex-shrink-0').insertAdjacentHTML('afterend', '<div class="callout callout-style-simple callout-important no-icon"><div class="callout-body-container callout-body"><p><b>This is the final draft for the defense.</b> Please do not share or cite without permission.</p></div></div>');
+
+// Add sidebar subtitle
+document.querySelector('.sidebar-header').insertAdjacentHTML('afterend', '<div class="sidebar-subtitle"><b>Nathan Morse</b><br>Doctoral dissertation</div><div class="sidebar-subtitle"><a href="MorseNathan-Dissertation.pdf"><i class="bi bi-file-pdf"></i>PDF version</a></div>');
+
+
+// Move website tools to the sidebar on the right
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var sidebarToolsMain = document.querySelector('.sidebar-tools-main');
+        var toc = document.querySelector('#TOC');
+
+        if(sidebarToolsMain && toc) {
+            toc.appendChild(sidebarToolsMain);
+        }
+    }, 1000); // Adjust timeout as needed
+});
+
+
+// Change menu icon
+document.querySelectorAll('.bi-layout-text-sidebar-reverse').forEach(element => {
+  element.classList.remove('bi-layout-text-sidebar-reverse');
+  element.classList.add('bi-list');
+});
+
+
+// Update the ellipsis link when quotes are expanded
+document.addEventListener('DOMContentLoaded', function() {
+  // Listen for click events on the document
+  document.body.addEventListener('click', function(event) {
+    // Check if the clicked element is a link inside a blockquote
+    if (event.target.closest('blockquote') && event.target.matches('blockquote .ellipsis')) {
+      const link = event.target;
+      if (link.textContent === '(Show less)') {
+        link.textContent = '...';
+      } else {
+        link.textContent = '(Show less)';
+      }
+    }
+  });
+});
+
+
+// Initialize tooltips for ellipses
+document.addEventListener('DOMContentLoaded', function() {
+    const tooltipLinks = document.querySelectorAll('.ellipsis');
+
+    tooltipLinks.forEach(link => {
+        // Initialize tooltip
+        new bootstrap.Tooltip(link);
+
+        // Initialize collapse
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            const bsCollapse = new bootstrap.Collapse(target, {
+                toggle: true
+            });
+        });
+    });
+});
+
+
+// Add translate buttons to quotes and switch between original and modern translations
+document.addEventListener('DOMContentLoaded', function() {
+  const blockquotes = document.querySelectorAll('.blockquote');
+
+  blockquotes.forEach(blockquote => {
+    const quoteOrig = blockquote.querySelector('.quote-orig');
+    const quoteModern = blockquote.querySelector('.quote-modern');
+
+    // Create and append the .show-modern link to .quote-orig
+    const showModernLink = document.createElement('a');
+    showModernLink.className = 'show-modern';
+    showModernLink.innerHTML = '<i class="bi bi-translate"></i>';
+    showModernLink.setAttribute('data-bs-toggle', 'tooltip');
+    showModernLink.setAttribute('data-bs-title', 'Modern translation');
+    quoteOrig.appendChild(showModernLink);
+
+    // Create and append the .show-orig link to .quote-modern
+    const showOrigLink = document.createElement('a');
+    showOrigLink.className = 'show-orig';
+    showOrigLink.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
+    showOrigLink.setAttribute('data-bs-toggle', 'tooltip');
+    showOrigLink.setAttribute('data-bs-title', 'Original quote');
+    quoteModern.appendChild(showOrigLink);
+    
+    // Initialize tooltips for the newly added links
+    new bootstrap.Tooltip(showOrigLink);
+    new bootstrap.Tooltip(showModernLink);
+  });
+
+  document.body.addEventListener('click', function(event) {
+    const target = event.target;
+
+    const showOrigLink = target.closest('.show-orig');
+    const showModernLink = target.closest('.show-modern');
+
+    if (showOrigLink || showModernLink) {
+      event.preventDefault();
+
+      const blockquoteElem = target.closest('.blockquote');
+      const quoteOrig = blockquoteElem.querySelector('.quote-orig');
+      const quoteModern = blockquoteElem.querySelector('.quote-modern');
+
+      if (showOrigLink) {
+        quoteOrig.style.display = 'block';
+        quoteModern.style.display = 'none';
+      } else if (showModernLink) {
+        quoteOrig.style.display = 'none';
+        quoteModern.style.display = 'block';
+      }
+    }
+  });
+});
+
+
+// Footnote back buttons
+document.addEventListener("DOMContentLoaded", function() {
+    var footnotes = document.querySelectorAll('.footnote-back');
+    footnotes.forEach(function(footnote) {
+        footnote.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
+    });
+});
+  
+</script>
+```

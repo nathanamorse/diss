@@ -1,0 +1,39 @@
+﻿variable,type,concept,measure
+libdem,outcome,Democracy,V-Dem's liberal democracy index
+libdem_lag1,,Democracy (t-1),V-Dem's liberal democracy index (t-1)
+libdem_lag2,,Democracy (t-2),V-Dem's liberal democracy index (t-2)
+libdem_lag3,,Democracy (t-3),V-Dem's liberal democracy index (t-3)
+libdem_lag4,,Democracy (t-4),V-Dem's liberal democracy index (t-4)
+civil,outcome,Civil liberties,Freedom House's civil liberties score
+corrupt,outcome,Corruption,V-Dem's political corruption index
+fragility,outcome,Political instability,the Fund for Peace's state fragility index
+econ,outcome,Economic freedom,the Heritage Foundation's index of economic freedom
+top1,outcome,Income inequality,Income share of the top1%
+rf_outlivedTRUE,predictor,Const. outlived prediction,Contitution outlived life expectancy predicted by random forests (true/false)
+cox_outlivedTRUE,predictor,Const. outlived prediction,Contitution outlived life expectancy predicted by Cox models (true/false)
+over19TRUE,predictor,Exceeded electorate half-life,More than 19 years old
+over31TRUE,predictor,Exceeded electorate half-life,More than 31 years old
+age,predictor,Age of constitution,Age of constitution
+nparties,predictor,Parties,Number of parties in governing coalition
+libdemb,predictor,Democracy,V-Dem's liberal democracy index
+parliamentaryTRUE,predictor,Parliamentary,Parliamentary system (true/fase)
+checks,predictor,Veto players,Number of veto players
+pop,predictor,Population,Population
+ethnic,predictor,Ethnic diversity,Ethnic fractionalization index
+conflict,predictor,Conflict,Internal conflict (true/false)
+gdppc,predictor,GDP per capita,GDP per capita
+top1b,predictor,Income inequality,Income share of the top1%
+lifeexp,predictor,Public health,Life expectancy
+systemParliamentary,predictor,Parliamentary,Parliamentary system (true/fase)
+systemPremier-presidential,predictor,Premier-presidential,Premier-presidential system (true/false)
+systemPresident-parliamentary,predictor,President-parliamentary,President-parliamentary system (true/false)
+systemParliamentary:ethnic,predictor,Parliamentary * Diversity,Change to the effect of ethnic diversity <br>in parliamentary systems
+systemPremier-presidential:ethnic,predictor,Premier-presidential * Diversity,Change to the effect of ethnic diversity <br>in premier-presidential systems
+systemPresident-parliamentary:ethnic,predictor,President-parliamentary * Diversity,Change to the effect of ethnic diversity <br>in president-parliamentary systems
+systemParliamentary:nparties,predictor,Parliamentary * Parties,Change to the effect of parties <br>in parliamentary systems
+systemPremier-presidential:nparties,predictor,Premier-presidential * Parties,Change to the effect of parties <br>in premier-presidential systems
+systemPresident-parliamentary:nparties,predictor,President-parliamentary * Parties,Change to the effect of parties <br>in president-parliamentary systems
+systemParliamentary:checks,predictor,Parliamentary * Veto players,Change to the effect of veto players <br>in parliamentary systems
+systemPremier-presidential:checks,predictor,Premier-presidential * Veto players,Change to the effect of veto players <br>in premier-presidential systems
+systemPresident-parliamentary:checks,predictor,President-parliamentary * Veto players,Change to the effect of veto players <br>in president-parliamentary systems
+(Intercept),predictor,Intercept,Baseline constant

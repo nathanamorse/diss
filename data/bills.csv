@@ -1,0 +1,8 @@
+﻿variable,type,concept,measure
+passed,outcome,legislation passing,whether an economic bill passed in Congress
+support,outcome,support for legislation,share of a chamber that voted yes on an economic bill
+chamberSenate,predictor,Senate,Bill was voted on in the Senate
+redistTRUE,predictor,Redistributive,Bill had a negative DW-Nominate score
+pass_rate,predictor,Overall passage rate,Overall passage rate for all bills in the chamber-term
+avg_yeas,predictor,Average bill support,Average share of yea votes for all bills in the chamber-term
+chamberSenate:redistTRUE,predictor,Senate * Redistributive,Interaction term for redistributive bills in the Senate

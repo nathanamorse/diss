@@ -1,0 +1,6 @@
+# References {.unnumbered}
+
+{{< include _data.qmd >}}
+
+::: {#refs}
+:::

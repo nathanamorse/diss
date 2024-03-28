@@ -1,0 +1,15 @@
+﻿name,type,chamber,variable,measure,abbr,metric,desc,gg_color,hc_color
+sen_pol,pol,Senate,Senate polarization,Polarization index,Senate pol. index,Senate polarization index,Senate polarization index,steelblue,steelblue
+sen_dist,pol,Senate,Senate polarization,Party distance,Senate party dist.,Senate party distance,Senate party median difference,steelblue3,steelblue
+sen_hom,pol,Senate,Senate polarization,Party homogeneity,Senate party hom.,Senate party homogeneity,Senate pooled standard deviation,skyblue2,lightsteelblue
+sen_mal,ineq,Senate,Senate inequality,Malapp.,Senate malapp.,Senate malapportionment,Senate malapportionment index,coral,lightsteelblue
+sen_fil,ineq,Senate,Senate inequality,Filibuster bias,Senate fil. bias,Senate filibuster bias,Senate filibuster bias,steelblue,steelblue
+sen_mc,ineq,Senate,Senate inequality,Minimum coalition,Senate min. coal.,Senate minimum coalition,Senate minimum winning coalition,skyblue2,powderblue
+hs_pol,pol,House,House polarization,Polarization index,House pol. index,House polarization index,House polarization index,orchid3,orchid
+hs_dist,pol,House,House polarization,Party distance,House party dist.,House party distance,House party median difference,palevioletred1,orchid
+hs_hom,pol,House,House polarization,Party homogeneity,House party hom.,House party homogeneity,House pooled standard deviation,plum,lightpink
+hs_mal,ineq,House,House inequality,Malapp.,House malapp.,House malapportionment,House malapportionment index,orchid3,lightpink
+hs_fil,ineq,House,House inequality,Filibuster bias,House fil. bias,House filibuster bias,House filibuster bias,orchid3,orchid
+hs_mc,ineq,House,House inequality,Minimum coalition,House min. coal.,House minimum coalition,House minimum winning coalition,orchid3,mistyrose
+gini,inc,National,Income inequality,Gini index,Gini index,Income inequality (Gini index),Gini index of income inequality ,darkseagreen,darkseagreen
+top1,inc,National,Income inequality,Top 1% share,Top 1% share,Income inequality (top 1% share),Income share of the top 1%,darkseagreen,darkseagreen

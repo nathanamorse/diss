@@ -1,0 +1,93 @@
+country,chamber,party,seats,share,color
+UK,House of Commons,Conservative Party,350,53.84615385,#0087DC
+UK,House of Commons,Labour Party,198,30.46153846,#E4003B
+UK,House of Commons,Scottish National Party,43,6.615384615,#FFF95D
+UK,House of Commons,Liberal Democrats,15,2.307692308,#FDBB30
+UK,House of Commons,Democratic Unionist Party,8,1.230769231,#D46A4C
+UK,House of Commons,Plaid Cymru,3,0.461538462,#008142
+UK,House of Commons,Alba Party,2,0.307692308,#FEF987
+UK,House of Commons,SDLP,2,0.307692308,#99CC33
+UK,House of Commons,Alliance Party,1,0.153846154,#F6CB2F
+UK,House of Commons,Green Party,1,0.153846154,#6AB023
+UK,House of Commons,Reclaim Party,1,0.153846154,#2254F4
+UK,House of Commons,Independents,18,2.769230769,#808080
+India,Lok Sabha,BJP,301,55.43278085,#FF9933
+India,Lok Sabha,SHS,13,2.394106814,#FFB550
+India,Lok Sabha,RLJP,5,0.920810313,#FFD700
+India,Lok Sabha,AD(S),2,0.368324125,#000080
+India,Lok Sabha,JD(S),1,0.184162063,#008000
+India,Lok Sabha,LJP(RV),1,0.184162063,#87CEEB
+India,Lok Sabha,NCP(AP),1,0.184162063,#00008B
+India,Lok Sabha,AJSU,1,0.184162063,#FFA500
+India,Lok Sabha,MNF,1,0.184162063,#000080
+India,Lok Sabha,NDPP,1,0.184162063,#40E0D0
+India,Lok Sabha,NPF,1,0.184162063,#FFD700
+India,Lok Sabha,NPEP,1,0.184162063,#FF4500
+India,Lok Sabha,SKM,1,0.184162063,#008000
+India,Lok Sabha,IND,1,0.184162063,#808080
+India,Lok Sabha,INC,50,9.208103131,#00BFFF
+India,Lok Sabha,DMK,24,4.419889503,#FF0000
+India,Lok Sabha,TMC,23,4.23572744,#00FFFF
+India,Lok Sabha,JD(U),16,2.946593002,#008000
+India,Lok Sabha,SS(UBT),6,1.104972376,#87CEEB
+India,Lok Sabha,CPI(M),3,0.552486188,#FF0000
+India,Lok Sabha,NCP,4,0.73664825,#00008B
+India,Lok Sabha,SP,3,0.552486188,#FFA500
+India,Lok Sabha,IUML,3,0.552486188,#008000
+India,Lok Sabha,JKNC,3,0.552486188,#00CED1
+India,Lok Sabha,CPI,2,0.368324125,#FF0000
+India,Lok Sabha,AAP,1,0.184162063,#FF4500
+India,Lok Sabha,RSP,1,0.184162063,#FF0000
+India,Lok Sabha,JMM,1,0.184162063,#0000FF
+India,Lok Sabha,VCK,1,0.184162063,#0000FF
+India,Lok Sabha,KC(M),1,0.184162063,#008000
+India,Lok Sabha,YSRCP,22,4.051565378,#FF0000
+India,Lok Sabha,BJD,12,2.209944751,#00FFFF
+India,Lok Sabha,BSP,9,1.657458564,#0000FF
+India,Lok Sabha,BRS,9,1.657458564,#4B0082
+India,Lok Sabha,TDP,3,0.552486188,#FFFF00
+India,Lok Sabha,AIMIM,2,0.368324125,#008000
+India,Lok Sabha,SAD,2,0.368324125,#FFA500
+India,Lok Sabha,RLP,1,0.184162063,#FF0000
+India,Lok Sabha,AIUDF,1,0.184162063,#87CEEB
+India,Lok Sabha,SAD(A),1,0.184162063,#FFA500
+Sweden,Riksdag,Moderate Party,68,19.48424069,#1B49DF
+Sweden,Riksdag,Christian Democrats,19,5.444126074,#231977
+Sweden,Riksdag,Liberals,16,4.584527221,#6BA4E7
+Sweden,Riksdag,Sweden Democrats,72,20.63037249,#FEDD00
+Sweden,Riksdag,Independent,1,0.286532951,#808080
+Sweden,Riksdag,Social Democrats,107,30.65902579,#ED1B34
+Sweden,Riksdag,Left Party,24,6.876790831,#A6001C
+Sweden,Riksdag,Centre Party,24,6.876790831,#469B5D
+Sweden,Riksdag,Green Party,18,5.157593123,#83CF39
+Brazil,Chamber of Deputies,Liberal Party,97,18.90838207,#FFD700
+Brazil,Chamber of Deputies,Brazil of Hope Federation,81,15.78947368,#FF0000
+Brazil,Chamber of Deputies,Brazil Union,59,11.50097466,#808080
+Brazil,Chamber of Deputies,Progressistas,50,9.746588694,#87CEEB
+Brazil,Chamber of Deputies,Brazilian Democratic Movement,43,8.382066277,#0000CD
+Brazil,Chamber of Deputies,Social Democratic Party,43,8.382066277,#FFA500
+Brazil,Chamber of Deputies,Republicans,41,7.992202729,#00BFFF
+Brazil,Chamber of Deputies,PSDB Cidadania Federation,18,3.50877193,#1E90FF
+Brazil,Chamber of Deputies,Democratic Labour Party,18,3.50877193,#FF4500
+Brazil,Chamber of Deputies,Brazilian Socialist Party,15,2.923976608,#32CD32
+Brazil,Chamber of Deputies,Podemos,15,2.923976608,#4682B4
+Brazil,Chamber of Deputies,PSOL REDE Federation,14,2.729044834,#B22222
+Brazil,Chamber of Deputies,Avante,7,1.364522417,#BDB76B
+Brazil,Chamber of Deputies,Democratic Renewal Party,5,0.974658869,#B8860B
+Brazil,Chamber of Deputies,Solidarity,4,0.779727096,#DAA520
+Brazil,Chamber of Deputies,New Party,3,0.584795322,#8B0000
+Canada,House of Commons,Liberal,158,46.884273,#EA6D6A
+Canada,House of Commons,New Democratic,25,7.418397626,#F4A460
+Canada,House of Commons,Conservative,117,34.71810089,#6495ED
+Canada,House of Commons,Bloc Québécois,32,9.495548961,#87CEFA
+Canada,House of Commons,Green,2,0.59347181,#99C955
+Canada,House of Commons,Independent,3,0.890207715,#CCCCCC
+Indonesia,House of Representatives,Indonesian Democratic Party of Struggle,128,22.26086957,#db332e
+Indonesia,House of Representatives,Party of Functional Groups,85,14.7826087,#fdf851
+Indonesia,House of Representatives,Great Indonesia Movement Party,78,13.56521739,#342B29
+Indonesia,House of Representatives,Nasdem Party,59,10.26086957,#27408B
+Indonesia,House of Representatives,National Awakening Party,58,10.08695652,#02754C
+Indonesia,House of Representatives,Democratic Party,54,9.391304348,#2643A3
+Indonesia,House of Representatives,Prosperous Justice Party,50,8.695652174,#FE5000
+Indonesia,House of Representatives,National Mandate Party,44,7.652173913,#0054A3
+Indonesia,House of Representatives,United Development Party,19,3.304347826,#00A100

@@ -1,0 +1,2212 @@
+# Presenting Research in the Twenty-First Century {#sec-presenting}
+
+---
+subtitle: A Primer on Dynamic Visualizations and Interactive Publications
+---
+
+{{< include _data.qmd >}}
+
+```{r}
+# Load data
+load("data/oecd22.Rdata")
+load("data/dem4.Rdata")
+```
+
+```{=html}
+<style>
+  #appendix-tiktok {margin-top: -40px;}
+  .card-link {margin-bottom: 20px;}
+  .card-link * {transition: .1s linear;}
+  .card-link:hover .card {border: 1px solid #bbb;}
+  .card-link:hover .card-text {text-decoration: none !important; color: #222;}
+  .card-link:hover img {opacity: .8;}
+  .card {border-radius: 5px; overflow: hidden;}
+  .card-body {padding: .5rem .7rem;}
+  .card-text {font-size: .9em; color: #666;}
+  .card-text .bi {font-size: .8em; padding-left: 5px;}
+  video {max-width: 100%;}
+  #fig-econ-chart figcaption {margin-top: 0;}
+</style>
+```
+Americans' trust in scientists has been slowly declining for decades, and the COVID-19 pandemic only accelerated this decline.[^presenting-1] Out of all the academic disciplines, political science is naturally one of the most politicized—if not *the* most politicized—so it faces serious challenges at influencing public opinion. At the same time, the field's knowledge is more valuable than ever now that democracy is so fragile.
+
+[^presenting-1]: See @kennedy2022 and @roundtable2015.
+
+It can be tempting to pin the blame of the disconnect between public opinion and science on the public: people only trust what they want to hear, so when science started saying things they didn't like, they simply stopped trusting it. That *is* part of why the public has stopped listening to scientists, but it's not the whole story. The main reason people have lost trust in science is that science hasn't made itself easy to be trusted. Most scientific research is not designed to be read by the public; it costs money to access and is difficult for ordinary people to understand.
+
+Some time ago, science didn't necessarily *need* to be accessible to the public. If most people had faith that scientists were fair and honest authorities of the truth, then scientists didn't really need to directly communicate their findings to the public. They could use language that only their colleagues, journalists, policymakers, and other stakeholders understand, and then those groups would pass on their findings to the public [@peters2013]. Nowadays, though, society is too polarized and science is too politicized to rely on this model. The public is more skeptical of information it hears in the media, and a large fraction has lost faith in science and the media altogether.
+
+To this day, scientists usually struggle to explain their research with language and visuals that anyone can understand. Journalists are trained in this art, but unless they themselves have advanced degrees in the fields they report on, they can easily misinterpret research or take it out of context. News articles about science often report on a single study without really minding how it fits in with the rest of the literature, which can give readers the wrong idea about the state of scientific knowledge on the subject. Readers seeking to verify a news article's reporting could try to find the original study or an academic literature review, but chances are they either won't be able to access it or won't be able to understand it. At that point, it's hard to take experts at their word when there's so much more compelling content saying not to.
+
+Amid this information crisis, scholars in every field have been engaging more directly with the public and publishing research in more accessible outlets. Open-access journals and science blogs have risen dramatically in the last couple decades. Political scientists pump out public-facing content through a variety of mediums including academic blogs (such as [*Good Authority*](https://goodauthority.org/news/welcome-to-good-authority/){target="blank"}, formerly [*The Monkey Cage*](https://www.washingtonpost.com/monkey-cage/){target="blank"}), opinion pieces on news websites, podcasts (such as [*Democracy Works*](https://www.democracyworkspodcast.com/){target="_blank"}), and social media accounts. But they could just be preaching to the choir on these platforms. Political science research rarely seems to have much of an effect on public opinion even with the field's outreach efforts.
+
+Consider the issue of term limits. In the 1990s and 2000s, many states started limiting the number of terms their legislators could serve, which led to a wave of research examining the effects of these reforms. Dozens of studies investigated a wide variety of outcomes with a wide variety of research designs. An unexpected pattern emerged nearly every time: term limits bring little benefit and cause serious side effects. When states pass term limits, politicians tend to become more loyal to their parties, elites hold stronger influence over policy, voter turnout decreases, and polarization deepens. (See the appendix at the end of this section for a brief literature review.) One of the only redeeming qualities is that term limits may lead to more diverse representation, but some research has found that they don't. The vast majority of the literature suggests that term limits cause more problems than they solve. Research on this matter has mostly stalled in the last decade simply because there is not much left to study about it.
+
+While political science has reached a general consensus on term limits, the public has nearly reached a consensus as well—in the opposite direction. By most accounts, more than 80% of Americans favor term limits on Congress [@poll2021; @poll2023]. Most people probably haven't even heard about the research on term limits. This issue represents an extreme example of the discipline's struggles to inform public opinion, but the problem rings true throughout nearly every issue domain. Open primaries are another hot topic on which popular attitudes are divorced from the literature, as Lee Drutman notes on X. Even people who are receptive to political scientists' commentary may hold many beliefs that diverge from academic consensus not because they don't trust it but because they are unaware of it.
+
+::: column-margin
+```{=html}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">It seems weird to me that reformers would prioritize non-partisan open primaries, the reform that democracy experts and political scientists consider the least valuable and most likely to cause more harm.<br>But I&#39;m just a political scientist<br>Story: <a href="https://t.co/bDi1zybxNb">https://t.co/bDi1zybxNb</a> <a href="https://t.co/4HbkWlRe0d">pic.twitter.com/4HbkWlRe0d</a></p>&mdash; Lee Drutman ⚙️🏛 (@leedrutman) <a href="https://twitter.com/leedrutman/status/1750230437996216670?ref_src=twsrc%5Etfw">January 24, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+:::
+
+This chapter suggests that much of the disconnect between public opinion and academic scholarship is due to the fact that academia has not yet embraced modern norms for communicating information. Academic publications are designed to be printed, while most other industries now design their content primarily for screens. Journalists, think tanks, interest groups, politicians, and influencers are putting out rich, dynamic visualizations along with interactive editorials and captivating videos that pop with animated graphics, all of which help them *show*, not just *tell*, lessons from data. Meanwhile, most of the output from academic research is still in the form of PDFs and charts designed to fit in PDFs. The very people who should be at the cutting edge of telling stories with data are being held back by conventions from the 1900s.
+
+Data visualizations flourished on social media during the COVID-19 pandemic and have become center-stage in the public discourse. In @sec-graph-theory, I document several misleading visualizations that have gone viral and argue that scientists need to go viral as well to combat misinformation. Comments and articles debunking an inaccurate chart are no match for the original post. I show how interactive and animated visualizations enable authors to tailor their content to the public and their academic community simultaneously. @sec-viz-methods reviews several methods for producing these charts in R, with careful attention to making them accessible to both lay and expert readers. To demonstrate how researchers can use visualizations to engage with the public on social media, I posted a series of animated graphs on TikTok, which I reflect on in @sec-viz-tiktok. Next, @sec-viz-publishing explores other avenues for publishing fully interactive publications and outlines the strengths and weaknesses of this approach. The final section explores how academics can modernize their fields’ data visualization practices to help spread reliable, eye-catching content among the public.
+
+::: {.callout-note .mt-3 collapse="true"}
+## Appendix: Why term limits don't work
+
+Limiting the number of terms that legislators can serve ensures that most of the politicians in office are relatively new to the job. The legislature becomes full of politicians who are less experienced, less competent, less well-known, and less powerful than legislatures with no term limits. Most newer legislators are only in office because of the party by their name, which puts them at the mercy of their party and their donors. If they want to win re-election even once, they have to do what the powers that be tell them to do, or they'll be unseated.
+
+Most politicians spend years building enough of a reputation, voter base, and personal donor base before they can afford to vote their conscience. Politicians with limited terms have to rise to fame more quickly if they want to stray from their party, which usually requires promoting sensational and extreme ideas. In sum, term limits make it easier for political and economic elites to control rank-and-file legislators, which pushes some to become more polarizing so they can escape elites' hold on them.
+
+When states implement term limits for their legislatures, we tend to see:
+
+-   **Party leaders and wealthy donors** **gain power.** Term limits ensure that very few members of a legislature have served long enough to build their own independent voter bases and donor bases, so greater share of the legislature is dependent on powerful political actors if they want to win re-election or seek higher office [@masket2015].
+
+-   **Polarization increases.** Because party leaders and partisan donors have more leverage over rank-and-file members, the parties become more polarized and bipartisanship declines [@olson2020; @sarbaugh-thompson2006].
+
+-   **Lawmakers become less competent.** When a legislature has term limits, its members overall are less familiar with the legislative process, less knowledgeable of policy issues, and less skilled at passing good quality legislation [@burns2008].
+
+-   **Lobbyists for special interests** **become more influential.** Legislators with less experience and competence rely more on lobbyists to inform their votes [@moncrief2001].
+
+-   **Governors** **become more powerful.** Executive branches have more institutional expertise at their disposal—career bureaucrats, political operatives, and policy experts—giving governors the upper hand at politicking against legislatures with high turnover and low competence [@carey2006].
+
+-   **Oversight of the bureaucracy** **declines.** Term-limited legislatures have less experience holding government agencies accountable and place a lower priority on it [@sarbaugh-thompson2010].
+
+-   **Lawmakers slack on their responsibilities.** Politicians who know they are in their last term tend to be less productive, work on less legislation, and are absent from meetings more—especially if they plan on seeking a higher office in the next election cycle since they have to size up their campaigning operations. If a legislature has a limit of four terms, then an entire quarter of the legislature may be in their [lame duck](https://en.wikipedia.org/wiki/Lame_duck_(politics)) term, whereas legislatures with no term limits have very few members who are not seeking reelection [@fouirnaies2018].
+
+-   **Lawmakers spend more time fundraising.** Legislators who are newer to the job have to spend more time fundraising than legislators who are more established. This means the average member of a term-limited legislature spends less time at events with ordinary constituents and more time at events with wealthier donors [@vandusky-allen2014].
+
+-   **Voter turnout** **decreases.** Partisanship in general alienates potential voters and decreases voter turnout, so the increased partisanship that comes with term limits can dampen voter turnout even more. Plus, longer-serving politicians with more name recognition and campaign experience tend to be more effective at driving up turnout, and term-limited legislatures have fewer of these politicians [@nalder2007].
+
+-   **Gerrymandering** **worsens.** Districts become more oddly shaped to favor the majority party, mainly because of the increased power of parties in the legislature. Legislators who are close to their term limit also have an incentive to make sure their state senate's districts or their congressional districts are favorable to their party so they can jump to a different chamber in the next election [@schaffner2004].
+
+-   **Representation doesn't usually improve.** Some studies have found cases when women and minorities were slightly more likely to hold office after their states adopted term limits, but most research fails to find a significant effect of term limits on descriptive representation [@pettey2017; @caress2003; @carey2006; @carroll2001; @schraufnagel2006].
+
+Keep in mind that these findings only apply to term limits for legislatures (e.g., Congress and state legislatures). Term limits on presidents, governors, and judges are important safeguards for democracy. Executive and judicial officials each have more unilateral power, which is not safe in the hands of a single person for a long period of time. Legislators' power is already constrained by the fact that each one has very little power on their own, so term limits have a different effect on them than on other officials.
+:::
+
+## A graph is worth 10,000 words {#sec-graph-theory}
+
+In September 2023, the TikTok user [\@thebeautyofdata](https://www.tiktok.com/@thebeautyofdata){target="blank"} posted an [animated chart](https://www.tiktok.com/@thebeautyofdata/video/7277218228026346784) that quickly went viral. The chart shows median rent prices skyrocketing over the last four decades while household incomes only rose slowly. At the beginning of the video, the chart is zoomed into the late 1980s, and it zooms out over the course of a minute to show the staggering divergence by the 2020s. The slow reveal of the climbing lines creates a sense of mystery that entices the viewer to keep watching. As it plays, viewers are treated to a club remix of a 2005 pop song encouraging them to dance freely. The chart could have been displayed as a simple static graph, but the animation adds a whole new dimension while the music adds energy. It's attention-grabbing and powerful, garnering the video more than 10 million views and nearly a million likes within a few weeks of posting---and that's just the original post. It went viral on [other accounts](https://www.tiktok.com/@thegenzlender/video/7285762711634447647){target="_blank"} and [other platforms](https://twitter.com/JoshuaPHilll/status/1701006671517294617) as well, so it's hard to know how many people it reached.[^presenting-2]
+
+[^presenting-2]: At least [one re-post](https://www.tiktok.com/@thegenzlender/video/7285762711634447647){target="_blank"} of the video on TikTok got several million *more* views than the original. Eight months before this video was posted, another user posted a [very similar video](https://www.tiktok.com/@thedataboys/video/7187910890082028846) which also went viral, reaching 1.5 million views.
+
+There's just one problem: the chart paints a completely misleading picture. Many economists pointed out that the household income data were adjusted for inflation while the rent data were not, despite the chart's claim that both were adjusted. Plus, the rent data are based on the 40th percentile of rents, not the median, although these are probably correlated.[^presenting-3] When fixing the graph, one can see that rents and incomes have risen together at a similar rate. On X (formerly Twitter), where several users shared the video and reached almost as big of an audience as the original video on TikTok, some of the posts are flagged with community notes explaining the issue.[^presenting-4] TikTok gives no indication that the video is misleading, and experts' replies are drowned out in the comments section. The original video and re-posts on TikTok have altogether received around 70 times as many views as the response videos pointing out the error (the most popular of which is shown in @fig-econ-chart). See the appendix below for details of this estimate.
+
+[^presenting-3]: The methodology behind the measures used in this video appears to come from a [real estate blog post](https://www.realestatewitch.com/rent-to-income-ratio-2022/) from May 2022 with a very similar graph. The graphs use the Department of Housing and Urban Development's [Fair Market Rents](https://www.huduser.gov/portal/datasets/fmr.html), which the department says are "estimates of 40th percentile gross rents for standard quality units within a metropolitan area or nonmetropolitan county." The department's datasets split up these estimates by number of bedrooms from 0 to 4. The blog post reports that the author took the median of each area's fair market rents and then took the median of those for the whole country. These statistics were not weighted by population at either level. This measure more accurately represents the 40th percentile of rents for apartments with two bedrooms in the median metropolitan area, which is correlated with the national median rent price but is likely biased. I recreated the graph in the TikTok video and confirmed that this is the measure it used.
+
+[^presenting-4]: Even an X post with the video that had only a few likes and less than 100 views had a community note. In addition, many top comments on the two most popular X posts also pointed out the error. On TikTok, I could not find any comments on the original video or the popular re-post pointing out the error. There could have been some comments deeper down than I could dig (there were thousands of comments), but these comments would not have been seen by many people.
+
+::: {#fig-econ-chart .mt-5 layout="[[62.2,37.8]]"}
+<div>
+
+```{=html}
+<div class="card video" style="background: #fcfefc;">
+  <div class="card-body" style="border-top: 5px solid #fcfefc; margin-top: .5rem; padding: 0 .7rem; overflow: hidden;">
+    <video style="margin-top: -5px" controls autoplay muted loop><source src='https://nmorse.com/dissertation/figures/thebeautyofdata.mp4' type='video/mp4'></video>
+  </div>
+  <div class="card-footer" style="margin-top: -10px; z-index: 5; padding: 0 0 15px 0; background: #fcfefc;"></div>
+</div>
+```
+
+</div>
+
+<div>
+
+```{=html}
+<div class="card video">
+  <video controls poster="https://nmorse.com/dissertation/figures/econchrisclarke.png"><source src='https://nmorse.com/dissertation/figures/econchrisclarke.mp4' type='video/mp4'></video>
+</div>
+```
+
+</div>
+
+A TikTok [video](https://www.tiktok.com/@thebeautyofdata/video/7277218228026346784){target="_blank"} posted by [\@thebeautyofdata](https://www.tiktok.com/@thebeautyofdata){target="blank"} and a [response](https://www.tiktok.com/@econchrisclarke/video/7277754625564871979){target="_blank"} by [\@econchrisclarke](https://www.tiktok.com/@econchrisclarke){target="blank"}. I did not create either of these videos and I do not endorse all of their material. In particular, I disagree with the response video calling the original video a "lie" and "disinformation." These are loaded words implying that the creator was intentionally deceiving their viewers. I prefer to give the creator the benefit of the doubt and assume this was just a mistake. It was a big mistake---and the chart is still misinformation---but calling it disinformation without evidence of intentional deception is overcharged.
+:::
+
+::: {#appendix-tiktok .callout-note .mb-5 collapse="true"}
+## Appendix: How many people did the video and its critics reach on TikTok?
+
+While it's impossible to know exactly how many people saw a video, the view count gives a general idea of the relative reach of each video. The chart got around **30 million** views on TikTok as of November 14, 2023:
+
+-   The [original video](https://www.tiktok.com/@thebeautyofdata/video/7277218228026346784) had **9.5 million** views
+-   A [re-post](https://www.tiktok.com/@thegenzlender/video/7285762711634447647) had **20 million** views
+-   Many other re-posts had smaller view counts
+
+The response videos pointing out the error received around **425,000** views:
+
+-   The video featured in @fig-econ-chart had **270,000** views
+-   The next most popular video had **150,000** views,
+-   One video had **7,000** views
+-   The only other videos I could find (3) totaled around **1200** views
+
+The original video and re-posts garnered more than **70 times** as many views as the response videos. This is the best estimate of the relative reach of the chart and its critics, but it is a very rough estimate. We don't know how many individual people actually saw these videos for many reasons:
+
+a.  Re-posts could have been deleted before I found them (especially if a user who re-posted the video realized it was misleading)
+b.  Re-watching a video adds to its view count
+c.  Some viewers may have seen both the original video and a re-post
+d.  Quickly scrolling past a video still adds to its view count even if the viewer doesn't pay attention to it (which would affect the response videos more than the original video because they're boring)
+e.  Some viewers could have shown the video to a group of people around them
+f.  There could be other re-posts that I couldn't find or didn't have access to (e.g., private videos or videos posted in other countries that are disconnected from TikTok in the US)
+g.  Bots could inflate view counts
+
+Finally, note that the video went viral on other platforms as well. By my count, X posts sharing the video got a total of 8 million views at the time of writing. Across all platforms, I count around 40 million views.
+:::
+
+A few years earlier, a similar (but not as extreme) controversy arose when journalist David Leonhardt [posted an animated chart](https://twitter.com/DLeonhardt/status/1181004566088814594){target="_blank"} on Twitter based on an [interactive visualization](https://www.nytimes.com/interactive/2019/10/06/opinion/income-tax-rate-wealthy.html) he published in the *New York Times*. The chart, which went viral on many platforms, shows that the tax system was significantly more progressive in the 1950s and that the richest earners now pay a lower percent of their income than the poorest earners. To Leonhardt's credit, the chart has exemplary design and uses data from a reputable source: acclaimed economists Emmanuel Saez and Gabriel Zucman. However, a heated debate had already been ensuing within economics over whether their measures are valid, and many experts argue that the data and the chart are inaccurate [@breunig2019].
+
+Many people seeing this graph might assume that it shows the official tax rates at each bracket, but it actually shows estimates of *effective* tax rates---taxes paid out of each household's entire income, not just their taxable income. @saez2019 argue that wealthy Americans have been evading taxes more in recent years, so they adjusted high-income tax data to include their estimates of unreported income. This could make high earners' effective tax rates appear lower than they really are. For poorer households, though, Saez and Zucman did not count most government assistance as income, which inflates their effective tax rates and makes these estimates inconsistent with the estimates for higher incomes. When using less subjective measures based on reported incomes, the tax rates appear much more linear.
+
+::: {#fig-nytimes}
+::: {.column-body-outset .mt-5 .mb-0 layout-ncol="2"}
+```{=html}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Watch how radically taxes on the wealthy have fallen over the past 70 years: <br><br>(Full column: <a href="https://t.co/XP0a4Iljti">https://t.co/XP0a4Iljti</a>) <a href="https://t.co/dGxmOjQ1b5">pic.twitter.com/dGxmOjQ1b5</a></p>&mdash; David Leonhardt (@DLeonhardt) <a href="https://twitter.com/DLeonhardt/status/1181004566088814594?ref_src=twsrc%5Etfw">October 7, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+```{=html}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you take Piketty-Saez-Zucman DINA paper (<a href="https://t.co/mFIUKTI94Q">https://t.co/mFIUKTI94Q</a>), the closest we have to methodology for now editorialized figures (and the only peer-reviewed source), this is the evolution of average tax rates until 2014 (last year there)<br>h/t <a href="https://twitter.com/jmhorp?ref_src=twsrc%5Etfw">@jmhorp</a> <a href="https://t.co/STcLn5eU9a">https://t.co/STcLn5eU9a</a> <a href="https://t.co/lyWggPw30I">pic.twitter.com/lyWggPw30I</a></p>&mdash; Wojtek Kopczuk 🇵🇱🇺🇦 (@wwwojtekk) <a href="https://twitter.com/wwwojtekk/status/1182695438077562881?ref_src=twsrc%5Etfw">October 11, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+:::
+
+A tweet by [\@DLeonhardt](https://twitter.com/DLeonhardt) and a response by [\@wwwojtekk](https://twitter.com/wwwojtekk). I did not create either of these figures and I do not endorse all of their material.
+:::
+
+Maybe tax evasion should be counted, or maybe it shouldn't be---I'm not an economist---and regardless, these charts could end up influencing people's attitudes on economic policy in a positive direction. But if even experts don't agree on the accuracy of a chart's data, then anyone seeing it needs to know that. Leonhardt's chart doesn't mention that it uses effective tax rates accounting for tax evasion (or perhaps that's what "total tax rate" means, but most people wouldn't know that), nor does the chart give any indication that the jury is still out on whether this is the right way to measure this concept. Without context, the chart gives the impression that it represents objective facts, when it may be based on an outlier study that is not representative of the state of the literature.
+
+These episodes reflect a common trend in the age of social media: a single data visualization can influence millions of people much more easily than a blog post, a journal article, or even an entire literature. At present, scientists are generally not the ones making viral visualizations. They're still playing catch-up while influencers spread amateur personal research and journalists misrepresent academic research. Once a misleading chart goes viral, responses usually only reach a small subset of the people who have seen it. Experts should still make an effort to debunk misinformation, but they also need a more proactive strategy for spreading accurate information in the first place.
+
+### What the pandemic taught us about data visualizations
+
+During the COVID-19 pandemic, data visualizations became the primary ammunition in the information war between medical experts and skeptics. Dashboards made by researchers, journalists, and government agencies (such as the ones linked below) went viral, and many screenshots from those dashboards went viral as well. The interactivity of these visualizations turned out to be a double-edged sword: while they provided enormous amounts of information that helped experts convey problems and solutions, they could also be configured to give misleading conclusions that appear to be backed by science.
+
+```{=html}
+<div class="d-flex gap-2 mt-3 mb-3">
+
+  <a href="https://coronavirus.jhu.edu/map.html" target="_blank" class="card-link">
+    <div class="card image-link">
+      <img src="images/covid-jh.png" class="card-img-top" alt="COVID-19 map from Johns Hopkins">
+      <div class="card-body">
+        <p class="card-text">Johns Hopkins <i class="bi bi-box-arrow-up-right"></i></p>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ig.ft.com/coronavirus-chart/" target="_blank" class="card-link">
+    <div class="card image-link">
+        <img src="images/covid-ft.jpg" class="card-img-top" alt="COVID-19 tracker from the Financial Times">
+      <div class="card-body">
+        <p class="card-text">Financial Times <i class="bi bi-box-arrow-up-right"></i></p>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ourworldindata.org/coronavirus" target="_blank" class="card-link">
+    <div class="card image-link">
+        <img src="images/covid-owid.png" class="card-img-top" alt="COVID-19 data explorer from the Financial Times">
+      <div class="card-body">
+        <p class="card-text">Our World in Data <i class="bi bi-box-arrow-up-right"></i></p>
+      </div>
+    </div>
+  </a>
+
+</div>
+```
+A team of researchers at MIT led by Crystal Lee [-@lee2021] collected tweets with COVID-related visualizations from more than 400,000 users. In addition to reporting their findings in a journal article, they set up a public-facing [interactive article](https://vis.csail.mit.edu/covid-story/){target="_blank"} with a data dashboard displaying many of the tweets from their sample. Their analysis found that opponents of public health measures were "prolific and skilled purveyors of data visualizations" [-@lee2021, pp. 15], often making charts that were "indistinguishable" from charts made by professionals [@ackerman2021]. Science skeptics value personal validation of information over blindly accepting scientific charts. When skeptics saw a graph they didn't trust, they would often use the same dashboard or data to make their own versions suggesting very different conclusions.
+
+@fig-covid shows an example of this. Charts like the first one were widely shared by supporters of public health measures because they showed that European countries, which had tighter restrictions, were much more effectively containing the spread of the virus than the US. The second one is a user's original work attempting to show that European countries were not any better off than the US.[^presenting-5] The discrepancy between the graphs is the result of different definitions of Europe. The first graph only counts EU countries, while the second one counts the UK, Russia, and other non-EU countries. These countries had higher infection rates than most EU countries, probably because their public health measures were more similar to those of the US. Furthermore, the charts both show the *number* of cases, not a per-capita rate (even though the EU alone has 100 million more people than the US, not even counting the UK or Russia), so adding more countries naturally increases the case count.[^presenting-6]
+
+[^presenting-5]: Note that the simple design of this user's chart is not representative of all skeptics' charts. This chart was chosen as an example because of its relevance to the first chart. Many skeptics' charts were very professional in appearance, whereas this one appears to have been made in Microsoft Excel using the default formatting and minimal attention to design principles. Nevertheless, in some circles charts like these were likely trusted more than professional charts because they were clearly made by independent observers rather than biased journalists or scientists.
+
+[^presenting-6]: One final issue with the second user's chart is that the lines are smoother in the first chart, so it appears the second user charted the raw number of new cases each day rather than a 7-day rolling average as the title claims.
+
+::: {#fig-covid}
+::: {.column-body-outset .mt-5 .mb-0 layout-ncol="2"}
+```{=html}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Show this chart to whomever tells you that Trump did a good job handling the Covid19 pandemic. <a href="https://t.co/3NpSEApSBo">pic.twitter.com/3NpSEApSBo</a></p>&mdash; The Lampoon Ledger (@ALampoonLedger) <a href="https://twitter.com/ALampoonLedger/status/1274111150125432832?ref_src=twsrc%5Etfw">June 19, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+```{=html}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I am suddenly very curious with where that &quot;COVID cases, US vs Europe&quot; chart comes from since I graphed the Johns Hopkins data and it looks like this <a href="https://t.co/UKI9AXg5h1">pic.twitter.com/UKI9AXg5h1</a></p>&mdash; PoIiMath (@politicalmath) <a href="https://twitter.com/politicalmath/status/1279171461148598273?ref_src=twsrc%5Etfw">July 3, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+:::
+
+Tweets with charts about COVID-19 cases. I did not create either of these figures and I do not endorse all of their material. These tweets were obtained from the [data dashboard](https://vis.csail.mit.edu/covid-story/){target="_blank"} accompanying the study by @lee2021.
+:::
+
+Although the rise of misleading amateur research presents new challenges for scientists, there is a silver lining: demand is higher than ever for data-driven content on social media. The key, though, is that science skeptics do not want to simply *consume* this content. They want to *participate* in the process by producing content themselves, discussing it, critiquing it, replicating it, and verifying it—all elements of the traditional peer review process—and they only trust this process if they can do it themselves. As Lee and her team write [-@lee2021, pp. 15]:
+
+> While academic science is traditionally a system for producing knowledge within a laboratory, validating it through peer review, and sharing results within subsidiary communities, anti-maskers reject this hierarchical social model. They espouse a vision of science that is radically egalitarian and individualist. This study forces us to see that coronavirus skeptics champion science as a personal practice that prizes rationality and autonomy; for them, it is *not* a body of knowledge certified by an institution of experts.
+
+A whole new ecosystem of science is developing, almost completely cutoff from mainstream science. It is democratic, open to anyone, and transparent. Its knowledge base is housed on social media platforms rather than in journals and books. The primary products of its work are data visualizations rather than written publications. It has a peer review process of sorts that relies on public comments and community moderators rather than anonymous reviewers and elite editors. In theory, this egalitarian model of science has many admirable qualities which could resolve a fair amount of issues that academics themselves have raised with the status quo of academia.
+
+The problem is that most of the people in this ecosystem have no idea what they're talking about. They don't realize how uninformed they are because they only trust information they can verify themselves, and most scientific research is too advanced for untrained observers to verify. When outsiders try to fact-check misinformation in this ecosystem by citing mainstream science and using technical language, people in this ecosystem often become even more convinced of their beliefs [@nyhan2013; @reinero2023].
+
+The MIT researchers offer two suggestions for combating misinformation in this ecosystem. The first is that researchers should "grapple with the social and political dimensions of visualizations at the *beginning*, rather than the end, of projects" [-@lee2021, pp. 15]. In other words, producing effective data visualizations for public consumption should be a higher priority in academic research. Second, researchers need to be clear about the uncertainty of their findings. All of science is built on an understanding that its knowledge is never certain, but scientists sometimes exaggerate their confidence in a claim or simply fail to note that it could be wrong. In sum, the team argues [-@lee2021, pp. 15]:
+
+> Convincing anti-maskers to support public health measures in the age of COVID-19 will require more than "better" visualizations, data literacy campaigns, or increased public access to data. Rather, it requires a sustained engagement with the social world of visualizations and the people who make or interpret them.
+
+These lessons apply to much more than COVID-19 issues. The pandemic cultivated this emerging ecosystem of amateur science, but it isn't going away. The MIT team's comment that "better" visualizations are not enough to combat misinformation should not be taken to mean that sharing visualizations is a futile endeavor for academics; on the contrary, the study suggests that it may be necessary but not sufficient to change minds in this ecosystem. The only way to reach people in the ecosystem is to infiltrate it and play the game their way. References to well-known scientists or paywalled jargony articles or academic consensus mean very little to them; they want practical graphs, raw data, plain language, dialogue in the comments, and openness to their critiques.
+
+While 10,000-word journal articles are quintessential tools for sharing knowledge among academics, data visualizations are the main mediums for sharing knowledge with lay audiences. The latter is arguably more important now than the former since misinformation is engulfing the public discourse. A well-designed graph posted on social media can have a far bigger impact on public opinion, policy, and society than a long-winded publication that may only be read by a handful of academics who already agree with the author.
+
+### Advantages of dynamic visualizations {#sec-viz-benefits}
+
+Academic researchers are not faced with a binary choice of catering their content to either academia or the public. The widely used COVID-19 dashboards by Johns Hopkins and other institutions are prime examples of content that serves both academics and lay users at the same time. As I argue in this section, interactive and animated data visualizations are particularly powerful for communicating information to many different audiences simultaneously.
+
+But first, let's clarify some definitions. A *data visualization* is any figure that displays data graphically. Most visualizations published in academic research are *static*—they are still images that do not change. Static visualizations can fit into PDFs and are printer-friendly. Online outlets can also publish visualizations that are *dynamic*, meaning they can change over time or when a user hovers on it, clicks on it, or provides some other kind of input. Videos and animations could be considered interactive because users can play, pause, or advance to a certain point, but in this dissertation *interactive* refers only to content with more direct interactivity. I use the word *dynamic* as an umbrella term referring to both interactive and animated content. @fig-defs lays out a simple way of conceptualizing several types of visualizations.
+
+```{=html}
+<style>
+  .mermaid-js .label tspan:first-of-type {font-weight: bold;}
+</style>
+```
+::: {#fig-defs}
+::: {.diagram .border-bottom .mt-4 .pb-3}
+**Types of data visualizations**
+
+```{mermaid}
+
+flowchart LR
+  A("Data visualization <br/>graphical representation <br/>of data")
+  B("Static <br/>still image, <br/>printer-friendly")
+  C("Dynamic <br/>changing image, <br/>best viewed on <br/>screens")
+  D("Interactive <br/>responds to user input <br/>(e.g., hovering or <br/>clicking on it)")
+  E("Animated <br/>changes over time <br/>(e.g., videos and GIFs)")
+  F("Interactive animation <br/>responds to user input<br/>and changes over time")
+  A --> B
+  A --> C
+  C --> D
+  C --> E
+  D --> F
+  E --> F
+  
+```
+:::
+
+A typology of data visualizations based on how they respond to user input and time.
+:::
+
+Below, I identify six main benefits that dynamic visualizations have over static, printer-friendly charts. The first three generally describe how dynamic charts help researchers convey information to the public while the last three relate more to researchers conveying information among themselves.
+
+***Accessibility*****.** An interactive chart can convey however much information a reader wants to get out of it. A layperson can glance at the default configuration and learn something from it; a person with moderate expertise can try out different configurations to learn general patterns; an expert can look more closely at the numbers to discover complex patterns. While static charts often have to be designed for a more limited target audience, interactive charts are more flexible for a wider ranger of readers.
+
+***Readability*****.** Dynamic charts can include many features that make them easier to read than static graphs. Because dynamic charts are designed to be read on screens rather than in print, they can use more color to distinguish series (as opposed to line dashing or shapes). In addition, interactive charts can help readers inspect individual data points by providing more information when hovering over them and showing special gridlines that follow the mouse. These charts can also let readers hide or isolate individual series, zoom in to a shorter timespan, change the text size, swap the color scheme, and expand the chart to a larger size.
+
+***Effectiveness.*** Graphics that are optimized for screens by making use of colors, interactivity, and animations are more aesthetically pleasing, which helps them capture the attention of a wider audience. Studies have found that people pay more attention to aesthetically pleasing visualizations, understand the information more accurately, and are more easily persuaded compared to less engaging visualizations [@cawthon2007; @pandey2014].
+
+***Methodological support.*** Data visualization is an important component of exploratory data analysis; researchers must understand the distributions and relationships among their variables in order to make the appropriate choices for modeling the data. For large datasets, it is sometimes easier to build an interactive data dashboard that can quickly generate charts rather than painstakingly creating a series of individual charts. @hullman2021 argue that interactive exploratory visualizations are not only useful but essential for certain tasks like Bayesian analysis.
+
+***Reproducibility*****.** Replication data can be easily downloaded from interactive charts. Most of the interactive charts in this dissertation have a menu button in the upper-right corner which includes several options for downloading or viewing the raw data. Accessing the data for a particular graph takes many more steps when it is only available in a data repository or an author's website. Plus, the tooltip boxes that appear as a reader hovers over a graph also display data values for quick investigation. In static figures, data labels can be displayed above each point, but this clutters the graph.
+
+***Transparency*****.** Alternative measures for each concept in a graph can be included and hidden by default, letting readers examine robustness without the need for cluttered plots, multiple plots, or extensive appendices. This allows readers to critically examine the author's choice of measures with the click of a button. The quick access to the data discussed in the previous paragraph makes the research even more transparent by reducing the steps needed to examine replication data.
+
+Interactivity lets authors pack an order of magnitude more information in a chart compared to a static chart while making it accessible to an order of magnitude more readers. It broadens the audience that can read it, displays the information more effectively, and encourages researchers to be more open and clear about how they conducted their analysis. Likewise, animation adds energy and visual appeal to a chart, making it much more powerful.
+
+## Designing dynamic data visualizations {#sec-viz-methods}
+
+Researchers have many tools for creating dynamic graphs without needing technical skills beyond their basic training. For R users, adding interactivity or animation to a static graph is often as simple as adding a single line of code. In addition, programs such as [Tableau](https://www.tableau.com/) have user-friendly interfaces for creating interactive visualizations. This section reviews R packages for producing interactive and animated visualizations. The focus is on R because many researchers already use R for data management, statistical analysis, and visualization. Two of the libraries discussed here also have sister libraries in other languages such as Python and JavaScript.
+
+### Interactive figures with `plotly` and `highcharter`
+
+The two most common and powerful interactive graphing packages in R are `plotly` and `highcharter`. [Plotly](https://plotly.com/) is a suite of libraries that produce interactive visualizations in various languages. [Highcharts](https://www.highcharts.com/) is a similar library based in JavaScript, and an independent developer created `highcharter` to translate R code into JavaScript code for Highcharts. In general, `plotly` is easier to use but `highcharter` plots are more customizeable and elegant. For most uses, I recommend using `plotly` due to its simplicity, but most of the interactive figures in this dissertation are produced with `highcharter`.
+
+Both packages are user-friendly for anyone familiar with `ggplot2`, a widely used R package for data visualizations. `plotly` can turn any plot made with `ggplot2` into an interactive chart with a single line of code. Users simply create a chart with `ggplot()` and then call the object in the `ggplotly()` function. While `highcharter` cannot convert `ggplot2` graphs, the syntax is intuitive for users already familiar with `ggplot2`. Examples of code and charts produced by each of these packages are in @fig-r-examples. The first tab shows a static chart produced in `ggplot2`, the second tab converts this into an interactive `plotly` chart, and the third tab produces an interactive `highcharter` chart.
+
+::: {#fig-r-examples}
+::: panel-tabset
+#### `ggplot2`
+
+```{r}
+#| echo: true
+
+# Load package
+library(ggplot2)
+
+# Static chart
+ggplot(oecd22, aes(x=fragility, y=econ, color=continent)) +
+  geom_point(aes(size=pop), alpha=.75) +
+  
+  # Titles
+  labs(title="Instability and freedom in the OECD, 2022",
+       subtitle="Countries that are more stable tend to be more economically free.",
+       x="State fragility", y="Economic freedom", color=NULL) +
+  
+  # Data labels
+  geom_text(aes(label=abb), nudge_x=2, nudge_y=1.5, 
+            check_overlap=TRUE, show.legend=FALSE) +
+  
+  # Legend
+  scale_color_manual(values=c("#ef5675", "#7a5195", "#447eae", "#ffa600")) +
+  guides(size=FALSE) +
+  
+  # Formatting
+  theme_minimal() +
+  theme(text = element_text(family="Source Sans Pro"),
+        plot.title = element_text(hjust=0, color="#1b5283", face="bold", size=13),
+        strip.text = element_text(face="bold", size=10),
+        axis.line = element_line(color="#aaaaaa"))
+  
+
+```
+
+#### `plotly`
+
+```{r}
+#| echo: true
+
+# Load packages
+library(ggplot2)
+library(plotly)
+
+# Step 1: Static chart with ggplot2 (but without data labels)
+plot1 = ggplot(oecd22, aes(x=fragility, y=econ, color=continent, label=country)) +
+  geom_point(aes(size=pop), alpha=.75) +
+  labs(title="Instability and freedom in the OECD, 2022", 
+       x="State fragility", y="Economic freedom", color=NULL) +
+  scale_color_manual(values=c("#ef5675", "#7a5195", "#447eae", "#ffa600")) +
+  guides(size=FALSE) +
+  theme_minimal() +
+  theme(text = element_text(family="Source Sans Pro"),
+        plot.title = element_text(hjust=0, color="#1b5283", face="bold", size=13),
+        strip.text = element_text(face="bold", size=10),
+        axis.line = element_line(color="#aaaaaa"),
+        plot.margin = unit(c(0.5, 0, 0, 0), "inches"))
+  
+
+# Step 2: Make it interactive
+ggplotly(plot1) %>%
+  
+  # Add title/subtitle (plotly can't handle subtitles but this hack works)
+  layout(title = list(text = paste0(
+    "<b>Instability and freedom in the OECD, 2022</b><br>",
+    "<span style='color: #444444; font-size: .9em;'>",
+    "Countries that are more stable tend to be more economically free.</span>"
+  )))
+
+```
+
+#### `highcharter`
+
+```{r}
+#| echo: true
+
+# Load package
+library(highcharter)
+
+# Interactive plot
+hchart(oecd22, hcaes(x=fragility, y=econ, size=pop, group=continent),
+       type="scatter") %>%
+  
+  # Titles
+  hc_title(text="Instability and freedom in the OECD, 2022", align="left", margin=36, 
+           style = list(color="#1b5283", fontWeight="bold", fontSize="19px", useHTML=TRUE)) %>% 
+  hc_subtitle(text="Countries that are more stable tend to be more economically free.",
+              align="left", style = list(color="#black", fontSize="16px", useHTML=TRUE)) %>%
+  hc_xAxis(title=list(text="State fragility"), crosshair=TRUE) %>% 
+  hc_yAxis(title=list(text="Economic freedom")) %>%
+    
+  # Tooltips
+  hc_tooltip(
+    headerFormat = "<b>{point.key}</b><br>",
+    shared=TRUE, shadow=FALSE, borderRadius=4,
+    pointFormat=paste(
+      "<b>{point.country}</b><br>",
+      "Fragile states index: <b>{point.x}</b><br>",
+      "Index of economic freedom: <b>{point.y}</b><br>",
+      "Population: <b>{point.pop}</b>"
+    ), style=list(fontSize=".85em")
+  ) %>%
+  
+  # Legend
+  hc_colors(c("#ef5675", "#7a5195", "#447eae", "#ffa600")) %>%
+  hc_legend(align="right", layout="vertical") %>%
+  
+  # Formatting
+  hc_chart(style=list(fontSize="1em", fontFamily="Source Sans Pro"))
+
+```
+:::
+
+Examples of a chart made with `ggplot2` (static), `plotly` (interactive, converted from the static `ggplot2` chart), and `highcharter` (interactive). The charts display the Fund for Peace's Fragile States Index and the Heritage Foundation's Index of Economic Freedom for the 38 OECD nations as of 2022.
+:::
+
+Adding interactivity to a graph introduces a different set of design choices than you may be used to when making printable graphs. Below are several design principles that I followed when producing these charts and the other figures of this dissertation.
+
+1.  **Display information about each observation in tooltips.** A *tooltip* is a box that appears when a user hovers over something. In the examples above, the tooltips display the country, continent, population, and values of the independent and dependent variables. The static graph only shows the country abbreviation next to each point. Data labels like these are useful for static graphs, but they are not needed on interactive graphs as tooltips hold more information with less clutter.
+
+2.  **Keep it simple by default.** Complicated graphs can be daunting for some readers, so sticking with a minimalist design can make a graph more accessible to a wider audience. Luckily, interactivity allows for the best of both worlds, as unnecessary details and features can be hidden by default and displayed only when the user hovers or clicks on the graph. For example, the `highcharter` graph in @fig-r-examples does not have vertical gridlines and instead displays a vertical line (called a *crosshair*) wherever the mouse is hovering. The main function of gridlines is to help the reader identify the value of each point along the axes. On interactive graphs, this is handled by tooltips and crosshairs, negating the need to complicate the graph with extra lines.
+
+3.  **Label variables with latent concepts and define their specific measures in tooltips.** Most concepts in social science research are not directly observable, so we often use more directly measurable indicators to approximate abstract concepts. The specific metric is usually less important to lay readers and more important to scholars. In line with the previous principles of keeping graphs simple by default, the latent concept represented by each variable can be displayed in axis titles and legends, and users wanting more information about how the variable is measured can read the tooltip or caption.
+
+4.  **Avoid technical language and details in larger text.** People usually read larger text first and smaller text last, and they also tend to pay more attention to the larger text [@rello2016]. When the title of a graph uses language that ordinary people don't understand, it sends the message that they won't be able to understand the graph itself, so they don't even bother. When the title makes sense, people are more likely to pay attention to the rest of the graph.[^presenting-7] Experts are going to read the fine print anyway, so there's no need to make the more prominent text confusing to lay readers. (The code for each chart in @fig-r-examples has examples of adjusting font sizes.)
+
+[^presenting-7]: One method for writing text that lay readers can understand is to summarize the key takeaway of the graph in a short sentence, similar to a news headline. This headline could serve as the chart title, a subtitle, or another prominent text box, as is done in the graphs in @fig-r-examples and @fig-oecd. Headlines are more interesting and more informative than the robotic-sounding titles that often appear on charts. This not only helps the public understand the graph, but it also helps experts get a quick idea of its content when skimming through a publication.
+
+The general idea is to design the default configuration of a chart for public consumption and leave more advanced details to tooltips, hidden elements, and captions. That way, a chart can be clear to both lay readers and scholars for their respective needs.
+
+### Interactive apps with `shiny`
+
+While `plotly` and `highcharter` let users manipulate charts in many ways, more advanced interactivity requires packages such as `shiny`. A `shiny` web app can run R code in real time and update the output based on user input. The package has functions to add fields such as dropdown menus, textboxes, number sliders, checkboxes, and buttons. The author can then program graphs, tables, models, or other objects to respond accordingly. To clarify, `shiny` is not a data visualization package; it can be used in tandem with other packages like `highcharter` to create visualizations that can respond to more complex input. Common uses include [data dashboards](https://vac-lshtm.shinyapps.io/ncov_tracker/){target="_blank"}, [teaching tools](https://2k1.iq.harvard.edu/){target="_blank"}, [statistical programs](https://apsta.shinyapps.io/thinkCausal/){target="_blank"}, and even [boring games](https://psim.shinyapps.io/business_game/){target="_blank"}. Building shiny apps can be complicated, so check out the [documentation](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html){target="_blank"} or [help books](https://mastering-shiny.org/index.html){target="_blank"} before getting started.
+
+::: {#fig-shiny .column-body-outset}
+::: panel-tabset
+#### `highcharter`
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Countries to include
+countries = c("Brazil", "Canada", "China", "Japan", "Mexico",
+              "Netherlands", "Russia", "Switzerland", "United Kingdom",
+              "United States of America")
+
+# Subset data
+dem2 = filter(dem, country_name %in% countries)
+dem2a = filter(dem2, evntsize==2)
+dem2b = filter(dem2, evntsize==1)
+
+# Color scheme
+dem_colors = c(colorize(1:9, c("#662549", "#f15c80", "#f7a35c", "#e4d354", "#90ed7d", "#2b908f", "#8085e9")), "steelblue")
+
+# Initialize chart
+hc1 = highchart()
+
+# Loop through each country and add series
+for (i in 1:length(countries)) {
+  
+  hc1 = hc1 %>%
+    
+    # Democracy line graph
+    hc_add_series(
+      filter(dem2, country_name==countries[i]), visible=(i==10),
+      'line', hcaes(x=date, y=electdem, group=country_name), 
+      id=paste0("line", i),
+      marker = list(enabled=FALSE),
+      tooltip = list(
+        headerFormat="<b>{point.year}</b><br>",
+        pointFormat = paste0(bullet, "{point.country_name}:",
+                             "<b>{point.electdem:.2f}</b><br>")
+      )
+    ) %>% 
+  
+    # Constitution dots
+    hc_add_series(
+      filter(dem2a, country_name==countries[i]),
+      'scatter', color="red", linkedTo=paste0("line", i),
+      hcaes(x=date, y=electdem*event, group=country_name),
+      marker = list(symbol='circle', radius=7),
+      tooltip = list(
+        headerFormat="<b>{point.year}</b><br>",
+        pointFormat=paste("<b>{point.year}</b><br>", bullet, 
+                          " <b>New constitution</b>")
+      )
+    ) %>%
+  
+    # Amendment dots
+    hc_add_series(
+      filter(dem2b, country_name==countries[i]),
+      'scatter', color="gray", linkedTo=paste0("line", i),
+      hcaes(x=date, y=electdem*event, group=evnttype),
+      marker = list(symbol='circle'),
+      tooltip = list(
+        headerFormat="<b>{point.year}</b><br>",
+        pointFormat=paste("<b>{point.year}</b><br>", bullet, 
+                          " <b>Amendment</b>")
+      )
+    )
+  
+}
+
+# Finish chart
+hc1 %>%
+    
+  # Chart structure
+  hc_xAxis(crosshair=TRUE) %>%
+  hc_yAxis(title=list(text = "Democracy index")) %>% 
+
+  # Tooltip
+  hc_tooltip(headerFormat = "<b>{point.year}</b><br>",
+             shadow=FALSE,
+             borderRadius=0) %>%
+
+  # Labels and axes
+  hc_title(text=paste("<b>Free and fair elections in 10 countries</b>"),
+           align="left", margin=35,
+           style=list(color="#1b5283", useHTML=TRUE, fontSize="19px")) %>% 
+  hc_subtitle(text="V-Dem's electoral democracy index", align="left", 
+              style=list(color="#black", useHTML=TRUE, fontSize="16px")) %>% 
+  
+  # Formatting
+  hc_morse(scatter=TRUE) %>%
+  hc_colors(dem_colors) %>%
+  hc_legend(enabled=TRUE, align="right", layout="vertical")
+
+```
+
+#### `highcharter + shiny`
+
+```{=html}
+<iframe src="https://nmorse.shinyapps.io/const/" height="600" width="100%"></iframe>
+```
+:::
+
+A basic interactive graph made with `highcharter` and a `shiny` app that uses a similar `highcharter` graph but allows for more user input. See [Chapter -@sec-entrenchment] for details about the data and methodology of these graphs.
+:::
+
+The example in the second tab above updates the graph to show the country and measure selected by the user. It starts off with a long dataset at the country-year level with several different variables measuring democracy. It then automatically subsets the data to observations from the selected country and changes the $y$-axis variable to the selected measure. When a user clicks the "Random country" button, it runs a random number generator to pick a different country and then subsets the data to that country. This is a fairly simple example of a `shiny` app, but as mentioned before, the package is so powerful that people have used it to develop [fully functional software](https://vnijs.shinyapps.io/radiant/){target="_blank"} that runs in a browser.
+
+One challenge with using `shiny` apps is that they cannot be rendered directly in a full document produced in RStudio like most other graphics. They need a special kind of server that can run R code remotely. By far the most common outlet for hosting `shiny` apps is [shinyapps.io](https://www.shinyapps.io/){target="_blank"}, which users can upload apps to directly from RStudio. Apps can then be embedded into R Markdown or Quarto documents using [iframes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe){target="_blank"}.
+
+### Animated figures with `gganimate`
+
+Another tool in the modern toolkit is animated visualizations, which are especially useful for time series cross-sectional data. On most graphs with longitudinal data, time is represented by the $x$-axis. Line graphs are not as useful for data with many cases at many points in time. For example, suppose we wanted to visualize the ideology of each member in Congress over time. If we must use a static graph, we have a few options:
+
+1.  Aggregate the data into summary measures and plot them in a line graph (such as the first tab in @fig-animation). We lose a lot of information with this approach, but the graph is simple and may be all that we need.
+
+2.  Show each member's ideology as an individual series in a single plot or a grid of small panels each with a single line graph. Figures like this can be large and complicated but can help quickly compare different series.
+
+3.  Plot cross-sections of the data at one or more key time points (such as the second tab in @fig-animation). This is useful for multidimensional data with relatively constant distributions over time. If the distributions change signficiantly over time, though, a cross-sectional graph's utility is limited.
+
+Static graphs are generally limited to showing two dimensions, either time and a single variable or two variables at one point in time. Animation adds another dimension to a graph, letting it display many variables at many points in time. The third tab of @fig-animation shows a graph (borrowed from my master's thesis) exemplifies the multidimensionality of animations.
+
+::: {#fig-animation .column-body-outset}
+::: panel-tabset
+#### Aggregate time series
+
+```{r}
+#| echo: true
+#| fig.width: 9.25
+
+#----- Prepare data for plotting -----#
+shades = id_parties %>%
+  filter(year>1960) %>%
+  arrange(chamber, party, year) %>%
+  group_by(chamber, party) %>%
+  mutate(mod = ifelse(party=="Democrats", max(d1_x), min(d1_x)),
+         d1_x = ifelse(year<year[d1_x==mod], NA, d1_x))
+
+#----- Plot -----#
+ggplot(id_parties, aes(x=year+1, y=d1_x, color=party)) +
+  
+  # Lines and ribbons
+  geom_hline(yintercept=0, color="gray") +
+  geom_line() +
+  geom_ribbon(data=filter(shades, party=="Republicans"),
+              aes(ymin=mod, ymax=d1_x, group=chamber),
+              fill="tomato", alpha=.15, size=0) +
+  geom_ribbon(data=filter(shades, party=="Democrats"),
+              aes(ymin=d1_x, ymax=mod),
+              fill="steelblue", alpha=.15, size=0) +
+  
+  # Structure
+  facet_wrap(~chamber) +
+  
+  # Labels
+  annotate(geom="text", label="Republicans", x=2018, y=.55, hjust=1,
+           size=3.5, family="Source Sans Pro", fontface="bold", color="tomato3") +
+  annotate(geom="text", label="Democrats", x=2018, y=-.45, hjust=1,
+           size=3.5, family="Source Sans Pro", fontface="bold", color="steelblue") +
+  labs(title="Parties in Congress",
+       subtitle="Mean ideological scores of each party",
+       x=NULL, y="Party Center on Economic Welfare \n\u2190 Liberal – Conservative \u2192", color=NULL, fill=NULL) +
+ 
+  # Scales
+  scale_y_continuous(limits=c(-.6,.6)) +
+  scale_x_continuous(breaks=seq(1920, 2020, 20)) +
+  scale_color_manual(values=c("steelblue", "tomato3")) +
+  scale_fill_manual(values=c("steelblue", "tomato3")) +
+  
+  # Formatting
+  theme_morse() +
+  theme(legend.position="none",
+        panel.border = element_rect(fill=NA, color="gray25"),
+        panel.spacing = unit(10, "pt"),
+        axis.title.y = element_text(size=10),
+        axis.line.x = element_line(size=.4, color="gray"),
+        axis.ticks.x = element_line(size=.4, color="gray"),
+        panel.grid.major.x = element_line(size=.3),
+        panel.grid.minor.x = element_line(size=.3),
+        panel.grid.major.y = element_line(size=.3),
+        panel.grid.minor.y = element_line(size=.3))
+
+```
+
+#### Cross-section
+
+```{r}
+#| echo: true
+#| fig.width: 9.25
+#| fig.height: 4.625
+
+#----- Subset data to 1971 -----#
+id_members71 = filter(id_members, year==1971)
+id_factions71 = filter(id_factions, year==1971)
+
+#----- Calculate slope of separation line -----#
+lda_line = function(dim1, dim2, group) {
+  ld = MASS::lda(group ~ dim1 + dim2) # linear discriminant analysis
+  b1 = ld$scaling[1] # extract coefficients for dim1
+  b2 = ld$scaling[2] # extract coefficients for dim2
+  slope = -b1/b2 # calculate slope
+  angle1 = atan(slope) * 180/pi # convert to radians then degrees
+  angle2 = ifelse(angle1<0, 90+angle1, -90+angle1) # rescale for continuity
+  list(`b1`=b1, `b2`=b2, `slope`=slope, `angle`=angle2)
+}
+
+# Slopes for separation lines
+lines = id_members71 %>%
+  group_by(year, chamber) %>%
+  summarise(
+    
+    # Determine majority party
+    majority = getmode(party),
+    
+    # Slope of separation line between parties
+    slope = lda_line(dim1, dim2, party)$slope,
+    angle = lda_line(dim1, dim2, party)$angle) %>%
+  
+  arrange(chamber, year) %>%
+  ungroup()
+
+
+#----- Cross-sectional plot -----#
+ggplot(id_members71, aes(x=dim1, y=dim2)) +
+  
+  # Dots and contours
+  geom_point(aes(group=icpsr, color=faction), 
+             alpha=0.6, show.legend=FALSE) +
+  stat_density_2d(aes(fill=faction), geom="polygon", size=0, alpha=.4) +
+  
+  # Year labels
+  geom_text(data=lines, 
+            aes(label=as.character(year), color=majority, group=chamber),
+            x=.9, y=.9, hjust=1, show.legend = FALSE, check_overlap = TRUE, 
+            family="Source Sans Pro", size=5) +
+  
+  # Party name labels
+  geom_text(data=id_factions71, aes(x=d1_x, y=d2_x, group=faction, label=faction), 
+            fontface="bold", color="black", family="Source Sans Pro",
+            check_overlap=TRUE) +
+  
+  # Graph labels
+  labs(title="Parties in Congress",
+       subtitle=paste("Ideological scores of members of Congress,",
+                      "with Southern members shaded separately"), 
+       fill="", color="",
+       x="Economic Welfare \n\u2190 Liberal – Conservative \u2192", 
+       y="Civil Rights \n\u2190 Liberal – Conserv \u2192") +
+  
+  # Formatting
+  scale_color_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_fill_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_x_continuous(limits=c(-1,1)) +
+  scale_y_continuous(limits=c(-1,1)) +
+  facet_wrap(~chamber) +
+  theme_morse() + 
+  theme(legend.position="none",
+        panel.border = element_rect(fill=NA, color="gray25"),
+        panel.spacing = unit(10, "pt"),
+        axis.title.y = element_text(size=10),
+        axis.line.x = element_line(size=.4, color="gray"),
+        axis.ticks.x = element_line(size=.4, color="gray"),
+        panel.grid.major.x = element_line(size=.3),
+        panel.grid.minor.x = element_line(size=.3),
+        panel.grid.major.y = element_line(size=.3),
+        panel.grid.minor.y = element_line(size=.3),
+        plot.background = element_rect(fill="white", color=NA))
+
+```
+
+#### Animation
+
+::: fig-img
+```{r}
+#| eval: false
+#| echo: true
+
+#----- Calculate slope of separation line -----#
+lda_line = function(dim1, dim2, group) {
+  ld = MASS::lda(group ~ dim1 + dim2) # linear discriminant analysis
+  b1 = ld$scaling[1] # extract coefficients for dim1
+  b2 = ld$scaling[2] # extract coefficients for dim2
+  slope = -b1/b2 # calculate slope
+  angle1 = atan(slope) * 180/pi # convert to radians then degrees
+  angle2 = ifelse(angle1<0, 90+angle1, -90+angle1) # rescale for continuity
+  list(`b1`=b1, `b2`=b2, `slope`=slope, `angle`=angle2)
+}
+
+# Slopes for separation lines
+lines = id_members %>%
+  group_by(year, chamber) %>%
+  summarise(
+    
+    # Determine majority party
+    majority = getmode(party),
+    
+    # Slope of separation line between parties
+    slope = lda_line(dim1, dim2, party)$slope,
+    angle = lda_line(dim1, dim2, party)$angle) %>%
+  
+  arrange(chamber, year) %>%
+  ungroup()
+
+
+#----- Animated plot -----#
+anim_cong = ggplot(id_members, aes(x=dim1, y=dim2)) +
+  
+  # Dots and contours
+  geom_point(aes(group=icpsr, color=faction), 
+             alpha=0.6, show.legend=FALSE) +
+  stat_density_2d(aes(fill=faction), geom="polygon", size=0, alpha=.4) +
+  
+  # Separation line
+  geom_abline(data=lines, aes(intercept=0, slope=angle), 
+              size=0.5, alpha=0.5) +
+  
+  # Year labels
+  geom_text(data=lines, 
+            aes(label=as.character(year), color=majority, group=chamber),
+            x=.9, y=.9, hjust=1, show.legend = FALSE, check_overlap = TRUE, 
+            family="Source Sans Pro", size=5) +
+  
+  # Party name labels
+  geom_text(data=id_factions, aes(x=d1_x, y=d2_x, group=faction, label=faction), 
+            fontface="bold", color="black", family="Source Sans Pro",
+            check_overlap=TRUE) +
+  
+  # Graph labels
+  labs(title="Parties in Congress",
+       subtitle=paste("Ideological scores of members of Congress,",
+                      "with Southern members shaded separately"), 
+       fill="", color="",
+       x="Economic Welfare \n\u2190 Liberal – Conservative \u2192", 
+       y="Civil Rights \n\u2190 Liberal – Conserv \u2192") +
+  
+  # Formatting
+  scale_color_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_fill_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_x_continuous(limits=c(-1,1)) +
+  scale_y_continuous(limits=c(-1,1)) +
+  facet_wrap(~chamber) +
+  theme_morse() + 
+  theme(legend.position="none",
+        panel.border = element_rect(fill=NA, color="gray25"),
+        panel.spacing = unit(10, "pt"),
+        axis.title.y = element_text(size=10),
+        axis.line.x = element_line(size=.4, color="gray"),
+        axis.ticks.x = element_line(size=.4, color="gray"),
+        panel.grid.major.x = element_line(size=.3),
+        panel.grid.minor.x = element_line(size=.3),
+        panel.grid.major.y = element_line(size=.3),
+        panel.grid.minor.y = element_line(size=.3),
+        plot.background = element_rect(fill="white", color=NA)) +
+
+  # Animation
+  transition_time(year) +
+  ease_aes('linear') + enter_grow() + exit_shrink()
+
+
+#----- Display animation -----#
+animate(anim_cong, nframes=150, fps=10, end_pause=5, 
+        width=888, height=444, units="px", res=100)
+
+```
+
+```{=html}
+<video playsinline autoplay muted loop><source src='https://nmorse.com/research/congress/anim_cong.mp4' type='video/mp4'></video>
+```
+```{r eval=FALSE, echo=FALSE}
+knitr::include_graphics('figures/cong1971.png')
+```
+:::
+:::
+
+An example of an animated plot. This figure, taken from Figure 2 of my master's thesis [@morse2021], shows the ideological distributions of members of the House and the Senate based on roll-call voting. Each dot represents a member of Congress. The $x$-axis is dimension 1 of Poole and Rosenthal's [-@poole2017] DW-NOMINATE ideal points, which generally covers issues of socioeconomic welfare; the $y$-axis is dimension 2, which generally covers civil rights issues. Members representing states in the South are shown as pink regardless of party affiliation, whereas the dividing lines were only based on party affiliation. The slopes for the dividing lines were computed using linear discriminant analysis, which finds the boundary line that maximizes the separation between the two parties. In most browsers, you can right-click on the graphic and click "Show controls" to enable the pause button and progress bar. Data source: Voteview [@voteview].
+:::
+
+Animated graphs are simple to make in R for `ggplot2` users.[^presenting-8] Similar to how `plotly` can turn a static `ggplot2` graph into an interactive graph, the package `gganimate` can turn a static `ggplot2` graph into an animated graph. To start off, users can create a static graph (like the one in the second tab of @fig-animation) that plots the whole dataset all at once. This will usually be cluttered, so it may be useful to subset the data to a single point in time until this code is satisfactory. Then, `gganimate` functions can be added to the plot just like any other `ggplot2` function. The function `transition_time()` specifies the name of the variable containing the time points, and other functions like `ease_aes()` and `enter_grow()` define which types of transitions should be used to make the graph move smoothly. By default, these functions produce a GIF, but video files can also be rendered using the `animate()` function. Finally, if we upload the animation to TikTok and set it to some sick beats, we could have a viral video on our hands.
+
+[^presenting-8]: The packages `plotly` and `highcharter` can also animate interactive graphs, but these are more difficult to produce.
+
+Animation can be used in a wide variety of situations. An animated bar graph with bars growing, shrinking, and reordering as the chart loops through time is often a more user-friendly display of time-series cross-sectional data than a large grid of small panels with individual line graphs. Animated histograms and density plots can show how an entire distribution moves over time better than a single line graph plotting the mean and error bars. As the viral TikTok discussed in @sec-graph-theory shows, charts that don't even *need* to be animated can benefit from animation. A static graph becomes much more interesting when it is slowly revealed over time.
+
+```{r}
+#| eval: false
+
+library(ggplot2)
+library(gganimate)
+
+#----- Data preparation -----#
+sen_bias = st_pop %>%
+  filter(chamber=="Senate") %>%
+  mutate(statename = fips(state, to="Name")) %>%
+  
+  # State rankings each year
+  group_by(year) %>%
+  arrange(year, w) %>%
+  filter(row_number() <= 10 | row_number() > 40) %>%
+  mutate(rank = row_number())
+
+
+
+#----- Animated plot -----#
+gifplot = ggplot(sen_bias, aes(x=rank, y=w, fill=as.factor(statename), group=state)) +
+  
+  # Bars
+  geom_hline(yintercept=1, color="#aaaaaa") +
+  geom_bar(stat="identity") + 
+  
+  # Labels
+  geom_text(aes(y=0, label=statename), hjust=1, family="Source Sans Pro") +
+  labs(title="Senators per million people, {frame_time}",
+       subtitle="The 10 most overrepresented and underrepresented states in the Senate") +
+  
+  # Scales
+  coord_flip() +
+  scale_x_continuous(limits=c(-5,15)) +
+  
+  # Formatting
+  theme_morse() +
+  theme(legend.position="none",
+        panel.grid.minor.y=element_blank(),
+        panel.grid.major.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title=element_blank()) +
+  
+  # Animation
+  transition_time(year) +
+  ease_aes('linear') + enter_grow() + exit_shrink()
+
+
+#----- Render animation -----#
+animate(gifplot, nframes=150, fps=10, end_pause=5, 
+        width=500, height=400, units="px", res=100,
+        renderer = gifski_renderer("figures/anim/senators.gif"))
+
+```
+
+### Getting help with the Visualization Assistant for R {#sec-viz-interviz}
+
+AI bots such as ChatGPT and Bing Chat have become popular resources for coding assistance, but they often struggle with advanced tasks. In November 2023, OpenAI [announced](https://openai.com/blog/introducing-gpts){target="_blank"} that users can now build custom versions of ChatGPT that are fine-tuned for specific purposes. I created the [Visualization Assistant for R](https://chat.openai.com/g/g-D8oBEyDNd-visualization-assistant-for-r){target="_blank"}, a GPT that specializes in producing animated and interactive graphs. The assistant can write code from scratch, modify code, find errors, and give the user a step-by-step guide for a specific task. I fed it advice from my own experience as well as vignettes and tutorials for `ggplot2`, `gganimate`, `plotly`, `highcharter`, and `shiny`. I also had it complete many tasks and uploaded transcripts of its successful responses to its knowledge base. Note that the bulk of the assistant's ability is already built-in to ChatGPT, and I simply provided it with extra instructions, resources, and examples that improve the base model. This GPT is public and free for ChatGPT Plus members, although ChatGPT Plus requires a subscription.
+
+Some examples of the uses for the bot are shown below on the right alongside the same prompts to ChatGPT Classic on the left. Both of these examples asked the bot to complete four main tasks: (1) add animation to a static `ggplot2` graph, (2) make the original graph interactive, (3) try a different approach for making it interactive, and (4) change the design of the interactive graph. ChatGPT Classic struggled with all of these tasks except the second one, which was the simplest to complete. With the other tasks, it often gave incorrect information and produced code with errors. I went back and forth with it to get it to correct itself, and many times I had to directly tell it what it was doing wrong (which defeats the whole point of using ChatGPT as a coding resource). Meanwhile, the Visualization Assistant for R completed each of these tasks correctly and efficiently on the first try.
+
+```{=html}
+<style>
+  #fig-gpt2 {margin: 40px 0 30px 0;}
+  #fig-gpt2 .figure .column-page-inset {margin-top: 0;}
+  .gpt-window {border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; max-height: 600px; overflow: scroll; padding: 40px 0; background: #f6f6f6;}
+  .gpt-window h2 {margin: 0 0 .2em 0; padding: 0; text-align: center; color: #1b5283; border: 0; letter-spacing: -.2px; font-size: 1.4em;}
+  .gpt-window .anchorjs-link {display: none;}
+  .gpt-title {margin-bottom: 0; font-size: 1.3em; text-align: center;}
+  .gpt-example .quarto-layout-cell {overflow-x: scroll; margin-right: 10px; padding: 0 10px 10px 10px;}
+  .gpt-example.column-page-inset {margin-bottom: 0;}
+  .gpt-example p, .gpt-example li {font-family: var(--bs-body-font-family) !important; margin-bottom: .7em !important; letter-spacing: 0 !important; line-height: 1.3em !important; font-size: .95em;}
+  .gpt-example img, .gpt-example .html-widget {background: white; overflow: hidden; border-radius: 5px;}
+  .gpt-example .html-widget {margin-bottom: 1em;}
+  .gpt-example .quarto-layout-cell>p {margin: 0;}
+  .gpt-example .chat-name {margin-top: 1.5em !important; color: steelblue; font-weight: bold; font-size: 1.05em;}
+  .gpt-message {border: 1px solid #ddd; border-radius: 5px; padding: 20px 20px 10px 20px; background: white; opacity: .85; box-shadow: 0px 0px 10px 0px rgba(0,0,0,.04); transition: .1s linear;}
+  .gpt-message:hover {opacity: .95;}
+  .shadow-top {height: 20px; margin-bottom: -20px; box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,.15); z-index: 1000 !important; position: relative;}
+  .shadow-bottom {height: 20px; margin-top: -20px; margin-bottom: 15px; box-shadow: inset 0px -11px 8px -10px rgba(0,0,0,.15); z-index: 1000; position: relative;}
+  .column-screen.border-top {margin-top: 50px;}
+</style>
+```
+::: {#fig-gpt2 .column-body}
+```{=html}
+<div class="shadow-top column-screen"></div>
+```
+::: {.gpt-window .column-screen}
+::: column-body
+```{=html}
+<h2>ChatGPT Classic vs. the Visualization Assistant for R</h2>
+<p style="text-align: center; margin-bottom: 0;">Comparing the performance of the base model and the custom GPT</p>
+<h3 class="gpt-title">Task 1: Add animation to a chart</h3>
+```
+::: gpt-example
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Animate this ggplot2 graph so that the lines are slowly revealed over time. Keep the y axis fixed but let the x axis zoom out through the animation. Replace the year range in the title with whichever year is being shown at a given time.
+
+```{r}
+#| echo: true
+#| fig.height: 4.125
+#| fig.width: 5.5
+#| out.width: 400
+#| out.height: 300
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+ggplot(vdem, aes(x=year, y=dem, color=country)) +
+  geom_line() +
+  labs(title="Democracy in three countries, 1787-2022", 
+       x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+```
+:::
+:::
+
+::: {.gpt-example .column-page-inset layout-ncol="2"}
+<div>
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+To create an animated version of your **`ggplot2`** graph with the specifications you described, you can use the **`gganimate`** package in R. This package allows for the creation of animations with **`ggplot2`** objects. I'll guide you through the steps, but please note that I can't execute the code myself.
+
+First, you'll need to install the necessary packages if you haven't already:
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("ggplot2")
+install.packages("gganimate")
+install.packages("transformr")
+```
+
+Then, you can use the following script to create your animated plot:
+
+```{r}
+#| echo: true
+library(ggplot2)
+library(gganimate)
+library(transformr) # for smooth transitions
+
+# Load your data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the ggplot
+p = ggplot(vdem, aes(x=year, y=dem, color=country)) +
+  geom_line() +
+  labs(x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Add the animation components
+p_animated = p +
+  transition_reveal(year) +
+  labs(title="Democracy in three countries, {frame_time}") +
+  coord_cartesian(ylim = range(vdem$dem), clip = "off") +
+  enter_grow() +
+  exit_shrink()
+
+# Create the animation
+anim <- animate(p_animated, nframes = 100, end_pause = 10, width = 400, height = 300)
+
+
+```
+
+```{r}
+#| echo: false
+#| fig.height: 2.5
+anim
+
+```
+
+This script will create a line plot where lines are gradually revealed over time. The **`transition_reveal(year)`** function handles the animation of the lines, revealing them as time progresses. The title is dynamically updated to display the current year with **`{frame_time}`**. The x-axis will automatically adjust to show the relevant years as the animation progresses.
+
+Please adjust **`nframes`**, **`width`**, **`height`**, and other **`animate`** parameters to suit your preferences for the animation's speed and size. Additionally, if you encounter any issues with package compatibility or versioning, ensure you have the latest versions installed.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Two issues:
+
+1.  The title literally says "{frame_time}" instead of the current year
+2.  The x axis is fixed and is not zooming out throughout the animation
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+I apologize for the confusion earlier. To address the issues:
+
+1.  To ensure the title displays the current year instead of **`{frame_time}`**, we should use **`frame_along`**, a special variable in **`gganimate`** that represents the current value along the animation's dimension (in this case, the year).
+2.  For the x-axis to zoom out throughout the animation, we need to modify the approach. Instead of using **`coord_cartesian`**, which keeps the axes fixed, we can use **`transition_manual`** along with **`cut()`** to create bins of years and animate the plot through these bins. This will create an effect where the x-axis expands to reveal more years over time.
+
+Here's how you can modify the code:
+
+```{r}
+#| echo: true
+#| error: true
+library(ggplot2)
+library(gganimate)
+
+# Load your data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create bins for years
+vdem$year_bin = cut(vdem$year, breaks = seq(min(vdem$year), max(vdem$year), by = 5), include.lowest = TRUE, right = FALSE)
+
+# Create the ggplot
+p = ggplot(vdem, aes(x=year, y=dem, color=country)) +
+  geom_line() +
+  labs(x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Add the animation components
+p_animated = p +
+  transition_manual(year_bin, along = vdem$year) +
+  labs(title="Democracy in three countries, {closest_state}") +
+  enter_grow() +
+  exit_shrink()
+
+# Create the animation
+anim <- animate(p_animated, nframes = 100, end_pause = 10, width = 400, height = 300)
+
+```
+
+In this updated version, the **`year_bin`** variable creates bins of years, and **`transition_manual`** animates through these bins, effectively zooming out the x-axis. The title now uses **`{closest_state}`** to display the year associated with each frame of the animation. Adjust the **`by = 5`** in the **`seq`** function within **`cut()`** to change the granularity of the year bins.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Error: Additional frame variables must have the same length as the number of frames In addition: Warning message: In lapply(row_vars\$frames, as.integer) : NAs introduced by coercion
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+I apologize for the confusion. The error you're encountering is likely due to the way the frame variables are being handled. We need to revise the approach for creating the animation. Let's focus on achieving the zooming out effect on the x-axis while keeping the y-axis fixed and correctly updating the title with the current year.
+
+Here's an updated approach using **`transition_time`** and **`ease_aes`**:
+
+```{r}
+#| echo: true
+#| error: true
+library(ggplot2)
+library(gganimate)
+
+# Load your data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the ggplot
+p = ggplot(vdem, aes(x=year, y=dem, color=country, group=country)) +
+  geom_line() +
+  labs(x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Define the range for the x-axis
+xrange <- range(vdem$year)
+
+# Add the animation components
+p_animated = p +
+  transition_time(year) +
+  ease_aes('linear') +
+  labs(title="Democracy in three countries, Year: {frame_time}") +
+  view_follow(fixed_y = TRUE) +
+  enter_grow() +
+  exit_shrink()
+
+# Create the animation
+anim2 <- animate(p_animated, nframes = 200, end_pause = 10, width = 400, height = 300, 
+                 renderer = gifski_renderer())
+
+
+```
+
+```{r}
+#| echo: false
+#| fig.height: 2.5
+anim2
+
+```
+
+This script uses **`transition_time(year)`** to animate the plot over time, with each frame representing a different year. The **`{frame_time}`** in the title dynamically updates to reflect the current year in each frame. The **`view_follow(fixed_y = TRUE)`** function is used to keep the y-axis fixed while allowing the x-axis to adjust dynamically. The **`ease_aes('linear')`** ensures a smooth transition between years. Adjust the **`nframes`** and other parameters in **`animate()`** to fine-tune the speed and appearance of your animation.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Now the graph is blank, the axis values look weird, and the xrange code is unused. Let's go back to transition_reveal(year) with "{frame_along}" in the title and view_follow(fixed_y = TRUE)
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+Understood. Let's revert to using **`transition_reveal(year)`** and incorporate **`view_follow(fixed_y = TRUE)`** to keep the y-axis fixed. We'll use **`{frame_along}`** in the title to display the current year. The **`xrange`** variable from the previous attempt will not be needed in this case.
+
+Here's the revised code:
+
+```{r}
+#| echo: true
+library(ggplot2)
+library(gganimate)
+
+# Load your data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the ggplot
+p = ggplot(vdem, aes(x=year, y=dem, color=country, group=country)) +
+  geom_line() +
+  labs(x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Add the animation components
+p_animated = p +
+  transition_reveal(year) +
+  labs(title="Democracy in three countries, Year: {frame_along}") +
+  view_follow(fixed_y = TRUE) +
+  enter_grow() +
+  exit_shrink()
+
+# Create the animation
+anim <- animate(p_animated, nframes = 200, end_pause = 10, width = 400, height = 300, 
+                renderer = gifski_renderer())
+
+```
+
+```{r}
+#| echo: false
+#| fig.height: 2.5
+anim
+
+```
+
+In this script, **`transition_reveal(year)`** reveals the lines over time, and **`view_follow(fixed_y = TRUE)`** ensures that the y-axis remains fixed while the x-axis adjusts to display the progressing years. The title is updated to show the current year with **`{frame_along}`**. Adjust the parameters in **`animate()`** to fine-tune the animation's duration and appearance.
+:::
+
+</div>
+
+<div>
+
+```{=html}
+<p class="chat-name">Visualization Assistant for R</p>
+```
+::: gpt-message
+To animate your **`ggplot2`** graph so that the lines are revealed slowly over time, while keeping the y-axis fixed and allowing the x-axis to zoom out, you can use the **`gganimate`** package in R. The **`transition_reveal()`** function is suitable for this purpose. Also, to display the year being shown at any given time in the title, you can use the **`{frame_along}`** special variable with **`labs()`**.
+
+Here's how you can modify your code:
+
+```{r}
+#| echo: true
+#| fig.height: 2.5
+
+# Load necessary libraries
+library(ggplot2)
+library(gganimate)
+
+# Read data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create animated plot
+animated_plot <- ggplot(vdem, aes(x = year, y = dem, color = country)) +
+  geom_line() +
+  labs(title = "Democracy in three countries, {frame_along}", 
+       x = NULL, y = "Electoral democracy", color = NULL,
+       caption = "The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values = c("#f1635c", "#52c494", "steelblue")) +
+  theme_light() +
+  transition_reveal(year) +
+  view_follow(fixed_y = TRUE)
+
+# Render the animation
+animate(animated_plot, nframes = 100, end_pause = 10, width = 400, height = 300)
+
+```
+
+This code will generate an animated plot where the lines for each country are revealed over time. The **`{frame_along}`** variable in the title will be replaced with the current year being displayed. The **`nframes`** parameter in the **`animate()`** function can be adjusted to change the smoothness and speed of the animation. Additionally, the **`view_follow(fixed_y=TRUE)`** function is used to keep the y-axis fixed while allowing the x-axis to adjust as needed.
+:::
+
+</div>
+:::
+
+```{=html}
+<div class="column-screen border-top"></div>
+<h3 class="gpt-title">Task 2: Add interactivity to a chart</h3>
+```
+::: gpt-example
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Make the original graph interactive
+:::
+:::
+
+::: {.gpt-example .column-page-inset layout-ncol="2"}
+<div>
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+To make your original **`ggplot2`** graph interactive, you can use the **`plotly`** package in R. **`plotly`** provides a function called **`ggplotly()`** that automatically converts **`ggplot2`** objects into interactive **`plotly`** objects. Here's how you can do it:
+
+First, make sure you have **`plotly`** installed. If not, you can install it using:
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("plotly")
+```
+
+Then, you can use the following script to convert your **`ggplot2`** graph into an interactive **`plotly`** graph:
+
+```{r}
+#| echo: true
+library(ggplot2)
+library(plotly)
+
+# Load your data
+vdem = read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the ggplot
+p = ggplot(vdem, aes(x=year, y=dem, color=country)) +
+  geom_line() +
+  labs(title="Democracy in three countries, 1787-2022", 
+       x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Convert to an interactive plotly object
+p_interactive = ggplotly(p)
+
+# If you are using RStudio, you can view the plot in the Viewer pane. 
+# Otherwise, you can use plotly::plotly_show(p_interactive) to display it in a web browser.
+p_interactive
+
+```
+
+This script creates an interactive version of your **`ggplot2`** graph. In an interactive plot, you can hover over points to see more information, zoom in and out, and pan around the plot. This is especially useful for plots with many data points, as it allows viewers to explore the data more closely.
+:::
+
+</div>
+
+<div>
+
+```{=html}
+<p class="chat-name">Visualization Assistant for R</p>
+```
+::: gpt-message
+To make your original **`ggplot2`** graph interactive, you can use the **`plotly`** package. This package allows you to convert **`ggplot2`** graphs into interactive **`plotly`** objects. You'll be using the **`ggplotly()`** function to accomplish this.
+
+Here's how to modify your code to create an interactive graph:
+
+```{r}
+#| echo: true
+
+# Load necessary libraries
+library(ggplot2)
+library(plotly)
+
+# Read data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the ggplot
+p <- ggplot(vdem, aes(x=year, y=dem, color=country)) +
+  geom_line() +
+  labs(title="Democracy in three countries, 1787-2022", 
+       x=NULL, y="Electoral democracy", color=NULL,
+       caption="The V-Dem Electoral Democracy Index") +
+  scale_color_manual(values=c("#f1635c", "#52c494", "steelblue")) +
+  theme_light()
+
+# Convert to an interactive plotly object
+ggplotly(p)
+
+```
+
+This code creates an interactive plot where you can hover over data points to see more information, pan, zoom, and much more. The **`ggplotly()`** function takes your **`ggplot`** object **`p`** and converts it into an interactive **`plotly`** object.
+:::
+
+</div>
+:::
+
+```{=html}
+<div class="column-screen border-top"></div>
+<h3 class="gpt-title">Task 3: Another way to make the chart interactive</h3>
+```
+::: gpt-example
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Can you give me another approach? Make it pretty
+
+The dataframe vdem is in long format at the country-year level and has no missing values, if that helps
+:::
+:::
+
+::: {.gpt-example .column-page-inset layout-ncol="2"}
+<div>
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+Certainly! Another approach to create an interactive visualization with your **`vdem`** dataset, especially since it's in long format and has no missing values, is to use the **`highcharter`** library in R. This library allows for the creation of high-quality, interactive charts based on Highcharts JavaScript library. Highcharter charts are often more visually appealing and have various interactive features.
+
+First, install the **`highcharter`** package if you haven't already:
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("highcharter")
+```
+
+Then, you can create an interactive line chart with the following script:
+
+```{r}
+#| echo: true
+
+library(highcharter)
+library(dplyr)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Preparing the data: Group by country and create a list of lists
+data_for_chart <- vdem %>%
+  group_by(country) %>%
+  summarise(data = list(list_parse(data.frame(year, dem)))) %>%
+  pull(data)
+
+names(data_for_chart) <- unique(vdem$country)
+
+# Create the highcharter object
+highchart() %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy")) %>%
+  hc_add_series_list(data_for_chart) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE)
+
+```
+
+In this script:
+
+-   **`highchart()`** initializes the Highcharts object.
+-   **`hc_title`**, **`hc_subtitle`**, **`hc_xAxis`**, and **`hc_yAxis`** are used to set the chart title, subtitle, and axes labels.
+-   **`hc_add_series_list`** adds the data to the chart. The **`data_for_chart`** is structured as a list of lists, where each sublist represents a country with its corresponding year and democracy index values.
+-   **`hc_colors`** sets the color scheme for the lines.
+-   **`hc_legend`** enables the legend.
+-   **`hc_tooltip`** configures the tooltip to show details when hovering over the chart.
+-   **`hc_exporting`** allows users to download the chart in various formats.
+-   **`hc_credits`** can be used to enable or disable the credits.
+
+This will create an interactive and aesthetically pleasing line chart, where users can hover over points to see details, zoom in/out, and even download the chart. Highcharter charts are responsive and look great in web applications or RMarkdown documents.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+This produces a blank graph, probably because you tried to preprocess the data even though I told you the data doesn't need any preparation
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+You're right; if the **`vdem`** dataset is already in a suitable format, additional preprocessing may not be necessary. Let's create the interactive plot with **`highcharter`** using your data directly. Here's a revised approach:
+
+```{r}
+#| echo: true
+
+library(highcharter)
+library(dplyr)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the highcharter object
+highchart() %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy")) %>%
+  hc_add_series(data = vdem, type = "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE)
+
+```
+
+In this script, **`hc_add_series`** is used to add the line series to the chart, with **`hcaes`** specifying how the variables in your dataframe map to the axes and grouping (by country) in the chart. This approach should directly utilize your data as is, without additional preprocessing steps.
+
+This will create an interactive line chart where each line represents a country. You can hover over the chart to see tooltips for specific data points, and the chart will be interactive with features like zooming and panning. The color scheme and other aesthetics can be adjusted as needed.
+:::
+
+</div>
+
+<div>
+
+```{=html}
+<p class="chat-name">Visualization Assistant for R</p>
+```
+::: gpt-message
+Certainly! If you're looking for an alternative approach to creating an interactive graph and want to make it visually appealing, you can use the **`highcharter`** package. This package offers a wide range of options for customization and produces elegant, interactive plots. Since your dataframe **`vdem`** is already in a suitable long format and has no missing values, it's a great fit for **`highcharter`**.
+
+Here's how you can create an interactive plot with **`highcharter`**:
+
+```{r}
+#| echo: true
+
+# Load necessary libraries
+library(highcharter)
+library(dplyr)
+
+# Read data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create a highcharter object
+hchart(vdem, "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_yAxis(title = list(text = "Electoral democracy")) %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_add_theme(hc_theme_google()) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_exporting(enabled = TRUE)
+
+```
+
+In this code:
+
+1.  **`hchart()`** is used to create a line plot. The **`hcaes()`** function specifies the aesthetics.
+
+2.  **`hc_title()`** and **`hc_subtitle()`** add a title and subtitle to the chart.
+
+3.  **`hc_yAxis()`** and **`hc_xAxis()`** customize the y-axis and x-axis.
+
+4.  **`hc_colors()`** sets custom colors for the lines.
+
+5.  **`hc_add_theme()`** applies a predefined theme (**`hc_theme_google()`** in this case) for a polished look.
+
+6.  **`hc_tooltip()`** and **`hc_legend()`** enhance the interactivity by enabling tooltips and a legend.
+
+7.  **`hc_exporting()`** allows users to export the chart in various formats.
+
+This will create an interactive and visually appealing chart, where users can hover over lines to see detailed information, zoom in and out, and export the chart if needed. The **`highcharter`** package excels in producing high-quality, interactive visualizations that are both informative and visually pleasing.
+:::
+
+</div>
+:::
+
+```{=html}
+<div class="column-screen border-top"></div>
+<h3 class="gpt-title">Task 4: Change the design of an interactive chart</h3>
+```
+::: gpt-example
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+What themes are available for highcharter?
+:::
+:::
+
+::: {.gpt-example .column-page-inset layout-ncol="2"}
+<div>
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+Highcharter, being an R wrapper for Highcharts, doesn't come with pre-defined themes in the same way that **`ggplot2`** does. However, Highcharter offers extensive customization options that allow you to create your own themes or modify existing ones. You can change colors, fonts, chart types, and more to create a look that suits your needs.
+
+Highcharts does offer a set of basic themes that you can use as starting points:
+
+1.  **Default Highcharts Theme**: The standard look of Highcharts, which is clean and professional.
+2.  **Gray Theme**: A gray-colored theme with soft tones.
+3.  **Grid Theme**: This theme uses a grid background.
+4.  **Dark Unica Theme**: A dark theme with a modern feel.
+5.  **Sand Signika Theme**: A light theme with a sandy color palette.
+6.  **High Contrast Dark Theme**: Ideal for presentations or dashboards that require a dark background.
+
+To use these themes in Highcharter, you can apply them using **`hc_add_theme()`**. Here's an example of how you would apply the "Dark Unica" theme:
+
+```{r}
+#| echo: true
+#| error: true
+
+library(highcharter)
+library(dplyr)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Apply a Highcharts theme
+hc_theme_darkunica <- highchart(type = "stock") %>% 
+  hc_add_theme(hc_theme_darkunica())
+
+# Create the highcharter object with the theme
+highchart() %>%
+  hc_add_theme(hc_theme_darkunica) %>%
+  hc_add_series(data = vdem, type = "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy")) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE)
+
+```
+
+In this example, the **`hc_theme_darkunica`** is applied to the chart. You can explore other themes by replacing **`hc_theme_darkunica`** with the name of another theme, like **`hc_theme_gridlight`** for the Grid theme.
+
+Remember, you can always create a custom theme by manually setting colors, fonts, and other chart properties to match your specific requirements or branding.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Error: The theme used is not from hc_theme class
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+I apologize for the confusion earlier. To correctly apply a Highcharts theme in Highcharter, you should use the **`hc_theme`** function that corresponds to the desired theme. However, it's important to note that not all Highcharts themes might be directly available in Highcharter. You can manually set or modify themes to some extent.
+
+Here's a revised example using one of the Highcharter themes. We'll use the **`hc_theme_darkunica()`** function, which should be available:
+
+```{r}
+#| echo: true
+
+library(highcharter)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the highcharter object with a theme
+highchart() %>%
+  hc_add_series(data = vdem, type = "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_xAxis(title = list(text = "Year")) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy")) %>%
+  hc_add_theme(hc_theme_darkunica()) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE)
+
+```
+
+In this script, **`hc_add_theme(hc_theme_darkunica())`** applies the "Dark Unica" theme to the chart. If this theme is not available or if you encounter an error, you may need to update your Highcharter package, or the theme might not be included in your version of Highcharter.
+
+If you want to explore other themes or create a custom one, you can manually adjust various properties of the chart, such as colors, font styles, and more. Highcharter allows for a great deal of customization, giving you the flexibility to create a chart that fits your specific needs.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Let's keep this theme but change the font to Source Sans Pro for each text element, keep it from making everything uppercase, and remove the axis title "Year" and the legend title "Country".
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+To customize the Highcharter plot with the specific font and style changes you mentioned, you can use a combination of Highcharter functions and custom CSS styling. Highcharter allows injecting CSS to alter the appearance of the chart. Here's how you can modify your chart:
+
+1.  **Change Font to Source Sans Pro**: You will need to ensure that the Source Sans Pro font is available for Highcharts to use. This can be done by adding a link to the font in the header of your HTML document (if you are using R Markdown or Shiny). However, in a standard R script, you cannot directly link to external fonts. You might need to use a web environment where you can control the HTML header for this step.
+
+2.  **Prevent Text from Being Uppercase**: We'll use custom CSS to prevent text transformation.
+
+3.  **Remove Axis Title "Year" and Legend Title "Country"**: These can be removed by setting the titles to **`NULL`** or an empty string in Highcharter functions.
+
+Here's the revised code:
+
+```{r}
+#| echo: true
+#| error: true
+
+library(highcharter)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Define custom CSS to change font and prevent uppercase text
+custom_css <- "
+.highcharts-title, .highcharts-subtitle, .highcharts-axis-labels, .highcharts-legend-item {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: none !important;
+}
+"
+
+# Create the highcharter object with a theme and custom CSS
+highchart() %>%
+  hc_add_series(data = vdem, type = "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022") %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index") %>%
+  hc_xAxis(title = list(text = NULL)) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy")) %>%
+  hc_add_theme(hc_theme_darkunica()) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_legend(title = list(text = NULL)) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE) %>%
+  hc_add_custom_css(custom_css)
+
+```
+
+Remember, the effectiveness of custom CSS depends on the environment where the chart is rendered. If you're rendering the chart in an environment where you can't control the HTML header (like a basic R script or R console), you might not be able to change the font to Source Sans Pro. However, the CSS should effectively prevent text from being transformed to uppercase, and the Highcharter functions will remove the specified axis and legend titles.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Error in hc_add_custom_css(., custom_css) : could not find function "hc_add_custom_css"
+:::
+
+```{=html}
+<p class="chat-name">ChatGPT Classic</p>
+```
+::: gpt-message
+Apologies for the confusion. **`hc_add_custom_css`** is not a standard function in the Highcharter package. My mistake. To customize the CSS in Highcharter, we'll need to take a different approach. You can use the **`hc_chart`** function to add custom CSS directly into the chart options. Here's how you can modify the chart with the updates you requested:
+
+```{r}
+#| echo: true
+
+library(highcharter)
+
+# Load your data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create the highcharter object with a theme
+highchart() %>%
+  hc_add_series(data = vdem, type = "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022", 
+           style = list(textTransform = "none", fontFamily = "Source Sans Pro")) %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index", 
+              style = list(textTransform = "none", fontFamily = "Source Sans Pro")) %>%
+  hc_xAxis(title = list(text = NULL)) %>%
+  hc_yAxis(title = list(text = "Electoral Democracy"), 
+           labels = list(style = list(fontFamily = "Source Sans Pro"))) %>%
+  hc_add_theme(hc_theme_darkunica()) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_legend(title = list(text = NULL), 
+            itemStyle = list(textTransform = "none", fontFamily = "Source Sans Pro")) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE, 
+             style = list(fontFamily = "Source Sans Pro")) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_credits(enabled = FALSE)
+
+```
+
+In this script:
+
+-   I removed the **`hc_add_custom_css`** function.
+
+-   For the title, subtitle, axis labels, legend, and tooltip, I set **`fontFamily`** to "Source Sans Pro" and **`textTransform`** to "none" to avoid uppercase transformation.
+
+Note: Highcharter will use the specified font (Source Sans Pro) if it's available in the client's environment where the chart is rendered. If you're deploying this in a web application or an R Markdown document, make sure to include the Source Sans Pro font in your HTML header or load it from a source like Google Fonts. In a standard R environment, the ability to load external fonts is limited.
+:::
+
+</div>
+
+<div>
+
+```{=html}
+<p class="chat-name">Visualization Assistant for R</p>
+```
+::: gpt-message
+Highcharter provides several themes to customize the appearance of your charts. These themes are designed to give your charts a distinct look and feel. Here's a list of themes available in the **`highcharter`** package:
+
+1.  **`hc_theme_smpl()`**: A simple and clean theme with a light background.
+
+2.  **`hc_theme_db()`**: Inspired by datablick.com, with a focus on clarity and readability.
+
+3.  **`hc_theme_538()`**: Based on the style of FiveThirtyEight charts.
+
+4.  **`hc_theme_alone()`**: A minimalistic theme with a focus on simplicity.
+
+5.  **`hc_theme_bloom()`**: Inspired by bloomberg.com, featuring a professional and modern look.
+
+6.  **`hc_theme_chalk()`**: A theme with a chalkboard style background, providing a unique and creative appearance.
+
+7.  **`hc_theme_darkunica()`**: A dark theme with high contrast and vibrant colors.
+
+8.  **`hc_theme_economist()`**: Mimics the style of The Economist's charts.
+
+9.  **`hc_theme_elementary()`**: A basic, elementary style theme.
+
+10. **`hc_theme_ffx()`**: A theme with a style similar to that of the Firefox browser.
+
+11. **`hc_theme_flat()`**: Offers a modern, flat design aesthetic.
+
+12. **`hc_theme_flatdark()`**: A dark version of the flat design theme.
+
+13. **`hc_theme_ft()`**: Styled after the Financial Times.
+
+14. **`hc_theme_ggplot2()`**: Emulates the look of ggplot2 charts.
+
+15. **`hc_theme_google()`**: Inspired by Google's visual design.
+
+16. **`hc_theme_gridlight()`**: Features a light grid background.
+
+17. **`hc_theme_handdrawn()`**: Gives charts a hand-drawn appearance.
+
+18. **`hc_theme_hcrt()`**: A highcharter default theme.
+
+19. **`hc_theme_monokai()`**: Based on the Monokai color scheme.
+
+20. **`hc_theme_null()`**: A basic theme with minimal styling.
+
+21. **`hc_theme_sandsignika()`**: Utilizes the Signika font with a sandy background.
+
+22. **`hc_theme_superheroes()`**: A theme with bold colors and a dynamic feel.
+
+23. **`hc_theme_tufte()`**: Based on the principles of Edward Tufte's data visualization.
+
+To use any of these themes, simply call the corresponding function within your highcharter chart creation code. For example, to apply the Google theme, you would use **`hc_add_theme(hc_theme_google())`**.
+
+These themes provide a quick and easy way to change the visual style of your charts, making them more suitable for your specific presentation or report needs.
+:::
+
+```{=html}
+<p class="chat-name">Nathan Morse</p>
+```
+::: gpt-message
+Let's use the darkunica theme but change the font to Source Sans Pro for each text element, keep it from making everything uppercase, and remove the axis title "Year"
+:::
+
+```{=html}
+<p class="chat-name">Visualization Assistant for R</p>
+```
+::: gpt-message
+To customize your highcharter plot with the **`hc_theme_darkunica()`** theme, while changing the font to "Source Sans Pro" for each text element, preventing text from being automatically transformed to uppercase, and removing the axis title "Year", you can use a combination of theme settings and style modifications. Here's how you can do it:
+
+```{r}
+#| echo: true
+
+# Load necessary library
+library(highcharter)
+
+# Read data
+vdem <- read.csv("https://nmorse.com/dissertation/data/vdem3.csv")
+
+# Create a highcharter object with customized theme
+hchart(vdem, "line", hcaes(x = year, y = dem, group = country)) %>%
+  hc_title(text = "Democracy in Three Countries, 1787-2022",
+           style = list(textTransform = "none", fontFamily = "Source Sans Pro")) %>%
+  hc_subtitle(text = "The V-Dem Electoral Democracy Index",
+              style = list(textTransform = "none", fontFamily = "Source Sans Pro")) %>%
+  hc_yAxis(title = list(text = "Electoral democracy"),
+           labels = list(style = list(fontFamily = "Source Sans Pro"))) %>%
+  hc_xAxis(title = list(text = NULL), # Remove "Year" title
+           labels = list(style = list(fontFamily = "Source Sans Pro"))) %>%
+  hc_legend(style = list(fontFamily = "Source Sans Pro")) %>%
+  hc_add_theme(hc_theme_darkunica()) %>%
+  hc_chart(style = list(fontFamily = "Source Sans Pro")) %>%
+  hc_colors(c("#f1635c", "#52c494", "steelblue")) %>%
+  hc_tooltip(shared = TRUE, crosshairs = TRUE, style = list(fontFamily = "Source Sans Pro")) %>%
+  hc_exporting(enabled = TRUE)
+
+```
+
+In this code:
+
+-   **`hc_title()`**, **`hc_subtitle()`**, **`hc_yAxis()`**, **`hc_xAxis()`**, **`hc_legend()`**, and **`hc_tooltip()`** are used to customize the text style and font.
+
+-   **`textTransform = "none"`** is set to prevent text from being automatically converted to uppercase.
+
+-   **`fontFamily = "Source Sans Pro"`** is set for all text elements to change the font.
+
+-   The x-axis title is removed by setting **`title = list(text = NULL)`** in **`hc_xAxis()`**.
+
+-   The **`hc_theme_darkunica()`** function is used to apply the Dark Unica theme, and then further customizations are applied on top of it.
+
+This code will create an interactive highcharter plot with the specified customizations, ensuring a unique and tailored appearance according to your requirements.
+:::
+
+</div>
+:::
+:::
+:::
+
+```{=html}
+<div class="shadow-bottom column-screen"></div>
+```
+Parallel conversations with [ChatGPT Classic](https://chat.openai.com/share/f596aae1-411d-46d5-a4c9-27f60f599975){target="_blank"} and the [Visualization Assistant for R](https://chat.openai.com/share/3b5fb536-f709-41e2-9cb6-f5728035c9ed){target="_blank"}, a custom GPT that specializes in producing interactive and animated graphs in R. The text and code displayed here were copied directly from the original conversations. The only modifications I made were to the `animate()` functions, where I adjusted the resolution and speed of the animated graphs. Note that the actual graphs were not displayed in the original conversations since ChatGPT cannot run R code.
+:::
+
+Going forward, custom GPTs like this one would be a useful resource for methodologists to help other researchers learn how to use tools they have developed. Custom AI bots combine the strengths of large language models---providing information and assistance tailored to each person's needs---while minimizing the weaknesses. Part of the reason AI bots struggle with advanced tasks in academic research is that most peer-reviewed publications are paywalled and were likely excluded from training data. Custom AI bots open the door to more advanced coding assistance. For example, when researchers develop a new statistical model, they often publish an article introducing the model and offering some applications, and they also release a package that can implement the model in R or another program. Nowadays, they could train a custom GPT on these materials within a few minutes, enabling users to generate personalized tutorials that are easier to navigate than methodological articles and more accurate than general AI bots.[^presenting-9]
+
+[^presenting-9]: Custom GPTs also seem to strengthen the base ChatGPT model too. Before building the Visualization Assistant for R, I gave ChatGPT a similar prompt as Task 3 in @fig-gpt2 ---give me a different approach to making an interactive graph in R besides `ggplotly()` in `plotly`---and it tried a different function in `plotly` and then a package called `dygraphs`. Later, after I started building the Visualization Assistant, I generated the ChatGPT Classic conversation shown in @fig-gpt2. It now suggests using `highcharter` and mentions that "Highcharter charts are often more visually appealing" than `plotly` charts. This is a personal opinion of mine that I mentioned in my instructions for the Visualization Assistant. I am not aware of any other sources explicitly stating this, so ChatGPT Classic may already be learning from my custom GPT. While ChatGPT Classic still struggles more than the Visualization Assistant when it comes to coding, it will likely become more powerful as more people use either version for help with these tasks.
+
+## Sharing visualizations on social media {#sec-viz-tiktok}
+
+Inspired by the viral TikTok video discussed in @sec-graph-theory, I started posting animated charts in a similar style on TikTok. Some videos were adapted from figures in this dissertation, and others use the same underlying data as a figure but in a different type of graph. The data sources, measurement choices, and other important details are discussed on a [documentation webpage](https://nmorse.com/videos/){target="_blank"} linked in my bio, along with the code used to produce the graphs. After uploading a video to TikTok, users can select a song to play in the background. This avoids copyright issues and encourages the app's algorithm to show the video to more people. Below are selected videos from my TikTok account. Altogether these videos have received around 30,000 views and more than 700 likes, which is low for TikTok but not bad for the beginning stages of an account.
+
+```{=html}
+<style>
+  .card.video {margin-bottom: 1.15em;}
+  .card.video video {max-width: 100%;}
+  .card.video .card-footer {background: white; border-top: 0;}
+  .card.video .card-footer a {font-size: .8em; color: #666;}
+  .card.video .card-footer a:hover {color: black; text-decoration: none !important;}
+  .card.video .card-footer .bi {font-size: .9em;}
+  .card.video .card-footer .bi:not(.bi-explicit):not(.bi-music-note-beamed) {margin-right: 4px;}
+  .figure .column-page-inset {margin-top: 3em; margin-bottom: 0;}
+  @media (max-width: 950px) {.hide-md {display: none;}}
+  @media (max-width: 767px) {.hide-md {display: inline;}}
+</style>
+```
+::: {#fig-tiktok}
+::: {.column-page-inset layout-ncol="3"}
+::: {.card .video}
+```{=html}
+<video controls autoplay muted loop><source src='https://nmorse.com/videos/reps_full.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7300707752001801515" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#map-of-parties-in-american-history" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/Soak-City-Do-it-7240878373467293697" target="_blank" data-bs-toggle="tooltip" data-bs-title="&ldquo;Soak City (Do it)&rdquo; by 310babii"><i class="bi bi-music-note-beamed"></i></a>
+  <a data-bs-toggle="tooltip" data-bs-title="This video has background music with explicit lyrics and is muted by default"><i class="bi bi-explicit"></i></a>
+</div>
+```
+:::
+:::
+
+::: {.card .video}
+```{=html}
+<video class="unmute" controls autoplay muted loop><source src='https://nmorse.com/videos/reps.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7299486251617652014" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#how-the-south-switched-sides" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/Deli-7257710214946375681" target="_blank" data-bs-toggle="tooltip" data-bs-title="&ldquo;Deli&rdquo; by Ice Spice"><i class="bi bi-music-note-beamed"></i></a>
+</div>
+```
+:::
+:::
+
+::: {.card .video}
+```{=html}
+<video class="unmute" controls autoplay muted loop><source src='https://nmorse.com/videos/parties.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7299226897819487531" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#which-party-is-more-extreme" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/After-Dark-Sped-U-7065369017216665602" target="_blank" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="&ldquo;After Dark (Sped Up)&rdquo; by Panmix<br>based on &ldquo;After Dark&rdquo; by Mr.Kitty"><i class="bi bi-music-note-beamed"></i></a>
+</div>
+```
+:::
+:::
+
+::: {.card .video}
+```{=html}
+<video class="unmute" controls autoplay muted loop><source src='https://nmorse.com/videos/vdem_rankings.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7299226655623515435" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#democracy-leaderboard-1792-present" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/Stronger-6927280243849824258" target="_blank" data-bs-toggle="tooltip" data-bs-title="&ldquo;Stronger&rdquo; by Kanye West"><i class="bi bi-music-note-beamed"></i></a>
+</div>
+```
+:::
+:::
+
+::: {.card .video}
+```{=html}
+<video class="unmute" controls autoplay muted loop><source src='https://nmorse.com/videos/unions.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7302103412726828330" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#unions-help-close-income-gaps" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/Way-Down-We-Go-Edit-Audio-7251530061554518018" target="_blank" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="&ldquo;Way Down We Go - Edit Audio&rdquo; by Kausak <br>based on &ldquo;Way Down We Go&rdquo; by KALEO"><i class="bi bi-music-note-beamed"></i></a>
+</div>
+```
+:::
+:::
+
+::: {.card .video}
+```{=html}
+<video class="unmute" controls autoplay muted loop><source src='https://nmorse.com/videos/vdem3.mp4' type='video/mp4'></video>
+```
+::: card-footer
+```{=html}
+<div class="d-flex gap-3 justify-content-center">
+  <a href="https://www.tiktok.com/@datanate/video/7299226482847550763" target="_blank"><i class="bi bi-tiktok"></i> View<span class="hide-md"> on TikTok</span></a>
+  <a href="https://nmorse.com/videos/#free-and-fair-elections-1789-present" target="_blank"><i class="bi bi-code-slash"></i>Details</a>
+  <a href="https://www.tiktok.com/music/The-Champion-7086103923752175617" target="_blank" data-bs-toggle="tooltip" data-bs-title="&ldquo;The Champion&rdquo; by Lux-Inspira"><i class="bi bi-music-note-beamed"></i></a>
+</div>
+```
+:::
+:::
+:::
+
+Animated charts posted on my TikTok account, [\@datanate](https://www.tiktok.com/@datanate){target="_blank"}. Many of these videos are adapted from figures in this dissertation. These videos include background music that becomes unmuted when hovering over them except when the music has explicit lyrics, marked by the <i class="bi bi-explicit" style="font-size: .8em; padding: 0 1px;"></i> icon at the bottom of the video. (TikTok videos with popular music tend to gain more traction, and many popular songs on TikTok are explicit.) Videos with explicit lyrics can be unmuted by clicking the volume button in the video controls. Hovering over the <i class="bi bi-music-note-beamed" style="font-size: .8em; padding: 0 1px;"></i> icon at the bottom of each video shows the song credits.
+:::
+
+I generally picked trending songs to play in the background and tried to line up the music with the motion of the graph in some way. In the "Map of parties in American history," rapper 310babii chants "left, right" for some reason, which conveniently mirrors the parties' movement to the left and right in the chart. The rapper then starts repeating the phrase "fuck it up" as tensions escalate toward the Civil War, which indeed fucked things up. After the war, he returns to his "left, right" chant as the parties return to their normal patterns. In other videos, I made the graph dance to the music. The bar graphs showing rankings of countries over time are good examples of this. The bars move around and then pause with each beat (to the extent possible).[^presenting-10] In the "Free and fair elections" line graph, a small ensemble gently sets the tone as the US and Sweden gradually democratize until a full orchestra chimes in just as democracy spikes in the two countries from a wave of reforms in the early 1900s. It's not clear how much these musical choices increased the videos' engagement, but they likely helped at least a little.
+
+[^presenting-10]: The graphs are slightly off-tempo because setting them to the exact pace was taking too much trial-and-error for it to be practical. I also suspect that either the songs or the animations do not keep exactly constant paces.
+
+Posting these videos on TikTok served as an exploratory field experiment of sorts. My goal was to both share information from my research and also learn how to design data visualizations for mass consumption. The videos with the farthest reach to date are "How the South switched sides" and the "Which party is more extreme?" graph. The comments on these videos were mostly negative---which was expected given the political nature of the content. Some comments simply disagreed with the chart or offered unhelpful critiques, but other comments were useful. Below, I outline several points that I gathered from these comments and the experience as a whole.
+
+1.  **Avoid using words with different meanings in everyday and scholarly contexts.** In "How the South switched sides," I labeled the horizontal axis with the word *liberal* to mean *left-wing*, following a more colloquial definition of the word. Several commenters implied that I must be an amateur for not knowing what that term means. Technically, *liberalism* is a family of ideologies centered around capitalism and democracy, which both parties in the US generally fall under. Even so, American politics scholarship often employs the word liberal as a synonym for left-wing and recognizes it as a valid definition in the US context. In recent decades, though, as frustrations with capitalism have risen, many left-wing Americans have dissociated from the word liberal. The more formal definition is becoming recognized more by the public. Many leftists didn't trust the graph because they didn't agree with the terminology. Right-wingers didn't seem to trust the graph either because they didn't agree with the substance. It would have been better to label the axis with "economically left" and "right" so that more people could trust it.
+
+2.  **Don't post graphs that require thorough explanation to understand.** Another issue with the "How the South switched sides" chart is that it appears to be a political compass, but DW-Nominate scores do not map on directly to a standard political compass with an economic left-right axis and a socially authoritarian-libertarian axis. The second dimension, graphed along the vertical axis, is particularly difficult to understand as it changes meaning and importance over time. Many commenters dismissed the graph's credibility because they expected the Democratic Party to be in the lower left quadrant and the Republican Party to be in the upper right quadrant. On a global scale, as other commenters pointed out, both parties would be in or near the upper right quadrant, more like the graph in the "Which party is more extreme?" video. Although I gave several indicators that this is not a standard political compass, I should have made this clearer. If I really could not find a way to efficiently explain what DW-Nominate scores represent to a lay audience, then perhaps this graph should not have been posted on a platform geared toward mass consumption.
+
+3.  **Understand that some people won't trust your content no matter what you do.** The "Which party is more extreme?" graph shows the ideological positions of major parties around the world, which were estimated with an algorithm that scanned party documents and identified patterns with minimal (but not zero) human bias. The subtitle was an attempt to summarize this, but it is not quite adequate. Commenters seemed to think that the ideological scores for each party were subjective ratings from someone's personal judgment. Perhaps I should have worked harder to make the methodology clearer, but I doubt it would have made a difference. Most skeptics likely began with the assumption that the data were inaccurate because they did not conform to their preexisting beliefs, and then they came up with a critique. If I made the methodology clearer, it simply would have changed the critiques people gave, not their opinions. And that's okay---videos do not need universal praise to be valuable.
+
+4.  **Embrace controversy.** Videos that are more controversial tend to reach more people since they invite more engagement from both critics and supporters. My most controversial video, not surprisingly, was the "Which party is more extreme?" graph. I intentionally titled it with a sensational question to grab people's attention. The graph shows much more than just the relative extremity of the two major parties in the US, but framing the video around this question encouraged viewers to comment if they disagreed with the main idea of the graph. As long as people are furiously debating a video in the comments, the app's algorithm will continue to show it to more viewers, helping it reach more people who do find value in it. By inviting controversy with a buzzworthy headline, my video has already gained nearly 14 times as many views as the journal webpage with the boring [*Political Analysis* article](https://doi.org/10.1093/pan/mps042){target="_blank"} introducing the methodology for the dataset used in the graph [@elff2013].
+
+5.  **But maybe don't embrace controversy when first starting an account.** TikTok briefly took down the "Which party is more extreme?" video at one point, presumably because several viewers reported the video for misinformation. These viewers probably just disagreed with the graph and didn't want to believe that the methodology was sound. The app reinstated the video after I noted in an appeal that the data come from peer-reviewed studies cited in both the graph and the [documentation webpage](https://nmorse.com/videos/){target="_blank"} linked in my bio.[^presenting-11] Engagement on the next posts plummeted. I suspect that TikTok's algorithm penalized my account for posting videos with reports of misinformation even though the moderators ultimately approved the main video in question. The dispute over this video likely would not have hurt my account so much if I already had a large following and many videos. Because it was only my third video, 33% of my posts at the time were flagged for misinformation (as far as I know). It's hard to come back from that, so I may have already reached a dead end with this account.
+
+[^presenting-11]: TikTok often [automatically removes](https://www.reuters.com/technology/tiktok-automatically-remove-content-that-violates-policy-2021-07-09/) videos that have been reported by multiple users, which human moderators can reverse upon appeal. I respect this practice and don't mind that my video was initially taken down. Misinformation spreads faster than human moderators can stop it, and TikTok takes a reasonable (although insufficient) approach at combatting this to some degree.
+
+In hindsight, I did not fully embrace two of the key suggestions made by @lee2021 for sharing visualizations on social media. First, I didn't engage with the audience enough. I only occasionally responded to comments—mostly to answer clarification questions—since I had neither the time nor the energy to get into back-and-forth debates with random people on the Internet. I also did not reply to other users' videos with my own response videos, known as "stiching" on TikTok, which is a common method for debunking misinformation. These practices, while tedious at times, are necessary for immersing oneself in the online information ecosystem (and for building a following). Second, my videos didn't give any indication of uncertainty. In many cases, I could have included error bars on graphs or clarified in the caption that the metrics shown are rough estimates and not to be taken as precise or objective. I hope that my experience provides lessons on what to do and what not to do when posting visualizations on social media.
+
+## The power of interactive publications {#sec-viz-publishing}
+
+Posting visualizations on social media platforms is the most direct way to share research to the public, but most platforms can only handle static images or videos of animated charts. To harness the full power of an interactive visualization, it has to be displayed in a webpage or app of some sort. A growing number of academic books (especially textbooks and methods guides) are now being published as interactive websites instead of or in addition to print versions. For example, one of the most popular resources for learning R, *R for Data Science*, is available as both a [print textbook](https://www.amazon.com/dp/1492097403){target="_blank"} and a [free web version](https://r4ds.hadley.nz/){target="_blank"} produced by Hadley Wickham and his colleagues [-@wickham2023] in RStudio.[^presenting-12] Web versions of print publications offer a number of advantages that are outlined in this section. However, they still don't usually stray far from their print versions to keep their content consistent, so most of their visualizations are static.
+
+[^presenting-12]: The first edition was produced with R Markdown and a package called [bookdown](https://bookdown.org/){target="_blank"} [@wickham2017].
+
+Academics are only beginning to explore the possibilities of fully interactive content that is free of printability constraints. In January 2024, a team of political scientists at Harvard released an "interactive methods non-textbook" which takes the power of interactive publications to a new level [@ayers2024]. Called [2K1-in-Silico](https://2k1.iq.harvard.edu/){target="_blank"}, this hands-on web app lets users simulate data and examine how methodological choices affect results. It demonstrates that understanding the data-generating process of a phenomenon is critical for properly specifying a model. To learn the same lessons without this tool, students would generally need at least intermediate programming skills so they can run these simulations themselves or they'd have to read lengthy written material that may not resonate as effectively with them.
+
+The app reminds me of a more elementary visualization titled "[Hack Your Way To Scientific Glory](https://fivethirtyeight.com/features/science-isnt-broken/#p-hacking-interactive)," which appeared in a FiveThirtyEight piece by Christie Aschwanden and Ritchie King [-@aschwanden2015]. The interactive graphic shows lay readers how easy it is for researchers to engage in "p-hacking," the practice of deliberately configuring a model to produce a desired result. Users can play around with different ways of measuring political power and economic performance until a regression model reports that the party in power has a statistically significant effect on the economy. The catch, of course, is that the model can suggest that Democrats are better for the economy *or* Republicans are better for the economy *or* neither one does better, depending on the user's choices. Again, the alternatives for demonstrating this point are to either describe it with words (which is not as compelling) or use a hands-on exercise that requires more technical expertise than the target audience has. These resources represent the state of the art of pedagogy, and they are only possible with interactive technology.
+
+Most researchers already have the tools needed to produce interactive documents. RStudio, the most common software interface for R, comes with two built-in programs that can easily produce HTML files. The first is [R Markdown](https://rmarkdown.rstudio.com/){target="_blank"}. In RStudio, users can click the new document button in the upper-left corner and select either "R Notebook" or "R Markdown..." to begin. After writing text and code to produce figures or tables, clicking the "Knit" button will convert the file into an HTML webpage. [Quarto](https://quarto.org/){target="_blank"} is the next-generation version of R Markdown, offering more built-in features, user-friendly syntax, and the ability to run Python code in addition to R code. Just like R Markdown documents, a Quarto document can be created from the new document menu (as long as RStudio is up to date), and an HTML webpage is produced by clicking the "Render" button. These webpages can then be published to the internet on free platforms such as [RPubs](https://rpubs.com/){target="_blank"}, [Quarto Pub](https://quartopub.com/){target="_blank"}, or [GitHub Pages](https://pages.github.com/){target="_blank"}. This way, authors can self-publish interactive articles or post online companions for print publications without the need for web development skills.
+
+### Advantages of interactive documents
+
+I define an *interactive document* as a webpage or another format that can hold dynamic content, in contrast to a *static document* such as a printed publication or PDF. I use the term *interactive publication* to refer to an interactive document that is formally published or self-published as its final form. Interactive documents include R Markdown notebooks, HTML working papers, digital books such as this dissertation, data dashboards, web apps, blog posts, and web versions of journal articles. Interactive documents offer many benefits over static publications.
+
+***Accessibility*****.** Webpages can include many features that make them easier to read and more accessible to a wider audience:
+
+::: ul-tight
+-   Text can be easily translated to easier reading levels or other languages by browser extensions or buttons included in the page.
+
+-   Many webpages also include buttons for adjusting the text size, font, and color scheme to help readers with visual impairments.
+
+-   Modern webpages are usually responsive to screen size, so they can fit phones and tablets without the need for back-and-forth horizontal scrolling.
+
+-   Webpages can include interactive graphics, which lets them harness all the accessibility benefits mentioned in @sec-viz-benefits as well.
+:::
+
+::: {.column-margin .quote-example}
+> ::: example-orig
+> Example of text that can be translated to a different reading level or language when the user clicks a button.
+> :::
+>
+> ::: example-weird
+> Un ejemplo de texto que se puede traducir a un nivel de lectura o idioma diferente cuando el usuario hace clic en un botón.
+> :::
+:::
+
+***Interactivity*****.** Webpages often feature many interactive tools that aid the reader's experience, including:
+
+::: ul-tight
+-   The table of contents can include links that jump the user straight to any section.
+
+-   Links can be included throughout the document, too, which jump the reader to figures (such as @fig-pol-inc) or sections (such as @sec-viz-benefits).
+
+-   Webpages produced in R Markdown and Quarto are automatically set so that the reader can read a footnote upon hovering over its superscript number in the text,[^presenting-13] and full citations can be viewed by hovering or clicking on in-text citations [@wickham2023]. Cited sources can then be viewed with a simple click.
+
+-   Collapsible blocks can display supplementary content directly in the article rather than in appendices to minimize disruption to the flow of reading.
+
+-   Dynamic visualizations such as interactive and animated charts bring all the advantages discussed in @sec-viz-benefits.
+:::
+
+[^presenting-13]: An example of a footnote.
+
+::: {.callout-note .column-margin .mt-0 collapse="true"}
+## Example of collapsible content
+
+Supplementary material can be displayed in collapsible boxes like this [callout block](https://quarto.org/docs/authoring/callouts.html){target="_blank"} instead of appendices at the end of the publication.
+:::
+
+***Reproducibility*****.** HTML documents can include built-in replication code throughout the text. Authors can leave code hidden by default and enable readers to show any chunk of code by clicking a button.[^presenting-14] Code chunks can be placed wherever they are relevant---data preparation when the data sources are introduced, model fitting when the methods are described, and any coding for visualizations by each figure. Following this practice, any working paper with built-in code is a pedagogical resource with applied examples of methods that would interest many readers. A reader who is curious about which function an author used to achieve a task or how the author customized a plot can simply expand the relevant code chunk rather than obtaining separate replication files, which may not be publicly available or neatly laid out.
+
+[^presenting-14]: This functionality is known as *code folding*, and it is easy to implement in Rmarkdown, Quarto, and similar programs.
+
+::: column-margin
+```{r}
+#| echo: true
+#| eval: true
+x = "Example"
+y = "collapsible"
+z = "code."
+print(paste(x, y, z))
+```
+:::
+
+***Transparency*****.** Including collapsed replication code within interactive working papers and publications greatly increases the chances that the code will be seen by others. That, in turn, makes it easier for readers to spot errors, discourages p-hacking, encourages authors to keep their code user-friendly, and therefore improves accountability. Furthermore, web-based working papers can include interactive charts, bringing all the same transparency benefits discussed in @sec-viz-benefits.
+
+***Customizability*****.** Authors often produce PDF versions of their working papers with LaTeX, which can be frustrating to learn for beginners. While programs like R Markdown and Quarto can generate PDFs using LaTeX and webpages using HTML and CSS, any advanced formatting beyond the default settings does require some basic knowledge of the respective markup languages. Simple tasks such as adjusting the font size of captions or the spacing between lines are clean and straightforward with CSS, whereas they often require packages with odd names and syntax in LaTeX. Reference guides are also much more common and user-friendly for HTML and CSS---a Google search for "html tutorial" returns 8 billion results while a search for "latex tutorial" returns a mere 43 million. Webpages are more powerful *and* easier to customize than LaTeX-generated PDFs.
+
+***Versatility*****.** Webpages can be printed, but PDFs cannot be interactive. The fact that PDFs can only hold static content while webpages can hold both static and interactive content speaks further to the utility of interactive documents. Webpages can be printed and saved as PDFs, but PDFs cannot be turned into interactive webpages. Admittedly, the formatting of a webpage often becomes messed up when printed: content is sometimes cut off, the font size can be so large that a small article feels like a novel when printed, the font size can be too small to read, and in general it's not a pleasant experience reading a printed webpage. To get around this, authors can include a properly formatted PDF version linked on a webpage.
+
+### Limitations of interactive documents
+
+One of the clearest limitations of using interactive media to present academic scholarship is that it is not as permanent as print media. A variety of issues can arise that researchers must take into account when producing dynamic visualizations and publications.
+
+***Discontinued software.*** Interactive content is built on technology that is not guaranteed to work in the future. Adobe Flash Player, for example, was once a nearly universal plugin that powered games, animations, and other content for hundreds of millions of users. Despite its ubiquity in the 2000s, the software was retired in 2020, rendering all Flash content unusable unless it was manually converted to a newer format [@fiadotau2020]. Nowadays, the programming language JavaScript powers interactive content on [99% of the Internet](https://w3techs.com/technologies/details/cp-javascript){target="_blank"}---including the interactive graphs in this dissertation---but it could face a similar downfall in the future. Douglas Crockford, a prominent programmer who helped develop and popularize JavaScript, has [warned](https://www.youtube.com/watch?v=lc5Np9OqDHU&t=1s){target="_blank"} that websites should stop using it and shift to more efficient languages. JavaScript content would probably still work long after it loses popularity because it isn't proprietary software like Flash, but it could still run into problems eventually. Any software or package powering interactive content could someday become obsolete no matter how widely used it is, whereas static images and documents could last forever.
+
+***Lack of peer reviewed outlets for interactive content.*** Journals and book publishers usually only accept printable material, so dynamic content must be hosted on platforms where it is not subject to peer review.[^presenting-15] Authors could place dynamic content into an online appendix accompanying a print article, but supplementary material is not always verified by reviewers and is rarely accessed by readers. Publishing content in mass media outlets or personal websites could give the impression that it is not rigorous enough to pass peer review. These challenges make it difficult for dynamic media to gain legitimacy and attention from scientific communities.
+
+[^presenting-15]: The only outlet I could find that peer reviews dynamic media is the [Journal of Visualized Experiments](https://www.jove.com/), an e-journal that publishes videos rather than articles, but it does not accept any other media such as interactive graphs or dynamic webpages.
+
+***Uncertain future of websites and platforms.*** Hosting content online rather than in print presents several challenges: first, even if the software powering the interactive content is supported far into the future, the website on which the material is hosted could be taken down anytime. Second, the individual page or document could be removed. Third, the URL could change, making it difficult for readers of the print article to access the online material. Unavailability of online supplementary materials is a common problem across disciplines, and over-reliance on it could make scientific research more difficult to access [@gertler2017; @evangelou2005; @schaffer2004; @williams2016].
+
+***Lack of accountability over modifications after publication.*** Material hosted on a third-party website can be edited by the author without proper documentation. Authors could manipulate their work without updating the date of last modification to erase evidence of errors.[^presenting-16] Even if an author modifies online material with good intentions, failure to include previous versions or at least indicate that the material has been modified can confuse readers who are reading a publication that references an earlier version of the online material.[^presenting-17] Situations like these could erode trust both within the scientific community and between it and the public.
+
+[^presenting-16]: Consider a scenario where an author posts a bar graph with a misleading scale in an online appendix. The graph gives the appearance that there is a much greater distance between the two bars than there really is. After critics on social media point out the problematic scale, the author updates the appendix with a corrected graph. However, the appendix keeps the original date and has no indication that it has been modified. The author then accuses their critics of doctoring screenshots of the graph for the sake of discrediting the author.
+
+[^presenting-17]: Imagine that an author posts a set of regression models in an online appendix, one of which another author references in a later article. After these articles are published, the author re-fits the models with slightly different data and finds consistent results for their variables of interest, so they update their online appendix. However, the estimates for the variables cited in the later article have reversed from positive to negative. The online appendix has no indication of modification, so future readers are confused and assume that the second author misinterpreted the results.
+
+### Recommendations for publishing interactive documents
+
+The limitations discussed here do not mean scholars should avoid using interactive content and online materials; rather, these issues point to the need for careful adherence to responsible standards. I recommend the following practices for online academic media:
+
+1.  **Interactive content should be used primarily for shorter-term goals such as influencing public opinion, informing policymakers, and pedagogy.** Because of their limited shelf life, interactive figures are not the place to store information for centuries to come. They should be geared toward communicating information to readers for the next 10 to 20 years.[^presenting-18] Studies that could have long-term implications can still be presented with interactive content, but they may need to be paired with companion pieces in print journals to preserve their findings far into the future.
+
+2.  **If possible, post a PDF version of interactive publications.** Many people prefer to read hard copies, especially for books or articles they want to read closely. Webpages can be printed, but their formatting can be messed up when printing. Providing PDF versions encourages a wider audience of people to read an article. If a document has interactive content that cannot be fairly represented by a static image, the PDF version could have a summary and link to the online version as a placeholder.
+
+3.  **Documentation for interactive media should be stored in a PDF.** If a document is so interactive that a PDF version wouldn't make sense, it may be useful to at least describe the content, methodology, and data sources in a PDF (or another format with a longer life expectancy as the software powering the interactive content). This way, the content could be replicated if it ever becomes lost or broken beyond repair.
+
+4.  **Online content should be hosted on established repositories or personal websites.** A 2017 study found that a majority of all links to supplementary materials published in the *American Political Science Review* between 2000 and 2013 were now broken [@gertler2017]. Contrary to what one may expect, links to institutional websites were *more* likely to be broken than links to personal websites (even when hosted on institutional servers). Perhaps this is because each author is more protective of their own content than is the staff for institutions where they may not even work anymore. Wherever online materials are hosted, authors should strive to make sure the link will work for at least 10 years, ideally more.
+
+5.  **Use virtual environments when producing content with programming languages.** Virtual environments store the current versions of all the packages used to produce a project so that authors can produce exact replications of their past work even if the packages have changed. R users can use the [`renv`](https://rstudio.github.io/renv/index.html){target="_blank"} package to create virtual environments.
+
+6.  **Authors should inspect their content at least once a year.** Interactive content can change in appearance or even stop working as software, packages, and other dependencies are updated or retired. Issues can compound over time to the point where the content is not salvageable. Routine maintenance helps authors catch issues early on so their content can last longer into the future.
+
+7.  **All modifications to online content should be dated.** To avoid the issues mentioned earlier, any online material---appendices, digital working papers, visualizations---should clearly indicate the date it was last modified. Ideally, previous versions should be accessible too.
+
+[^presenting-18]: The 10-year benchmark was chosen because Adobe Flash Player was retired around 10 years after the first major sign that it was on the decline. Flash was steadily rising with no end in sight until Steve Jobs published a letter criticizing it in 2010, which @fiadotau2020 called the "beginning of the end" for Flash. 10 years later, Adobe discontinued support for Flash.
+
+Interactive media may not last forever, but it is not supposed to. It helps convey information for the near future. However, by following the steps listed here, authors can minimize the risks and maximize the lifespan of their interactive content.
+
+## Conclusion {#sec-viz-conclusion}
+
+Data visualizations are the most promising means through which academics can connect with wider audiences. Social science knowledge has been growing more complex, but the media with which social scientists visualize data have remained static (literally). Now more than ever, scholars need to catch up and embrace modern data visualization methods, yet they have very little incentive to do so. Most figures in academic work have to be static so they can fit in physical books even though most readers access these publications digitally. Although journal articles (and many books) are now posted online as both PDFs and interactive webpages, the content on the web version generally has to match the content in the PDF and print version. Hence, while web versions of print publications are technically interactive documents, their content is still constrained by what can fit in a static document. Granted, PDFs are useful for printing hard copies and preserving scholarship long into the future. But forcing peer-reviewed content to be static and printer-friendly comes with a large opportunity cost. This chapter only scratches the surface of the advantages to using more modern media. Interactivity enables scholars to make their research more accessible to more people, easier to understand, more effective at changing people's minds, more transparent, and more informative than static content.
+
+Valuing data visualizations as products in and of themselves opens the door to even more opportunity for growth. Many research programs would benefit from treating static peer-reviewed publications as a means to an end—an intermediary step where scholars hash out nuanced debates among themselves and document methodological details that most people don't need to know—and treating visualizations, webpages, and social media posts as the final products. While researchers often take the initiative to post visualizations on public platforms anyway, they often struggle to design and discuss them effectively. They also tend to engage in these activities as a hobby or afterthought—motivated by an altruistic sense of duty to spread information or a personal desire for social media followers—since they don't necessarily get much of a payoff from this work in their careers. Traditional publications still hold far more weight on their CVs, which discourages researchers from putting significant effort into content that's more accessible and engaging to the public.
+
+Luckily, as this chapter has shown, sharing knowledge with dynamic visualizations takes less effort than one might expect. It takes just a few minutes to learn how to turn a simple plot into an interactive one, and AI tools such as the [Visualization Assistant for R](https://chat.openai.com/g/g-D8oBEyDNd-visualization-assistant-for-r){target="_blank"} make this process even easier. Researchers can independently post visualizations related to their work on social media platforms, personal websites, online repositories like RPubs, and news outlets. Working papers can also be circulated as HTML files instead of (or in addition to) PDFs so they can include dynamic media. Any figures from these manuscripts that cannot be included in the official publication can be posted in interactive webpages that serve as online appendices in lieu of PDFs. Anytime researchers introduce a new dataset, they can post interactive dashboards in addition to raw daw files, a practice that is already fairly standard for datasets hosted by large institutions.
+
+Even with the ease and utility of producing dynamic media, researchers may still feel that it brings a low return on investment careerwise. Going forward, academic departments and organizations could offer more institutional incentives for publishing in non-traditional formats. They could place a greater weight on this content and social media presence when reviewing applicants for career advancements. PhD programs could provide more training on designing quality visualizations and engaging with the public. These practices don't just benefit the public; they could also help address some of the challenges that academic disciplines are facing internally. Graduate students and early-career academics often struggle to find novel research questions (or old questions worth revisiting with more novel methods). On top of the fact that most of the low-hanging fruit has already been picked by now, more people than ever are publishing academic research. Young researchers often find themselves in a dilemma where they can only study either extremely specific topics that they may not find particularly interesting or big-picture topics on which they lack the experience needed to make a credible contribution to the literature. Now that there's such a pressing need for content that carefully summarizes high-level research with simple language and visuals, a role best served by academics, producing novel research does not need to be as high of a priority anymore. Repackaging existing research for wider audiences is valuable too.
+
+Likewise, academic publishers could gradually shift toward accepting more interactive content. Webpages could serve as the primary versions of articles while PDFs and print copies serve as secondary versions. Or, instead of releasing web and print formats of the same content, journals could encourage authors to split their projects into two separate components that are both peer reviewed: an interactive webpage with visualizations and key findings (similar to the [Visual Summary](https://nmorse.com/dissertation/#visual-summary) on the homepage of this dissertation) and a static article with documentation of the theory, data, and methods used to produce the content on the webpage. Under the traditional model of academic publishing which has dominated the industry since the rise of the Internet, content that appears in print is the main component of a study while online materials are supplementary. Nowadays, it makes more sense to flip this around.
+
+Given the lack of institutional incentives for scholars to prioritize modern media formats, the erosion of public trust in science is understandable. There are of course many more reasons why academia has lost its legitimacy in some people's eyes, but data visualizations hold the key to restoring this legitimacy. They help experts show, not tell, their knowledge without relying on appeals to authority or references to inaccessible research. Yet academics have only begun to embrace the power of data visualizations in public discourse. Videos and interactive graphs are getting people's attention while static content is not. These media are the most powerful tools at researchers' disposal for communicating ideas among themselves and to the public. One might even say that researchers don't really have a choice if they want the public to listen to them; this is how people learn about data now. A whole new ecosystem of amateur science has developed on social media, centered around misleading data visualizations. People want this kind of content, and they need it from the best sources. Science can either adapt or continue falling out of relevance. Misinformation is going viral everywhere now, and it can't be fought with paywalled PDFs.
+
+```{=html}
+<script>
+// Initialize tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+// Unmute videos upon hovering
+document.querySelectorAll('.unmute').forEach(function(video) {
+  video.addEventListener('mouseenter', function() {
+    this.muted = false;
+  });
+
+  video.addEventListener('mouseleave', function() {
+    this.muted = true;
+  });
+});
+
+// Add translate buttons to quotes and switch between original and modern translations
+document.addEventListener('DOMContentLoaded', function() {
+  const blockquotes = document.querySelectorAll('.quote-example');
+
+  blockquotes.forEach(blockquote => {
+    const quoteOrig = blockquote.querySelector('.example-orig');
+    const quoteModern = blockquote.querySelector('.example-weird');
+
+    // Create and append the .show-modern link to .quote-orig
+    const showModernLink = document.createElement('a');
+    showModernLink.className = 'show-modern';
+    showModernLink.innerHTML = '<i class="bi bi-translate"></i>';
+    showModernLink.setAttribute('data-bs-toggle', 'tooltip');
+    showModernLink.setAttribute('data-bs-title', 'Español');
+    quoteOrig.appendChild(showModernLink);
+
+    // Create and append the .show-orig link to .quote-modern
+    const showOrigLink = document.createElement('a');
+    showOrigLink.className = 'show-orig';
+    showOrigLink.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
+    showOrigLink.setAttribute('data-bs-toggle', 'tooltip');
+    showOrigLink.setAttribute('data-bs-title', 'English');
+    quoteModern.appendChild(showOrigLink);
+    
+    // Initialize tooltips for the newly added links
+    new bootstrap.Tooltip(showOrigLink);
+    new bootstrap.Tooltip(showModernLink);
+  });
+
+  document.body.addEventListener('click', function(event) {
+    const target = event.target;
+
+    const showOrigLink = target.closest('.show-orig');
+    const showModernLink = target.closest('.show-modern');
+
+    if (showOrigLink || showModernLink) {
+      event.preventDefault();
+
+      const blockquoteElem = target.closest('.quote-example');
+      const quoteOrig = blockquoteElem.querySelector('.example-orig');
+      const quoteModern = blockquoteElem.querySelector('.example-weird');
+
+      if (showOrigLink) {
+        quoteOrig.style.display = 'block';
+        quoteModern.style.display = 'none';
+      } else if (showModernLink) {
+        quoteOrig.style.display = 'none';
+        quoteModern.style.display = 'block';
+      }
+    }
+  });
+});
+
+</script>
+```

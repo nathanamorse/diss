@@ -1,0 +1,609 @@
+# American Politics in Perspective {#sec-viz}
+
+---
+subtitle: A Bird's-Eye View of Institutions, Ideology, and Inequality in the United States and Abroad
+abstract: >
+  This chapter is a visual summary of Part II of this dissertation. It is built around visualizations rather than text and is designed for public consumption. The six visualizations featured here (two from my master's thesis and one from each empirical chapter of this dissertation) altogether tell a story about why the United States became one of the most polarized and unequal societies in the democratic world. The main argument is that American political institutions amplify division and inequality by the nature of their design. Most countries routinely adapt their economic strategies and constitutions to the changing world, but such updates are needlessly difficult in the United States. While the current era of polarization was set off by Southerners shifting their ideology in response to social progress, its intensity and persistence are products of the equal representation of states in the Senate, an outdated election system, and an elite-run amendment process. Modernizing the Constitution would go a long way to heal American democracy and society. It's not clear how to make this happen, though, because the political system's resistance to change is both the problem that needs to be reformed and the obstacle preventing reform.
+---
+
+::: column-body
+{{< include _data.qmd >}}
+
+```{r}
+load("figures/main-figs.Rdata")
+```
+:::
+
+::: {.column-body style="padding-top: 50px;"}
+:::
+
+```{=html}
+<style>
+
+  /* Figure headings */
+  h3 {font-family: var(--bs-body-font-family); font-size: 18px; text-transform: uppercase; letter-spacing: 1px; color: #595959; margin-top: 0;}
+  .figure-caption {margin-bottom: 0;}
+  .figure-section {border-top: 1px solid #ddd; padding: 100px 0 80px 0;}
+  .figure-section p:not(.tippy-content p) {font-size: 1.2em; line-height: 1.35em; margin-bottom: 2em;}
+  .figure-section p a {color: steelblue;}
+  .figure-section p a:hover {color: black; text-decoration: underline;}
+  
+  /* Figure 2 */
+  #fig-ideology-inequality .highchart.html-widget {height: 500px !important;}
+  
+  /* Figure 3 */
+  #fig-world-parties .highchart.html-widget {height: 600px !important;}
+  #fig-world-parties .highcharts-legend {transition: .15s linear;}
+  #fig-world-parties .highcharts-legend:hover rect {fill: rgba(255, 255, 255, 1);}
+  #fig-world-parties .highcharts-plot-line-label {font-size: 1.25em;}
+  #fig-world-parties .figure-caption {margin-top: 20px;}
+  .shadow-top {height: 20px; margin-bottom: -20px; box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,.1); z-index: 1000; position: relative;}
+  .shadow-bottom {height: 20px; margin-top: -20px; box-shadow: inset 0px -11px 8px -10px rgba(0,0,0,.1); z-index: 1000; position: relative;}
+  .highcharts-tooltip p.country-year {font-size: 1em !important; margin: 0 0 5px 0 !important; color: #555 !important; text-align: center !important;}
+  .highcharts-tooltip p.rankings {font-size: 1.1em !important; margin: 0 0 5px 0 !important; color: #444 !important;}
+  .highcharts-tooltip p.sample {font-size: 1em !important; margin: 0 0 5px 0 !important; color: #777 !important; text-align: center !important;}
+  #play-controls {left: 10px;}
+  #play-pause-button {border-radius: 50%; transition: .1s linear;}
+  #play-pause-button:hover {background: #eeeeee; color: #444; border: 1px solid #aaa;}
+  #play-pause-button.bi::before {padding-left: 1px;}
+  
+  /* Figure 4 */
+  #fig-const2 iframe {height: 640px; width: 100%; overflow-y: hidden; margin-top: 30px;}
+  @media (max-width: 853px) {#fig-const2 iframe {height: 800px}}
+  @media (max-width: 626px) {#fig-const2 iframe {height: 1080px}}
+  
+  /* Figure 5 */
+  #fig-const-design iframe {height: 750px; width: 100%; overflow-y: hidden; margin-top: 30px;}
+  @media (max-width: 843px) {#fig-const-design iframe {height: 1380px}}
+  .table {font-size: .9em; line-height: 1.3em;}
+  .table caption {margin-top: .5em;}
+  
+  /* Figure 6 */
+  #fig-oecd2 iframe {height: 690px; width: 100%; overflow-y: hidden; margin-top: 30px;}
+  @media (max-width: 853px) {#fig-oecd2 iframe {height: 1050px}}
+  @media (max-width: 626px) {#fig-oecd2 iframe {height: 1340px}}
+  
+  /* Footnotes */
+  #footnotes {padding-top: 40px;}
+  #footnotes hr {display: none;}
+  
+</style>
+```
+::: {.figure-section .column-screen}
+### 1. Party sorting in the twentieth century {.unnumbered .flex-fill}
+
+Over the course of the twentieth century, the South went from being the most economically liberal faction in Congress to being the most economically conservative. Many Southerners had [supported a fair amount](http://www.jstor.org/stable/41881663 "<div class='ref d-flex gap-2'><i class='bi bi-journal-text'></i><p>DeJanes, R. Benneson. “<b>The Ex-Post Facto Effect: Southern Support for the New Deal</b>.” <i>International Social Science Review</i> 60, no. 4 (1985): 153–59.</p></div>"){target="_blank" data-bs-toggle="tooltip" data-bs-html="true"} of early progressive reforms and New Deal programs because they brought [much needed economic relief](http://www.jstor.org/stable/j.ctt130j2h9.8 "<div class='ref d-flex gap-2'><i class='bi bi-journal-text'></i><p>Biles, Roger. “<b>Relief and employment</b>.” In <i>The South and the New Deal</i>, 58–82. University Press of Kentucky, 1994.</p></div>"){target="_blank" data-bs-toggle="tooltip" data-bs-html="true"} to whites while carefully [excluding people of color](https://www.epi.org/publication/the-color-of-law-a-forgotten-history-of-how-our-government-segregated-america/ "<div class='ref d-flex gap-2'><i class='bi bi-journal-text'></i><p>Rothstein, Richard. <b><i>The color of law: A forgotten history of how our government segregated America</i></b>. Liveright Publishing, 2017.</p></div>"){target="_blank" data-bs-toggle="tooltip" data-bs-html="true"}.[^viz-1] As explicit racial discrimination was slowly struck down through laws and court decisions, Southerners lost interest in these programs and became [attracted to the economic conservatism](https://doi.org/10.1093/oso/9780190265960.001.0001 "<div class='ref d-flex gap-2'><i class='bi bi-journal-text'></i><p>Maxwell, Angie, and Todd Shields. <b><i>The Long Southern Strategy: How Chasing White Voters in the South Changed American Politics</i></b>. Oxford University Press, 2019.</p></div>"){target="_blank" data-bs-toggle="tooltip" data-bs-html="true"} on the other side of the aisle.[^viz-2]
+
+::: {#fig-party-sorting .fig-img}
+::: column-body-outset
+```{=html}
+<video playsinline autoplay muted loop><source src='https://nmorse.com/research/congress/anim_cong.mp4' type='video/mp4'></video>
+```
+```{r eval=FALSE, echo=FALSE}
+knitr::include_graphics('figures/cong1971.png')
+```
+:::
+
+This figure, taken from Figure 2 of my master's thesis [@morse2021], shows the ideological distributions of members of the House and the Senate based on roll-call voting. Each dot represents a member of Congress. The $x$-axis is dimension 1 of Poole and Rosenthal's [-@poole2017] [DW-Nominate](https://voteview.com/congress/house){target="_blank"} ideal points, which generally covers issues of socioeconomic welfare; the $y$-axis is dimension 2, which generally covers civil rights issues. Members representing states in the South are shown as pink regardless of party affiliation, whereas the dividing lines were only based on party affiliation. The slopes for the dividing lines were computed using linear discriminant analysis, which finds the boundary line that maximizes the separation between the two parties. In most browsers, you can right-click on the graphic and click "Show controls" to enable the pause button and progress bar. Data source: Voteview [@voteview]. Produced in R with `ggplot2` and `gganimate`.
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+
+#----- Setup -----#
+library(tidyverse)
+library(ggplot2)
+library(gganimate)
+
+# Function to calculate slope of separation line
+lda_line = function(dim1, dim2, group) {
+  ld = MASS::lda(group ~ dim1 + dim2) # linear discriminant analysis
+  b1 = ld$scaling[1] # extract coefficients for dim1
+  b2 = ld$scaling[2] # extract coefficients for dim2
+  slope = -b1/b2 # calculate slope
+  angle1 = atan(slope) * 180/pi # convert to radians then degrees
+  angle2 = ifelse(angle1<0, 90+angle1, -90+angle1) # rescale for continuity
+  list(`b1`=b1, `b2`=b2, `slope`=slope, `angle`=angle2)
+}
+
+# Slopes for separation lines
+lines = id_members %>%
+  group_by(year, chamber) %>%
+  summarise(
+    
+    # Determine majority party
+    majority = getmode(party),
+    
+    # Slope of separation line between parties
+    slope = lda_line(dim1, dim2, party)$slope,
+    angle = lda_line(dim1, dim2, party)$angle) %>%
+  
+  arrange(chamber, year) %>%
+  ungroup()
+
+
+#----- Animated plot -----#
+anim_cong = ggplot(id_members, aes(x=dim1, y=dim2)) +
+  
+  # Dots and contours
+  geom_point(aes(group=icpsr, color=faction), 
+             alpha=0.6, show.legend=FALSE) +
+  stat_density_2d(aes(fill=faction), geom="polygon", size=0, alpha=.4) +
+  
+  # Separation line
+  geom_abline(data=lines, aes(intercept=0, slope=angle), 
+              size=0.5, alpha=0.5) +
+  
+  # Year labels
+  geom_text(data=lines, 
+            aes(label=as.character(year), color=majority, group=chamber),
+            x=.9, y=.9, hjust=1, show.legend = FALSE, check_overlap = TRUE, 
+            family="Source Sans Pro", size=5) +
+  
+  # Party name labels
+  geom_text(data=id_factions, aes(x=d1_x, y=d2_x, group=faction, label=faction), 
+            fontface="bold", color="black", family="Source Sans Pro",
+            check_overlap=TRUE) +
+  
+  # Graph labels
+  labs(title="Parties in Congress",
+       subtitle=paste("Ideological scores of members of Congress,",
+                      "with Southern members shaded separately"), 
+       fill="", color="",
+       x="Economic Welfare \n\u2190 Liberal – Conservative \u2192", 
+       y="Civil Rights \n\u2190 Liberal – Conserv \u2192") +
+  
+  # Formatting
+  scale_color_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_fill_manual(values=c("steelblue", "tomato3", "orchid")) +
+  scale_x_continuous(limits=c(-1,1)) +
+  scale_y_continuous(limits=c(-1,1)) +
+  facet_wrap(~chamber) +
+  theme_morse() + 
+  theme(legend.position="none",
+        panel.border = element_rect(fill=NA, color="gray25"),
+        panel.spacing = unit(10, "pt"),
+        axis.title.y = element_text(size=10),
+        axis.line.x = element_line(size=.4, color="gray"),
+        axis.ticks.x = element_line(size=.4, color="gray"),
+        panel.grid.major.x = element_line(size=.3),
+        panel.grid.minor.x = element_line(size=.3),
+        panel.grid.major.y = element_line(size=.3),
+        panel.grid.minor.y = element_line(size=.3),
+        plot.background = element_rect(fill="white", color=NA)) +
+
+  # Animation
+  transition_time(year) +
+  ease_aes('linear') + enter_grow() + exit_shrink()
+
+
+#----- Display animation -----#
+animate(anim_cong, nframes=150, fps=10, end_pause=5, 
+        width=888, height=444, units="px", res=100)
+
+```
+:::
+
+[^viz-1]: Southerners were usually against labor regulations and union protections, but they sided with Democrats on most other economic issues in the early twentieth century [@farhang2005]. See also: @dejanes1985, @biles1994, and @rothstein2017.
+
+[^viz-2]: The Republican Party gradually began adopting Southern-style rhetoric to attract Southerners, which became known as the Southern Strategy. As @maxwell2019 write: "Republicans had to mirror southern white culture by emphasizing an 'us vs. them' outlook, preaching absolutes, accusing the media of bias, prioritizing identity over the economy, depicting one's way of life as under attack, encouraging defensiveness toward social changes, and championing a politics of vengeance."
+
+::: {.figure-section .column-screen}
+### 2. Asymmetric polarization {.unnumbered .flex-fill}
+
+As Southerners switched sides, the Republican Party started pushing some of the most right-wing [economic platforms](#0) in the democratic world.[^viz-3] By 2008, the party had moderated its economic stances but moved sharply into an [authoritarian direction](#0) on social issues.[^viz-4] Most parties that share Republicans' views are either small [fringe movements](#0) or part of [autocratic regimes](#0){target="_blank"}.[^viz-5] This creates a situation known as [*asymmetric polarization*](http://dx.doi.org/10.1017/CBO9781316091906.003){target="_blank"}, where one side has moved to the extremes while the other has stayed closer to the center.[^viz-6] The Democratic Party could easily have become the more extreme party if it had the Republican Party's electoral advantages.[^viz-7]
+
+::: {#fig-world-parties .column-screen}
+::: {.shadow-top .page-full}
+:::
+
+```{r}
+#| column: screen
+fig3
+```
+
+::: {.shadow-bottom .page-full}
+:::
+
+```{=html}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Select the element
+    var element = document.querySelector('#fig-world-parties > .figure > .column-screen');
+    
+    // Check if the element is found
+    if(element) {
+        // Remove the classes
+        element.classList.remove('page-columns', 'page-full');
+    } else {
+        console.error('Element not found');
+    }
+});
+</script>
+```
+Ideological positions of each political party that held at least 5% of seats in a national legislature at some point between 1990 and 2010. Bubble sizes roughly represent the number of voters supporting each party. They are based on the party's seat share in the legislature times the square root of the country's population. The classifications shown when hovering over a bubble indicate whether the party is in the top 10% farthest left parties (far-left), the top 10% to 35% (left-wing), 35% to 45% (center-left), the middle 10% (centrist), the 35% to 45% most conservative (center-right), the 10% to 35% most conservative (right-wing), and the top 10% most conservative (far-right). Party position scores were calculated by [Elff](https://www.elff.eu/data/) [-@elff2020; -@elff2013] using data from the [Manifesto Project](https://manifestoproject.wzb.eu/datasets) [-@manifesto2023]. The data were rescaled so that the axes represent the average score of each dimension weighted by bubble size; larger parties and larger countries hold more weight.
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+
+#----- Setup -----#
+library(highcharter)
+
+# Colors
+set.seed(6000)
+palette = colorize(1:m, colors=c("#662549", "#f15c80", "#f7a35c", "#e4d354", "#90ed7d", "#2b908f", "#8085e9"))[sample(1:m, m)]
+
+
+#----- Interactive figure -----#
+fig3 = highchart() %>%
+  
+  # Add data
+  hc_add_series(data=mp3, hcaes(group=country),
+                type="bubble", minSize=0, maxSize="15%", stickyTracking=FALSE,
+                dataLabels=list(enabled=TRUE, format="{point.usa}", allowOverlap=TRUE)) %>%
+  
+  # Chart options
+  hc_chart(marker=list(fillOpacity=.65), spacing=c(0,0,0,0),
+           panKey="shift", panning=list(enabled=TRUE, type="xy"),
+           zooming=list(type="x", mouseWheel=list(enabled=TRUE),
+                        pinchType="xy", key="alt")) %>%
+  
+  # Motion
+  hc_motion(enabled=TRUE, labels=years, series=0:(n-1), 
+            magnet=list(step=.05), startIndex=40,
+            playIcon="bi bi-play-fill", pauseIcon="bi bi-pause") %>%
+  
+  # Text
+  hc_title(text="Parties of the world's democracies", floating=TRUE, x=25, y=40) %>%
+  hc_subtitle(text="Ideology based on policy goals from platforms and manifestos",
+              floating=TRUE, x=25, y=60) %>%
+  
+  # Tooltips
+  hc_tooltip(
+    headerFormat=NULL, useHTML=TRUE, padding=12,
+    pointFormat=paste(
+      "<p class='country-year'>", bullet, "{point.country} ({point.election})</p>",
+      "<h5 style='margin: 5px 0; text-align: center'><b>{point.partyname}</b></h5>", 
+      "<p class='sample'>held <b>{point.seats:.1f}%</b> of the legislature</p>",
+      "<div class='d-flex gap-2 flex-fill mt-3'>",
+      "<p class='rankings flex-fill' style='text-align: right !important;'>{point.x_sum}</p>",
+      "<p class='rankings flex-fill'>{point.y_sum}</p></div>",
+      "<p class='sample'>out of", n, "parties in", m, "countries</p>"
+    )
+  ) %>%
+  
+  # X axis
+  hc_xAxis(
+    title=list(enabled=FALSE), crosshair=FALSE, min=-2.25, max=2.25,
+    tickLength=0, gridLineWidth=1, gridLineColor="#efefef", 
+    labels=list(enabled=FALSE, zIndex=0), 
+    plotLines=list(
+      list(color="transparent", width=2, value=0, zIndex=2, 
+          label=list(text="&#8249; Authoritarian")),
+      list(color="#aaa", width=2, value=0, zIndex=2, 
+          label=list(text="Libertarian &#8250;", verticalAlign="bottom", y=-10,
+                     textAlign="right"))
+    )
+  ) %>%
+  
+  # Y axis
+  hc_yAxis(
+    title=list(enabled=FALSE), crosshair=FALSE, min=-2.5, max=2.5,
+    tickLength=0, gridLineWidth=1, gridLineColor="#efefef",
+    labels=list(enabled=FALSE, zIndex=0),
+    plotLines=list(
+      list(color="#aaa", width=2, value=0, zIndex=2, 
+           label=list(text="&#8249; Socialist", align="left", x=10)),
+      list(color="transparent", width=2, value=0, zIndex=2, 
+           label=list(text="Capitalist &#8250;", align="right", x=-175))
+    )
+  ) %>%
+  
+  # Legend
+  hc_legend(layout="vertical", align="right", verticalAlign="top",
+            maxHeight=500, floating=TRUE, title=list(text="Country"),
+            backgroundColor="rgba(255,255,255,.75)", borderColor="#dddddd",
+            borderRadius=4, borderWidth=1, padding=10, x=-25, y=50) %>%
+  
+  # Formatting
+  hc_morse(scatter=TRUE) %>%
+  hc_colors(palette) %>%
+  hc_size(height=600) %>%
+  hc_exporting(enabled=TRUE, filename="pop_parties",
+               buttons=list(contextButton=list(x=-25, y=20))) %>%
+  hc_plotOptions(series = list(states = list(inactive = list(opacity=.075)))) %>%
+  
+  # Responsiveness
+  hc_responsive(rules=list(
+    list(
+      condition = list(maxWidth=992),
+      chartOptions = list(
+        legend=list(verticalAlign="bottom", align="center", layout="horizontal",
+                    maxHeight=175, x=NULL, y=NULL),
+        yAxis=list(min=-5, max=2.5, plotLines=list(
+          list(color="#aaa", width=2, value=0, zIndex=2, 
+               label=list(text="&#8249; Socialist", align="left", x=10)),
+          list(color="transparent", width=2, value=0, zIndex=2, 
+               label=list(text="Capitalist &#8250;", align="right", x=-10))
+        )),
+        xAxis=list(min=-3, max=3),
+        title=list(floating=FALSE, margin=30), subtitle=list(floating=FALSE),
+        exporting=list(buttons=list(contextButton=list(x=0)))
+      )
+    )
+  ))
+
+
+
+```
+:::
+
+[^viz-3]: Here, the *democratic world* refers to all countries that are considered democracies. Political scientists define *democracy* as "a system of governance in which rulers are held accountable for their actions in the public realm by citizens, acting indirectly through the competition and cooperation of their elected representatives" [@schmitter1991, pp. 76]. The modern definition of a *democracy* is closer to James Madison's definition of a *republic* [@fed10], and his definition of *democracy* is closer to what we would now call a *direct democracy*.
+
+    Most political parties release platforms or manifestos describing their ideology each election cycle, which the [Manifesto Project](https://manifestoproject.wzb.eu/datasets) collects and turns into a dataset. Researchers then developed [algorithms](https://doi.org/10.1093/pan/mps042){target="_blank"} that search for patterns in the text and score each party's economic and social ideologies [@elff2013]. The dataset includes all major parties and many minor parties in democratic countries since the 1990s and some earlier platforms. Most countries not in the dataset are autocracies. See the caption below the chart for more details.
+
+    Because these ideological scores are based on party manifestos, they do not necessarily capture the party leaders' actual views (just the ones they believe will help them gain votes) or their supporters' views. Parties can also backtrack on promises and move in a different direction once they are in power. Additionally, party manifestos do not always reflect the culture of the party's voter bases. Some groups prefer to use social norms rather than laws to enforce certain rules in society, so their parties may look more libertarian even if their bases are more authoritarian outside of politics. For example, at different times in recent history, both sides of the political spectrum in the US have used shaming, outcasting, or "cancel culture" to discourage behavior they deem immoral, which would only be picked up in the data if they also wanted to outlaw these behaviors or if their party mentioned the issue for the sake of virtue-signaling.
+
+[^viz-4]: Authoritarian parties support limiting what kinds of personal decisions people can make (regarding marriage, drugs, guns, abortions, voting, and more) and who has rights and power (by race, ethnicity, gender, sexuality, religion, class, or other traits).
+
+    The [Republican Party's 2008 platform](https://www.presidency.ucsb.edu/documents/2008-republican-party-platform){target="_blank"} is in the top 2% most authoritarian platforms out of all parties from 1990-2010 in the dataset. The party's extreme score on authoritarianism may seem odd when reading the platform; it repeatedly professes a comittment to human rights and limited government interference in personal decisions. Keep in mind that nearly every party claims to hold these values in their platforms as well. What sets the Republican Party apart is (a) its support for increased government regulation of marriage, sexuality, abortion, drug use, immigration, educational materials, gambling, and voting rights; (b) support for expanding law enforcement, national security, and military operations; and (c) language with religious, nationalist, and law-and-order buzzwords.
+
+    Democrats are also more authoritarian than most other parties. The [Democratic Party's 2008 platform](https://www.presidency.ucsb.edu/documents/2008-democratic-party-platform){target="_blank"} is in the 18th percentile of most authoritarian platforms out of all the parties from 1990-2010 in the dataset. This is likely due to its stances on national security, military expansion, environmental regulations, gun control, and criminal justice. The platform also has some religious and law-and-order buzzwords, but not as much as the Republican platform.
+
+[^viz-5]: See @golder2016 for an overview of far-right parties in Europe, most of which are relatively close to the Republican Party in the chart below. These parties have risen in influence in recent years, but only a few far-right parties have won control of their government. The Republican Party's most powerful neighbor on social issues is United Russia, the ruling party of an autocratic regime [@fish2018]. On paper, United Russia's 2007 platform appears to be slightly *less* authoritarian than the Republican Party's 2008 platform, although in practice it is more authoritiarian. For most parties, it wouldn't make sense to be openly authoritarian in writing, so the scores on the authoritarian-libertarian dimension of the chart below are probably underestimating many parties' authoritarian tendencies.
+
+[^viz-6]: Research consistently shows that the Republican Party has become more ideologically extreme and more stubbornly partisan than the Democratic Party [@bartels2008; @grossman2016; @poole2017; @hacker2015]. [Public opinion data](https://www.pewresearch.org/short-reads/2014/06/17/which-party-is-more-to-blame-for-political-polarization-it-depends-on-the-measure/){target="_blank"} generally suggest that Republican voters are more partisan than Democratic voters, but not by much. However, Republican politicians and policies have moved significantly farther from the center than Democratic politicians and policies, which can be seen in congressional [voting records](https://www.pewresearch.org/short-reads/2022/03/10/the-polarization-in-todays-congress-has-roots-that-go-back-decades/).
+
+    Some critics have argued that these data are not reliable or accurate, but these critiques generally misinterpret the data. [This author](https://nationalaffairs.com/publications/detail/the-mismeasurement-of-polarization), for example, seems to be unaware that DW-Nominate scores have two dimensions, each dimension changes meaning over time, and individual scores can easily be taken out of context. @poole2017 and others have extensively documented that summary measures from DW-Nominate scores (such as party means, differences between party means, and the index used in @fig-ideology-inequality) line up well with intuition and other indicators of partisanship.
+
+[^viz-7]: As I argue in [Chapter -@sec-minority], the main reason the Republican Party has moved farther from the center is that its voters happen to live more in states that are overrepresented in the Senate and the Electoral College. A party is *overrepresented* in a body if it has a greater seat share than its vote share in the last election. For example, in 2019 and 2020, Republicans held 53% of the seats in the Senate despite receiving 44% of the total votes cast in the elections for these seats (in [2014](https://en.wikipedia.org/wiki/2014_United_States_Senate_elections){target="_blank"}, [2016](https://en.wikipedia.org/wiki/2016_United_States_Senate_elections){target="_blank"}, and [2018](#0){target="_blank"}). Similarly, in [2016](#0){target="_blank"}, President Trump won 56% of the votes in the Electoral College despite receiving only 46% of the popular vote.
+
+    When a party is overrepresented, it can cater to a narrower base and still win elections. While it may seem wise for a party to try appealing to more voters anyway, this requires compromising on positions in ways that could alienate its hard-line voters. In practice, overrepresented parties have no incentive to moderate their policies just so they can appeal to an extra 5-10% of voters when they can win without those extra voters. The underrepresented party, on the other hand, usually has to appeal to at least 55% of the voters to win the presidency and control Congress, so it has to be more moderate.
+
+::: {.figure-section .column-screen}
+### 3. Ideology and Inequality {.unnumbered .flex-fill}
+
+Soon after the parties began [drifting apart](https://press.uchicago.edu/ucp/books/book/chicago/P/bo8212972.html) on economic issues, the divide between the rich and poor [started growing](https://mitpress.mit.edu/9780262633611/).[^viz-8] The United States is now one of the most [polarized](#0){target="_blank"} and [unequal](#0){target="_blank"} democracies in the world.[^viz-9] Economic inequality [naturally deepens](https://www.hup.harvard.edu/catalog.php?isbn=9780674430006){target="_blank"} over time in capitalist economies without routine maintenance to tax codes, labor regulations, and social programs, which becomes [especially difficult](https://www.jstor.org/stable/10.7864/j.ctt18z4ggp.6){target="_blank"} as parties polarize.[^viz-10] These policies tended to fail in the Senate more than the House because of the Senate's [filibuster](https://doi.org/10.1017/S0022381613001321) and [inequitable representation](https://press.uchicago.edu/ucp/books/book/chicago/S/bo3636044.html).[^viz-11] Partisanship in the Senate is one of the [strongest predictors](https://nmorse.com/thesis/) of income inequality; they follow a very similar path but a decade apart.[^viz-12]
+
+::: {#fig-ideology-inequality}
+::: column-body
+```{r}
+fig2
+```
+:::
+
+Partisanship in the Senate alongside the income share of the top 1%. House polarization and the minimum wage gap are hidden but can be enabled by clicking on their labels in the legend. ***Polarization*** is measured with an index I developed in my master's thesis [@morse2021] which combines the distance between the parties (the difference between the median [DW-Nominate](https://voteview.com/congress/house){target="_blank"} ideal points of the two parties) and the homogeneity within each party (the pooled standard deviation of the two parties) using forecastable component analysis [@goerg2013]. Data source: Voteview [@voteview]. The ***minimum wage gap*** is the difference between the federal minimum wage and the level it would have been at had it kept up with productivity [see @schmitt2012]. Data source: @baker2020. ***Income inequality*** is measured with the income share of the top 1%, meaning the percent of all Americans' incomes earned by the top 1% of households. Data source: @frank2014new. All series were rescaled to be centered around 0 with a standard deviation of 1. Produced in R with `highcharter`.
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+
+#----- Setup -----#
+library(tidyverse)
+library(highcharter)
+
+# Ideology and inequality data
+polar_long = polar %>%
+  merge(inc) %>%
+  select(year, sen_pol, hs_pol, top1) %>%
+  reshaper("chamber", "variable", "metric", "desc", "hc_color")  # function defined in code on the homepage
+
+# Minimum wage data
+gap = read.csv("data/wages.csv") %>%
+  mutate(diff = hypothetical - real) %>% # calculate expected min wage
+  select(year, diff) %>% # select variables
+  na.omit() %>% # remove blank years
+  
+  # Prepare data for plotting
+  mutate(term=NA, chamber="National", variable="Minimum wage gap",
+         desc=paste("Projected min. wage (if it kept up with productivity)",
+                    "<br>minus real min. wage"),
+         norm = round(scale(diff),3)) %>%
+  select(year, term:desc, orig=diff, norm) %>% 
+  filter(year<2016, year %in% polar_long$year)
+
+
+#----- Interactive plot -----#
+fig2 = highchart() %>%
+  
+  # Senate polarization
+  hc_add_series(
+    filter(polar_long, chamber=="Senate"), 'line', 
+    hcaes(x=year, y=norm, group=variable),
+    tooltip = list(
+      pointFormat = paste(bullet, "{point.desc}: <b>{point.orig:.2f}</b><br>")
+    )
+  ) %>% 
+  
+  # Income Inequality
+  hc_add_series(
+    filter(polar_long, chamber=="National"), 'line', 
+    hcaes(x=year, y=norm, group=variable),
+    tooltip = list(
+      pointFormat = paste(bullet, "{point.desc}: <b>{point.orig:.1f}%</b><br>")
+    )
+  ) %>% 
+  
+  # Minimum wage gap
+  hc_add_series(
+    gap, 'line', dashStyle="ShortDot", visible=FALSE,
+    hcaes(x=year, y=norm, group=variable),
+    tooltip = list(
+      pointFormat = paste(bullet, "{point.desc}: <b>${point.orig:.1f}</b><br>")
+    )
+  ) %>%
+  
+  # House polarization
+  hc_add_series(
+    filter(polar_long, chamber=="House"), 'line', visible=FALSE,
+    hcaes(x=year, y=norm, group=variable),
+    tooltip = list(
+      pointFormat = paste(bullet, "{point.desc}: <b>{point.orig:.2f}</b><br>")
+    )
+  ) %>% 
+  
+  # Labels and axes
+  hc_title(text = "The Link Between Polarization and Inequality") %>% 
+  hc_subtitle(text = paste("Congressional polarization", 
+                           "and the income share of the top 1%")) %>% 
+  hc_xAxis(title = list(enabled=FALSE)) %>%
+  hc_yAxis(title = list(text="Standard deviations from mean"), tickInterval=.5) %>%
+  
+  # Formatting
+  hc_morse() %>%
+  hc_size(height=500) %>%
+  hc_exporting(enabled=TRUE, filename="polinc", sourceWidth=750) %>%
+  hc_colors(c("steelblue", "darkseagreen", "seagreen", "orchid")) %>%
+  hc_responsive(rules=list(
+    list(condition = list(minWidth=700),
+         chartOptions = list(legend=list(align="right", layout="vertical")))
+  ))
+
+```
+:::
+
+[^viz-8]: See @levendusky2013 and @hetherington2009 for details on the roots of polarization in the twentieth century and @mpr for analyses of the feedback loop between polarization and economic inequality.
+
+[^viz-9]: Comparing levels of polarization across different countries is difficult because polarization looks different in each country, but researchers have offered several approaches. @boxell2022 gathered survey data from 12 democracies and measured *affective polarization,* the degree to which people dislike other political groups. They found that the US was the most polarized country in this sample and that polarization in the US was rising three times more quickly than any of the other countries. @stanig2011 used similar survey data but measured polarization slightly differently and found the same result. Studies of online polarization are consistent as well: @urman2019 analyzed Twitter followings in 16 democracies and found that Twitter users in the US were among the least likely to follow politicians from other parties.
+
+    Income inequality is more straightforward when comparing countries. According to the [OECD](https://data.oecd.org/inequality/income-inequality.htm){target="_blank"}, the US has the 5th highest Gini coefficient (a common measure of inequality) out of the 38 OECD nations as of 2021. The only developed democracies with more unequal economies are Bulgaria, Turkey, Mexico, and Costa Rica. Globally, the income distribution of the US is right around average, as the [World Inequality Database](https://wid.world/){target="_blank"} shows. When looking at the income share of the top 1% of earners, the US has roughly the same level of income inequality as South Africa, India, most of the Middle East, and much of Latin America.
+
+[^viz-10]: @piketty2014 found that wealth naturally accumulates more and more at the top in capitalist environments without carefully planned policies for keeping the economy competitive. On top of that, a wide variety of economic policies need periodic updates to keep up with changing times. Minimum wages and interest rates have to be updated regularly in response to inflation, tax codes and campaign finance laws need continuous attention to close up loopholes, and many regulations lose relevance with new technological and social changes. These updates become blocked more as polarization rises because the parties become gridlocked more frequently [@barber]
+
+[^viz-11]: For a bill to pass the Senate, it generally needs support from 60% of senators (rather than just over 50% in the House) because bills can be blocked by only 40% of senators with a process known as filibustering. On top of that, each state has the same number of senators regardless of population, so senators representing even less than 40% of the population can block policies from passing. @enns2014 found that these features have fueled economic inequality in the last half century. See also: @lee1999.
+
+[^viz-12]: The standard measure of polarization in a chamber of Congress is the difference between the mean or median DW-Nominate scores the parties' members. This only captures one dimension of polarization, which is typically defined as parties moving farther apart *and* each party becoming more ideologically uniform. The measure shown in the chart combines both of these dimensions. In my master's thesis [-@morse2021], I showed that this measure is a robust and strong predictor of future polarization and income inequality.
+
+    Gridlock on economic policy may be part of the reason economic inequality rose so closely behind polarization in the Senate, but for the most part polarization and income inequality both rose in response to a different trend: the Republican Party was becoming larger and more economically conservative. This affects polarization more quickly than economic inequality because a party's rightward shift immediately increases the distance between the parties but does not have noticeable effects on income distributions for several years.
+
+::: {.figure-section .column-screen}
+### 4. Democratic breakdown {.unnumbered .flex-fill}
+
+The rising polarization, inequality, and authoritarianism reached a breaking point in 2016, when American democracy began deteriorating more quickly than at any point in its history.[^viz-13] While political scientists have ideas on how to [turn this around](https://medium.com/@scholars-redistricting-reform/open-letter-to-congress-to-end-single-member-congressional-districts-and-adopt-proportional-97ad1cf6aa2e), getting these reforms passed is a puzzle that has yet to be solved.[^viz-14] The US has one of the most entrenched political systems in the world; policy changes and constitutional amendments are [harder to pass](https://doi.org/10.1093/icon/mov041) and [more elite-run](https://doi.org/10.1007/978-3-319-57798-2_9){target="_blank"} than in other countries.[^viz-15] [Many democracies](https://doi.org/10.5539/jpl.v7n1p12){target="_blank"} and just over [half of the US states](https://ballotpedia.org/States_with_initiative_or_referendum){target="_blank"} involve the public when writing and amending their constitutions, which [prevents corruption](https://doi.org/10.1017/S0003055415000222).[^viz-16]
+
+::: {#fig-const2}
+::: column-screen
+<iframe src="https://nmorse.shinyapps.io/const/">
+
+</iframe>
+:::
+
+Democracy, constitutions, and inequality around the world, 1789-2021. This app lets users explore the relationships between constitutional revisions and democracy with a variety of indices. Data sources: [V-Dem](https://www.v-dem.net/data/the-v-dem-dataset/){target="_blank"} [@vdem] and the [Comparative Constitutions Project](https://comparativeconstitutionsproject.org/download-data/){target="_blank"} [@ccp]. Produced in R with `shiny` and `highcharter`.
+:::
+:::
+
+[^viz-13]: Between 2015 and 2020, the US dropped more than 10% on [V-Dem](https://v-dem.net/data/the-v-dem-dataset/){target="_blank"}'s Electoral Democracy Index and Liberal Democracy Index, which are widely used indicators of the performance of each country's democratic institutions. A similar dip can be found in the US's [Polity](https://www.systemicpeace.org/polityproject.html){target="_blank"} score, another common democracy index. Before 2016, these metrics had never fallen this sharply in the nation's history.
+
+[^viz-14]: For example, an [open letter to Congress](https://medium.com/@scholars-redistricting-reform/open-letter-to-congress-to-end-single-member-congressional-districts-and-adopt-proportional-97ad1cf6aa2e){target="_blank"} signed by more than 200 political scientists calls for adopting multi-member districts elected with proportional representation in the US House.
+
+[^viz-15]: In a study of 32 democracies, @lutz1994 measures the difficulty of amending each country's constitution based on how many institutions' approval is needed and the vote shares needed to pass in each body. He reports that the US has the second most difficult process for constitutional amendents in the sample. (The data in the appendix do not show any countries with a higher difficulty score, so it's not clear why he didn't call the US Constitution the single most difficult one to amend.) @ginsburg2015 note that the comparative difficulty of amending the US Constitution is widely accepted by experts.
+
+    The US is also one of the only democracies that has no direct participation in its constitutional amendment process. Requiring amendments to pass a public vote or letting the public submit amendments are common nowadays [@qvortrup2017]. The US Constitution can only be changed by conventions of political elites or reinterpreted by a small court of unelected judges.
+
+[^viz-16]: Around half of the countries in the world use public referendums at some level for amendments, and most of the ones that do are generally democratic [@anckar2014]. A study of 62 countries that adopted a new constitution between 1974 and 2011 found that more public participation in the drafting process led to significantly higher levels of democracy in the following years [@eisenstadt2015].
+
+::: {.figure-section .column-screen}
+### 5. Constitutional design {.unnumbered .flex-fill}
+
+The US Constitution was one of the first of its kind, and [nearly 1,000 national constitutions](https://comparativeconstitutionsproject.org/download-data/) have been adopted since it was written.[^viz-17] Two general constitutional models have emerged: *majoritarian* and *consensus* democracies.[^viz-18] [This table](#dem-models){data-bs-toggle="collapse"} lays out some of the main characteristics of each. The US is majoritarian, whereas [most modern democracies](https://www.electoral-reform.org.uk/how-many-countries-around-the-world-use-proportional-representation/) are more consensus-based.[^viz-19] The majoritarian model gives rise to two-party systems and often struggles in [diverse societies](https://doi.org/10.1080/02589347708704717).[^viz-20] Countries nowadays tend to [avoid modeling](https://ssrn.com/abstract=3523330){target="_blank"} their constitutions on the American system due its [poor track record](https://muse.jhu.edu/article/225694/pdf){target="_blank"} outside of the US (and arguably [within the US](https://www.nyulawreview.org/issues/volume-87-number-3/the-declining-influence-of-the-united-states-constitution/) now too).[^viz-21]
+
+::: {#dem-models .collapse}
+| Characteristic         | Majoritarian model                                                                                                                                                             | Consensus model                                                                                                                                                      |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Overall**            | Two or three parties go back and forth holding power                                                                                                                           | Power is shared among several parties                                                                                                                                |
+| **Electoral system**   | **Plurality elections** (also called winner-take-all elections or first-past-the-post voting)**:** each district has one seat, which goes to the candidate with the most votes | **Proportional representation:** districts have multiple seats, which are split among the parties based on how many votes they received                              |
+| **Form of government** | **Presidential:** the chief executive is elected by the public or an electoral college                                                                                         | **Parliamentary:** the chief executive is elected by the legislature, usually the head of the largest party                                                          |
+| **Party system**       | **Two-party system:** two parties dominate, and minor parties have little to no influence                                                                                      | **Multiparty system:** three or more parties hold substantial seat shares and influence in the legislature                                                           |
+| **Executive cabinet**  | **Concentrated power:** The president appoints the cabinet so most top officials are of the same party                                                                         | **Shared power:** A coalition of parties negotiates on who to appoint to the cabinet, so top officials are not all of the same party                                 |
+| **Interest groups**    | **Pluralist:** Groups from a wide variety of interests lobby legislators and regulators to influence policy                                                                    | **Corporatist:** Groups such as unions and business associations are formally included in the policymaking process and negotiate with each other on certain policies |
+
+: Table 3.1: Comparison of majoritarian and consensus democracies based on <a href="https://www.jstor.org/stable/j.ctt32bg23" target="_blank" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="<div class='ref d-flex gap-2'><i class='bi bi-journal-text'></i><p>Lijphart, Arend. <b><i>Patterns of Democracy</i></b>. Yale University Press, 2012.</p></div>">Lijphart's (2012)</a> typology. Not all countries have all five of the attributes of one of these models, but most generally fit with one or the other. The electoral system is usually the key characteristic that determines whether a country is a majoritarian or consensus democracy.
+:::
+
+::: {#fig-const-design}
+::: column-screen
+<iframe src="https://nmorse.shinyapps.io/const-design/">
+
+</iframe>
+:::
+
+This app lets users configure a constitution on the left to maximize the outcomes in the graph on the right. By default, the app is configured to the United States Constitution. Users can pick whether to use linear regression or random forests for predictions. Linear regression produces less accurate predictions but it is easier to see how the bars move upon changing constitutional features. The plot on the second tab shows variance importance measures from the random forests, and the tooltip also displays coefficients from the linear regression models. Predictions are based on a sample of more than 600 constitutions since 1789, although some data were imputed with the MICE algorithm. All data are from the most recent version of the constitution. For example, the data for the US Constitution specifies that the upper house of the legislature is directly elected (even though the Senate was not directly elected until the 17th amendment) and democracy data for the US is as of 2021. Data sources: [CCP](https://comparativeconstitutionsproject.org/download-data/){target="_blank"} [@ccp], [QoG](https://www.gu.se/en/quality-government/qog-data/data-downloads/standard-dataset){target="_blank"} [@qog2023], and [V-Dem](https://www.v-dem.net/data/the-v-dem-dataset/){target="_blank"} [@vdem]. Produced in R with `shiny` and `highcharter`.
+:::
+:::
+
+[^viz-17]: Constitutions vary greatly from country to country. @elkins2009 [pp. 49] define a *constitution* as a document or set of documents that fit one or more of the following criteria: "(1) are identified explicitly as the *Constitution, Fundamental Law*, or *Basic Law* of a country; OR (2) contain explicit provisions that establish the documents as the *highest* law, either through entrenchment or limits on future law; OR (3) define the basic pattern of authority by establishing or suspending an executive branch of government." These same researchers compiled a full dataset of national constitutions that fit this description from 1789 through the present [@ccp].
+
+[^viz-18]: Consensus democracies are also known as *consociational* or *consensual* democracies. The majoritarian model is also known as the *Westminster* model. Most majoritarian democracies are presidential systems and most consensus democracies are parliamentary systems, but these concepts do not overlap entirely. For example, the UK is parliamentary but has a majoritarian system overall, and Brazil is presidential but has a consensus system.
+
+[^viz-19]: According to the [Electoral Reform Society](https://www.electoral-reform.org.uk/how-many-countries-around-the-world-use-proportional-representation/){target="_blank"}, more than 100 countries around the world use some form of proportional representation, the key characteristic of consensus democracy (discussed more in the next section). Less than 50 use plurality elections, the key characteristic of majoritarian democracy.
+
+[^viz-20]: The tendency for majoritarian elections to produce two-party systems is known as Duverger's Law [see @riker1982]. Note that it is less of a "law" and more of a general trend. Some scholars such as @dunleavy2011 are critical of Duverger's Law because of two major exceptions, the UK and India. However, these countries are each controlled by a large majority party, which is not usually found in countries with proportional representation. At the very least, nearly every country with majoritarian elections is dominated by one or two major parties, so their legislatures operate in fundamentally different ways than full multiparty systems.
+
+    Regardless, the trend is clear when looking at a larger sample of countries. As @fig-oecd2 shows, no majoritarian democracy in the OECD effectively has more than three parties, and all OECD countries with more than three parties use proportional representation for at least some elections.
+
+    @lijphart1977 finds that "majority rule and democracy are incompatible" in societies that have deep social and ethnic divisions. Majoritarian systems concentrate too much power in the hands of a single group, whereas consensus systems encourage groups to cooperate and share power.
+
+[^viz-21]: As the chart below shows when checking and unchecking the "Parliamentary system" box, parliamentary systems on average have fairer elections, stronger protections of civil liberties, higher voter turnout rates, greater stability, higher GDPs per capita, less income inequality, longer life expectancies, and higher standards of living than presidential systems.
+
+    The most famous critique of American-style presidential systems comes from @linz1990, who argues that gridlock between the legislature and executive leads to presidencies gaining too much power, and that parliamentary systems bring more stability and more effective checks on power. Lijphart's work [-@lijphart2017; -@lijphart1977; -@lijphart1984] mostly corroborates Linz's argument. Some scholars disagree, arguing that the presidential model only appears to be less stable because most of the countries that have implemented it (especially in Latin America) were already unstable before adopting it [@mainwaring1997; @cheibub2011].
+
+    The declining influence of the US Constitution over other constitutions is well-documented. @klug2000 shows that while constitutional courts around the world once cited the US Constitution and Supreme Court cases as precedents, they now tend to mention these more to distance themselves from the American model. @law2012 document the growing differences between the US Constitution and current mainstream constitutions. They note that a commonly cited reason for the declining influence of the US Constitution is that the US is "increasingly out of sync with an evolving global consensus on issues of human rights" (767). Another possible reason is that the bulk of countries that have democratized in the last several decades were in the former Soviet Bloc, so their constitutions were influenced more by parliamentary countries in Europe than by majoritarian countries in the Americas due to their proximity.
+
+::: {.figure-section .column-screen .border-bottom}
+### 6. Proportional representation {.unnumbered .flex-fill}
+
+Consensus democracies are built on [*proportional representation*](https://protectdemocracy.org/work/proportional-representation-explained/), an electoral system that started gaining steam around a century after the US Constitution was written.[^viz-22] These countries tend to have [more political parties](https://doi.org/10.2307/1962968), [less polarization](https://doi.org/10.1080/13510347.2022.2117300), [less economic inequality](https://doi.org/10.1023/A:1006960528737), [better quality governance](https://www.jstor.org/stable/j.ctt32bg23), and [higher public satisfaction](https://doi.org/10.2307/2952259) with the political system.[^viz-23] The US could [pass a law](https://protectdemocracy.org/work/proportional-representation-uniform-congressional-district-act/){target="_blank"} adopting proportional representation in the House,[^viz-24] which would empower more parties and [force them to cooperate](https://doi.org/10.1111/j.1477-7053.2005.00143.x){target="_blank"} rather than just compete.[^viz-25] Some research suggests that multiparty democracy and presidential systems are a [bad combination](https://doi.org/10.1177/0010414093026002003){target="_blank"},[^viz-26] but it can work if presidential power is limited.[^viz-27]
+
+::: {#fig-oecd2}
+::: column-screen
+<iframe src="https://nmorse.shinyapps.io/oecd/">
+
+</iframe>
+:::
+
+This app lets users take a closer look at how the performance of the US Constitution stacks up against constitutions of similar countries. The [preamble](https://constitution.congress.gov/browse/essay/pre-1/ALDE_00001231/) of the United States Constitution lists five objectives for itself: "establish Justice" (fairness and rule of law), "insure domestic Tranquility" (internal peace and harmony), "provide for the common defence" (security and stability), "promote the general Welfare" (high standard of living), and "secure the Blessings of Liberty" (political and economic freedom). Above, users can explore different approaches to measuring outcomes that correspond to each of the Constitution's objectives. The countries included for comparison are the 38 member states of the OECD. The statement at the top of each graph describing the relationship between the two variables is based on a simple linear regression model. If a variable other than the United States is selected in the "Color by" input, the model controls for that variable. Data sources: [Freedom House (2022)](https://freedomhouse.org/countries/freedom-world/scores?sort=desc&order=Civil%20Liberties), [WJP (2021)](https://worldjusticeproject.org/rule-of-law-index/), [IEP (2022)](https://www.visionofhumanity.org/maps#/), [Fund for Peace (2022)](https://fragilestatesindex.org/global-data/), [UNDP (2022)](https://hdr.undp.org/data-center/human-development-index#/indicies/HDI), [OECD (2021)](https://data.oecd.org/), [V-Dem](https://www.v-dem.net/data/the-v-dem-dataset/){target="_blank"} [@vdem], [Heritage Foundation (2022)](https://www.heritage.org/index/), [WID (2022)](https://wid.world/world/), [CPDS (2020)](https://www.cpds-data.org/index.php/data), [IDEA (2018)](https://www.idea.int/data-tools/data/electoral-system-design), [DPI (2020)](http://dx.doi.org/10.18235/0003049), and [CCP](https://comparativeconstitutionsproject.org/download-data/){target="_blank"} [@ccp]. Produced in R with `shiny` and `highcharter`.
+:::
+:::
+
+[^viz-22]: In majoritarian systems like the US, many people live in districts or states represented in Congress by a party they don't support. Under proportional representation, each person has not just a representative from their district, but a representative from their district *and* party. Each district has multiple representatives, not just one, and its seats are divided up based on how many votes each party receives. If a party gets 20% of the votes for a district with five seats, it wins one seat from the district. If another party gets 60% of the votes, it gets three of the district's seats.
+
+    There are several ways to select the individual candidates for each party. In [*closed list* *proportional representation*](https://medium.com/@dattadevesh/closed-list-proportional-voting-systems-a43a5da9f5ef){target="_blank"}, party leaders release lists of nominees in order from their strongest candidates to their backup candidates. If a party wins two seats for a district, its top two nominees win the seats. Parties could also hold primary elections to choose and order their nominees, but these are not really needed in multiparty systems. Voters have many viable parties to choose from and still be somewhat satisifed, so party leaders have a stronger incentive to pick good quality candidates. Another option is [*open list proportional representation*](https://www.idea.int/sites/default/files/publications/open-list-proportional-representation.pdf){target="_blank"}, which merges primary elections and general elections into a single election.Voters first select a party or independent candidate (which determines each party's seat share) and then check off candidates within their party that they like (which determines the individual winners for each party's seats). If 40% of voters in a five-seat district pick a particular party's ballot, its two candidates with the most votes are elected.
+
+    Independents can run in many forms of proportional representation. Continuing the previous example, if just 20% of the voters in a five-seat district select a particular independent candidate instead of a party, that candidate wins a seat. Many countries with proportional representation have more independent politicians in office than the US because they only need to appeal to a small fraction of their district, not a majority [@brancati2008].
+
+[^viz-23]: These are general trends with plenty of exceptions. Furthermore, many of these studies only establish correlation, not causation, but they lay out a clear reason why proportional representation leads to better outcomes: it prevents any party from gaining too much power, whereas majoritarian systems can easily be controlled by a single party. See @riker1982, @bernaerts2022, @birchfield1998, @lijphart2017, and @anderson1997.
+
+[^viz-24]: One way proportional representation could be implemented in the US is by eliminating congressional districts and letting House members represent their entire state at-large. In Pennsylvania, which has 17 representatives, each party would nominate 17 candidates. When Pennsylvanian voters go to the polls, they would get a ballot for the party they want to vote for (similar to in primary elections, which would no longer be needed) and would then select which of its nominees they approve. If 40% of people select the Democrat ballot, around 40% of the seats (7 seats) would go to Democrats. The top 7 Democratic nominees with the most votes would win those seats. If the Libertarian Party gets at least 6% of the ballots, its top candidate would also become a representative.
+
+    The state could also be split into, say, three large districts with five to six members each instead of one large district with 17 members. Alternatively, the House could keep its current districts but add four more representatives to each, increasing the overall size of the House from 435 members to 2,175 members. This may sound large, but the US already has very few representatives per capita compared to most countries, and many experts recommend [greatly increasing the size](https://www.amacad.org/ourcommonpurpose/enlarging-the-house/section/1) of the House anyway.
+
+[^viz-25]: Proportional representation creates an environment where many small parties can hold seats in the legislature, which makes it harder for a single party to be large enough to hold a majority in either chamber. To get anything done, parties have to form alliances (called coalitions) with other parties where they compromise with each other so they can achieve common goals [@colomer2005]. One could argue that parties have to do this internally anyway in two-party systems, but the leaders of a majority party can consolidate power much more easily than the leaders of a similarly sized coalition of parties.
+
+[^viz-26]: Although it is rare for presidential systems to have more than two major parties, it has happened, and it tends to bring instability [@mainwaring1993]. Experts typically recommend countries either adopt a parliamentary system with proportional representation [@lijphart1991], a presidential system with majoritarian elections and a weak legislature [@mainwaring1997], or a semi-presidential system with a strong legislature [@sedelius2017].
+
+    Most countries with multiparty systems are parliamentary, meaning the head of government is chosen by the legislature rather than directly elected. In a multiparty system, it is difficult for a majority of the public to come together around a single candidate, so they often delegate this task to the legislature. Usually, one or more smaller parties will agree to support a larger party's leader as head of government in exchange for some cabinet positions. In two-party systems, these negotiations are not needed, so it makes more sense for the public to directly elect the head of government by majority vote.
+
+    Note that letting the legislature pick the head of government gives the legislature power over the executive, which the Framers of the US Constitution feared would make the legislature too powerful. This is not as much of a concern in multiparty systems because the parties in the governing coalition (rather than the branches of government) take on the role of keeping checks and balances on each other [@tsebelis1995].
+
+[^viz-27]: Presidential power has to be limited one way or another in multiparty systems to prevent the entire executive branch from being controlled by a small minority party. There are several ways this could be achieved, most of which would require constitutional amendments:
+
+    -   Remove the presidential veto power, making it easier for Congress to constrain executive power. This on its own would not be strong enough to encourage presidents to appoint a multiparty cabinet [@borges2020], but it would at least limit the powers of a cabinet fully controlled by a single minority party.
+    -   Give Congress the power to fire cabinet officials for poor job performance, not just crimes. This would make the US a *semi-presidential* system, meaning the president appoints cabinet officials but they answer to Congress [@shugart2005]. If the president's party doesn't hold majorities in Congress, the president would have to bargain with other parties in Congress and give them some cabinet positions to earn their support for the administration.
+    -   Adopt a different presidential election method that encourages presidents to negotiate on cabinet seats with other parties to gain their support. Some examples include [approval voting](https://electionscience.org/library/approval-voting/){target="_blank"}, [ranked-choice voting](https://fairvote.org/our-reforms/ranked-choice-voting/){target="_blank"}, [fusion voting](https://www.newamerica.org/political-reform/reports/the-case-for-fusion-voting-and-a-multiparty-democracy-in-america/){target="_blank"}, or a version of the Electoral College closer to its [original form](https://www.eac.gov/sites/default/files/eac_assets/1/28/The%20Electoral%20College%20(Jan.%202011).pdf){target="_blank"}---an elected body of delegates (similar to a chamber of Congress) whose only job is to pick the president on the people's behalf---although these election methods have not been thoroughly tested.
+
+```{r}
+#| eval: false
+save(fig2, fig3, file="figures/main-figs.Rdata")
+```
+
+```{=html}
+<script>
+  // Initalize tooltips
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+```

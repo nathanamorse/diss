@@ -1,0 +1,44 @@
+country,chamber,party,year,seats,color
+United Kingdom,House of Commons,Conservative Party,2019,365,#0087DC
+United Kingdom,House of Commons,Labour Party,2019,202,#E4003B
+United Kingdom,House of Commons,Scottish National Party,2019,48,#FFF95D
+United Kingdom,House of Commons,Liberal Democrats,2019,11,#FAA61A
+United Kingdom,House of Commons,Democratic Unionist Party,2019,8,#D46A4C
+United Kingdom,House of Commons,Sinn Féin,2019,7,#008800
+United Kingdom,House of Commons,Other Parties,2019,9,#FFFFFF
+India,Lok Sabha,Bharatiya Janata Party,2019,303,#FF9933
+India,Lok Sabha,Indian National Congress,2019,52,#00BFFF
+India,Lok Sabha,Dravida Munnetra Kazhagam,2019,24,#000080
+India,Lok Sabha,Other Parties,2019,166,#FFFFFF
+Brazil,Chamber of Deputies,PL (Liberal Party),2018,99,#0047AB
+Brazil,Chamber of Deputies,FE Brasil (Brazil Forward Federation),2018,81,#FFD700
+Brazil,Chamber of Deputies,UNIÃO (Union Brazil),2018,59,#0000FF
+Brazil,Chamber of Deputies,PP (Progressistas),2018,49,#FFC0CB
+Brazil,Chamber of Deputies,MDB (Brazilian Democratic Movement),2018,43,#000099
+Brazil,Chamber of Deputies,PSD (Social Democratic Party),2018,43,#FEDF00
+Brazil,Chamber of Deputies,Republicanos (Republicans),2018,41,#008000
+Brazil,Chamber of Deputies,PSDB–Cidadania (Brazilian Social Democracy Party–Citizenship),2018,18,#0000FF
+Brazil,Chamber of Deputies,PSB (Brazilian Socialist Party),2018,15,#87CEEB
+Brazil,Chamber of Deputies,PSOL-REDE (Socialism and Liberty Party–Network),2018,14,#FF4500
+Brazil,Chamber of Deputies,PDT (Democratic Labour Party),2018,17,#1E90FF
+Brazil,Chamber of Deputies,PODE (Podemos),2018,12,#FFD700
+Brazil,Chamber of Deputies,Avante,2018,7,#008000
+Brazil,Chamber of Deputies,PRD (Republican Party of the Social Order),2018,4,#FF0000
+Brazil,Chamber of Deputies,Solidarity,2018,4,#FFD700
+Brazil,Chamber of Deputies,NOVO (New Party),2018,3,#FF8C00
+Netherlands,House of Representatives,VVD (People's Party for Freedom and Democracy),2023,34,#FFA500
+Netherlands,House of Representatives,D66 (Democrats 66),2023,24,#006400
+Netherlands,House of Representatives,CDA (Christian Democratic Appeal),2023,14,#008000
+Netherlands,House of Representatives,CU (Christian Union),2023,5,#0000FF
+Netherlands,House of Representatives,GL–PvdA (GreenLeft–Labour Party),2023,17,#66BB66
+Netherlands,House of Representatives,PVV (Party for Freedom),2023,16,#0000FF
+Netherlands,House of Representatives,SP (Socialist Party),2023,9,#FF0000
+Netherlands,House of Representatives,PvdD (Party for the Animals),2023,6,#006600
+Netherlands,House of Representatives,FvD (Forum for Democracy),2023,5,#9B111E
+Netherlands,House of Representatives,BBB (Farmer–Citizen Movement),2023,4,#800000
+Netherlands,House of Representatives,SGP (Reformed Political Party),2023,3,#0000FF
+Netherlands,House of Representatives,DENK,2023,3,#00BFFF
+Netherlands,House of Representatives,Volt,2023,2,#800080
+Netherlands,House of Representatives,JA21 (Juiste Antwoord 2021),2023,1,#000000
+Netherlands,House of Representatives,BIJ1,2023,1,#FFD700
+Netherlands,House of Representatives,Independent,2023,6,#FFFFFF

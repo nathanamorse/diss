@@ -1,0 +1,53 @@
+country,chamber,party,seats,share,color
+UK,House of Commons,Conservative Party,350,53.84615385,#0087DC
+UK,House of Commons,Labour Party,198,30.46153846,#E4003B
+UK,House of Commons,Scottish National Party,43,6.615384615,#FFF95D
+UK,House of Commons,Liberal Democrats,15,2.307692308,#FDBB30
+UK,House of Commons,Democratic Unionist Party,8,1.230769231,#D46A4C
+UK,House of Commons,Plaid Cymru,3,0.461538462,#008142
+UK,House of Commons,Alba Party,2,0.307692308,#FEF987
+UK,House of Commons,SDLP,2,0.307692308,#99CC33
+UK,House of Commons,Alliance Party,1,0.153846154,#F6CB2F
+UK,House of Commons,Green Party,1,0.153846154,#6AB023
+UK,House of Commons,Reclaim Party,1,0.153846154,#2254F4
+UK,House of Commons,Independents,18,2.769230769,#808080
+India,Lok Sabha,BJP,301,55.43278085,#FF9933
+India,Lok Sabha,SHS,13,2.394106814,#FFB550
+India,Lok Sabha,RLJP,5,0.920810313,#FFD700
+India,Lok Sabha,AD(S),2,0.368324125,#000080
+India,Lok Sabha,JD(S),1,0.184162063,#008000
+India,Lok Sabha,LJP(RV),1,0.184162063,#87CEEB
+India,Lok Sabha,NCP(AP),1,0.184162063,#00008B
+India,Lok Sabha,AJSU,1,0.184162063,#FFA500
+India,Lok Sabha,MNF,1,0.184162063,#000080
+India,Lok Sabha,NDPP,1,0.184162063,#40E0D0
+India,Lok Sabha,NPF,1,0.184162063,#FFD700
+India,Lok Sabha,NPEP,1,0.184162063,#FF4500
+India,Lok Sabha,SKM,1,0.184162063,#008000
+India,Lok Sabha,IND,1,0.184162063,#808080
+India,Lok Sabha,INC,50,9.208103131,#00BFFF
+India,Lok Sabha,DMK,24,4.419889503,#FF0000
+India,Lok Sabha,TMC,23,4.23572744,#00FFFF
+India,Lok Sabha,JD(U),16,2.946593002,#008000
+India,Lok Sabha,SS(UBT),6,1.104972376,#87CEEB
+India,Lok Sabha,CPI(M),3,0.552486188,#FF0000
+India,Lok Sabha,NCP,4,0.73664825,#00008B
+India,Lok Sabha,SP,3,0.552486188,#FFA500
+India,Lok Sabha,IUML,3,0.552486188,#008000
+India,Lok Sabha,JKNC,3,0.552486188,#00CED1
+India,Lok Sabha,CPI,2,0.368324125,#FF0000
+India,Lok Sabha,AAP,1,0.184162063,#FF4500
+India,Lok Sabha,RSP,1,0.184162063,#FF0000
+India,Lok Sabha,JMM,1,0.184162063,#0000FF
+India,Lok Sabha,VCK,1,0.184162063,#0000FF
+India,Lok Sabha,KC(M),1,0.184162063,#008000
+India,Lok Sabha,YSRCP,22,4.051565378,#FF0000
+India,Lok Sabha,BJD,12,2.209944751,#00FFFF
+India,Lok Sabha,BSP,9,1.657458564,#0000FF
+India,Lok Sabha,BRS,9,1.657458564,#4B0082
+India,Lok Sabha,TDP,3,0.552486188,#FFFF00
+India,Lok Sabha,AIMIM,2,0.368324125,#008000
+India,Lok Sabha,SAD,2,0.368324125,#FFA500
+India,Lok Sabha,RLP,1,0.184162063,#FF0000
+India,Lok Sabha,AIUDF,1,0.184162063,#87CEEB
+India,Lok Sabha,SAD(A),1,0.184162063,#FFA500

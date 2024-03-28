@@ -1,0 +1,9 @@
+﻿variable,type,concept,measure
+extremity,outcome,party extremity in state legislatures,median ideal point of party
+diffs,outcome,polarization in state legislatures,difference in median ideal points between parties
+r,predictor,Representation ratio,Ratio of a party's seat share to vote share
+disp,predictor,Disproportionality,Index of chamber disproportionality
+inc_ineq,predictor,Income inequality,State-level income share of the top 1%
+turnout,predictor,Voter turnout,Voter turnout rate in most recent election
+vep,predictor,Population,Voting-eligible population
+del_center,predictor,Congressional ideology,Median ideal point of the state's representatives in Congress

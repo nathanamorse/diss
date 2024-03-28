@@ -1,0 +1,58 @@
+project:
+  type: book
+
+book:
+  title: "American Politics in Perspective"
+  subtitle: "The Limitations of Static Constitutions and Static Content"
+  author:
+    - name: Nathan Morse
+      email: nam@psu.edu
+      url: https://www.nmorse.com
+      affiliation:
+        - name: Pennsylvania State University
+          department: Political Science
+          url: https://polisci.la.psu.edu/
+  date: last-modified
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - presenting.qmd
+    - majority.qmd
+    - minority.qmd
+    - dead.qmd
+    - conclusion.qmd
+    - references.qmd
+  sidebar: 
+    title: "American Politics in Perspective"
+
+bibliography: lit/references.bib
+csl: lit/apsa.csl
+
+format:
+  html:
+    theme: cosmo
+    css: style.css
+    code-fold: true
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+    fig-width: 7.28
+    toc-title: "On this page"
+    grid:
+      body-width: 900px
+      gutter-width: 2rem
+      
+highlight-style: arrow
+
+callout-appearance: simple
+      
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: true
+  freeze: auto
+
+editor: visual
+
